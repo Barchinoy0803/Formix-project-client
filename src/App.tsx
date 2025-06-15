@@ -1,10 +1,13 @@
-import Navbar from "./components/Navbar"
+import { Toaster } from "react-hot-toast"
+import MainRouter from "./routes/index"
 
 function App() {
 
   return (
     <>
-      <Navbar/>
+      {/* <Navbar/> */}
+      <MainRouter/>
+      <Toaster/>
     </>
   )
 }

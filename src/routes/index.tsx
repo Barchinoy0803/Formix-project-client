@@ -1,14 +1,31 @@
 import { memo } from 'react'
-import { Navigate, useRoutes } from 'react-router-dom'
-import Auth from '../pages/auth'
+import { useRoutes } from 'react-router-dom'
 import Private from './private'
+import Auth from '../pages/auth'
+import Register from '../pages/auth/register'
+import OtpVerification from '../pages/auth/otp-verification'
+import Login from '../pages/auth/login'
 
 const MainRouter = () => {
     return (
         useRoutes([
-            { path: '/', element: <Navigate to={'/signIn'} /> },
-            { path: '/:authType', element: <Auth /> },
-            { path: '/dashboard', element: <Private /> },
+            {
+                path: '/auth', element: <Auth />, 
+                children: [
+                    {
+                        path: 'register', element: <Register/>
+                    },
+                    {
+                        path: 'email-verification', element: <OtpVerification/>
+                    },
+                    {
+                        path: 'login', element: <Login/>
+                    }
+                ]
+            },
+            {
+                path: '/dashboard', element: <Private />
+            },
         ])
     )
 }
