@@ -49,8 +49,16 @@ const extendedApi = mainApi.injectEndpoints({
             }),
             invalidatesTags: ['USER']
         }),
+        updateUserStatus: build.mutation({
+            query: (body) => ({
+                method: "PATCH",
+                url: "/user/update-status",
+                body
+            }),
+            invalidatesTags: ['USER']
+        }),
     }),
     overrideExisting: false
 })
 
-export const { useGetUsersQuery, useLoginMutation, useRegisterMutation, useDeleteUsersMutation, useUpdateUserRoleMutation, useActivateMutation } = extendedApi
+export const { useGetUsersQuery, useLoginMutation, useRegisterMutation, useDeleteUsersMutation, useUpdateUserRoleMutation, useActivateMutation, useUpdateUserStatusMutation } = extendedApi

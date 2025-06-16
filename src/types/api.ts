@@ -2,7 +2,7 @@ import { User } from "."
 
 export interface Login {
     Request: User;
-    Response: { token: string };
+    Response: { token: string, role: string };
 }
 
 export interface Register {

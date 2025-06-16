@@ -10,5 +10,20 @@ export const initialStateLogin = {
 }
 
 export const OtpDefaultValues = {
-    otp: ""
+  otp: ""
 }
+
+export const DrawerListItems = [
+  {
+    title: "Templates",
+    link: "/dashboard/templates"
+  },
+  {
+    title: "Forms",
+    link: "/dashboard/forms"
+  },
+  {
+    title: "Analyze",
+    link: "/dashboard/analyze"
+  }
+]

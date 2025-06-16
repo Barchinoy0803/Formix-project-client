@@ -4,12 +4,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface UserState {
     token: null | string,
-    email: string
+    email: string,
+    userRole: string
 }
 
 const initialState: UserState = {
     token: localStorage.getItem("token") || null,
-    email: localStorage.getItem("email") || ""
+    email: localStorage.getItem("email") || "",
+    userRole: localStorage.getItem("role") || ""
 }
 
 export const UsersState = createSlice({
@@ -27,9 +29,14 @@ export const UsersState = createSlice({
         resetUserState: (state) => {
             state.email = ""
             localStorage.setItem("email", state.email)
+        },
+        setUserRole: (state, action: PayloadAction<string>) => {
+            state.userRole = action.payload
+            localStorage.setItem("role", state.userRole)
         }
+
     },
 })
 
-export const { setToken, setEmail, resetUserState } = UsersState.actions
+export const { setToken, setEmail, resetUserState, setUserRole } = UsersState.actions
 export default UsersState.reducer

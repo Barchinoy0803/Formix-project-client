@@ -1,8 +1,13 @@
-import {memo} from 'react'
+import { memo } from 'react'
+import CustomDrawer from '../../components/Drawer'
+import { Outlet } from 'react-router-dom'
 
 const Home = () => {
   return (
-    <div>index</div>
+    <div className='flex flex-col gap-3 container mx-auto p-8'>
+      <CustomDrawer />
+      <Outlet />
+    </div>
   )
 }
 

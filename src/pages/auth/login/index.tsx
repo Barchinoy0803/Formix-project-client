@@ -4,7 +4,7 @@ import { Button, Typography } from '@mui/material'
 import { useLoginMutation } from '../../../service/api/user.api'
 import { ErrorType, User } from '../../../types'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetUserState, setToken } from '../../../redux/features/user.slice'
+import { resetUserState, setToken, setUserRole } from '../../../redux/features/user.slice'
 import toast from 'react-hot-toast'
 import { initialStateLogin } from '../../../constants'
 import { useForm } from "react-hook-form"
@@ -32,9 +32,10 @@ const Login = () => {
 
     const onSubmit = async (data: User) => {
         try {
-            const { token } = await loginUser(data).unwrap()
-            if (token) {
+            const { token, role } = await loginUser(data).unwrap()
+            if (token && role) {
                 dispatch(setToken(token))
+                dispatch(setUserRole(role))
                 navigate("/dashboard")
             }
             dispatch(resetUserState())
@@ -54,7 +55,7 @@ const Login = () => {
                 Login
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4' action="">
-                <ControlledTextField disabled control={control} name='email' label="Email" />
+                <ControlledTextField disabled={!!email} control={control} name='email' label="Email" />
                 <ControlledTextField control={control} name='password' label="Password" />
                 <Button type='submit' loading={isLoading} variant='contained' color='primary' size='large'>Login</Button>
                 <span>If you don't have an account: <Link className='text-[#7985f7]' to='/auth/register'>Register</Link></span>
