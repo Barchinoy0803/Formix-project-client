@@ -9,6 +9,7 @@ import Forms from '../pages/Forms'
 import Templates from '../pages/Templates'
 import UserManagment from '../pages/UserManagment'
 import Analyze from '../pages/Analyze'
+import CreateEditTemplate from '../pages/CreateEditTemplate'
 
 const MainRouter = () => {
     return (
@@ -34,7 +35,10 @@ const MainRouter = () => {
                         path: 'forms', element: <Forms />
                     },
                     {
-                        path: 'templates', element: <Templates />
+                        path: 'templates', element: <Templates />,
+                    },
+                    {
+                        path: 'template/:id', element: <CreateEditTemplate />,
                     },
                     {
                         path: 'user-managment', element: <UserManagment />

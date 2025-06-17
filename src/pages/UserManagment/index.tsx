@@ -1,5 +1,4 @@
 import { memo, useState } from 'react'
-import { UserTable } from '../../components/UserManagmentTable'
 import { GridRowSelectionModel } from '@mui/x-data-grid';
 import { useDeleteUsersMutation, useGetUsersQuery, useUpdateUserRoleMutation, useUpdateUserStatusMutation } from '../../service/api/user.api';
 import { Button, CircularProgress, Tooltip } from '@mui/material';
@@ -7,6 +6,8 @@ import { FaRegTrashCan, FaUnlockKeyhole } from "react-icons/fa6";
 import { FaLock } from "react-icons/fa";
 import toast from 'react-hot-toast';
 import { FaUserShield, FaUserSlash } from "react-icons/fa";
+import { CustomTable } from '../../components/Table';
+import { UserTableColumns } from '../../constants';
 
 const UserManagment = () => {
     const { data, isLoading } = useGetUsersQuery({})
@@ -50,7 +51,7 @@ const UserManagment = () => {
                 </Tooltip>
             </div>
             {
-                isLoading ? <CircularProgress /> : <UserTable selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={data} />
+                isLoading ? <CircularProgress /> : <CustomTable columns={UserTableColumns} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={data} />
             }
         </div>
     )

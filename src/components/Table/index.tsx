@@ -2,21 +2,14 @@ import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { User } from '../../types';
 
-interface UserTableProps {
+interface CustomTableProps {
     data: User[];
     setSelectedIds: React.Dispatch<React.SetStateAction<GridRowSelectionModel | undefined>>;
-    selectedIds: GridRowSelectionModel | undefined
+    selectedIds: GridRowSelectionModel | undefined,
+    columns: GridColDef[]
 }
 
-const columns: GridColDef[] = [ 
-    { field: 'username', headerName: 'Username', width: 200 },
-    { field: 'email', headerName: 'Email', width: 400 },
-    { field: 'status', headerName: 'Status', width: 150 },
-    { field: 'role', headerName: 'Role', width: 150 },
-    { field: 'createdAt', headerName: 'Join Us', width: 450 },
-];
-
-export const UserTable = ({ data, setSelectedIds, selectedIds }: UserTableProps) => {
+export const CustomTable = ({ data, setSelectedIds, selectedIds, columns }: CustomTableProps) => {
     const handleSelectionChange = (newSelection: GridRowSelectionModel) => {
         setSelectedIds(newSelection);
     };

@@ -5,16 +5,16 @@ interface ControlledTextFieldProps<T extends FieldValues> {
     name: Path<T>,
     control: Control<T>,
     label?: string,
-    disabled? : boolean
+    disabled?: boolean,
+    lineCount?: number
 }
 
-const ControlledTextField = <T extends FieldValues>({ name, control, label, disabled }: ControlledTextFieldProps<T>) => {
+const ControlledTextField = <T extends FieldValues>({ name, control, label, disabled, lineCount }: ControlledTextFieldProps<T>) => {
     return (
         <div>
             <Controller name={name} control={control} render={({ field, fieldState: { error } }) => (
-                <TextField disabled={disabled} label={label} fullWidth {...field} error={!!error} helperText={error?.message} value={field.value || ""} onChange={(newValue) => field.onChange(newValue)} />
+                <TextField minRows={lineCount} multiline={!!lineCount} disabled={disabled} label={label} fullWidth {...field} error={!!error} helperText={error?.message} value={field.value || ""} onChange={(newValue) => field.onChange(newValue)} />
             )} />
-
         </div>
     )
 }

@@ -20,6 +20,13 @@ export const LoginSchema = z.object({
     password: z.string()
 })
 
-export type RegisterForm = z.infer<typeof RegisterSchema>;
+export interface TemplateForm {
+    title: string;
+    topic: string;
+    description: string;
+    image?: string;
+    type: string
+}
 
+export type RegisterForm = z.infer<typeof RegisterSchema>;
 export type LoginForm = z.infer<typeof LoginSchema>

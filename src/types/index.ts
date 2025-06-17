@@ -6,6 +6,16 @@ export interface User {
 }
 
 export interface ErrorType {
-    status: number; 
+    status: number;
     data: { message: string }
+}
+
+export enum TEMPLATE_TYPE {
+    PRIVATE = 'PRIVATE',
+    PUBLIC = 'PUBLIC'
+}
+
+export interface SelectOption {
+    label: string
+    value: string
 }
