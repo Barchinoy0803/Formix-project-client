@@ -8,7 +8,14 @@ const extendedApi = mainApi.injectEndpoints({
                 url: "/template",
                 params
             }),
-            providesTags: ['USER']
+            providesTags: ['TEMPLATE']
+        }),
+        getOneTemplate: build.query({
+           query: (id) => ({
+            method: "GET",
+            url: `/template/${id}`,
+            id
+           }) 
         }),
         getAllUserTemplates: build.query({
             query: (params) => ({
@@ -16,7 +23,7 @@ const extendedApi = mainApi.injectEndpoints({
                 url: "/template/owner",
                 params
             }),
-            providesTags: ['USER']
+            providesTags: ['TEMPLATE']
         }),
         createTemplate: build.mutation({
             query: (body) => ({
@@ -24,6 +31,7 @@ const extendedApi = mainApi.injectEndpoints({
                 url: "/template",
                 body
             }),
+            invalidatesTags: ['TEMPLATE']
         }),
         deleteTemplate: build.mutation({
             query: (body) => ({
@@ -31,18 +39,28 @@ const extendedApi = mainApi.injectEndpoints({
                 url: "/template",
                 body
             }),
-            invalidatesTags: ['USER']
+            invalidatesTags: ['TEMPLATE']
         }),
         updateTemplate: build.mutation({
-            query: ({id, body}) => ({
+            query: ({ id, body }) => ({
                 method: "PATCH",
                 url: `/template/${id}`,
                 body
             }),
-            invalidatesTags: ['USER']
+            invalidatesTags: ['TEMPLATE']
         }),
+        fileUpload: build.mutation({
+            query: ({ body }) => ({
+                method: "POST",
+                url: `/file-upload`,
+                body,
+                headers: {
+                    'X-skip-Content-Type': 'true'
+                }
+            }),
+        })
     }),
     overrideExisting: false
 })
 
-export const { useGetTemplatesQuery, useCreateTemplateMutation, useDeleteTemplateMutation, useGetAllUserTemplatesQuery, useUpdateTemplateMutation } = extendedApi
+export const { useGetTemplatesQuery, useCreateTemplateMutation, useDeleteTemplateMutation, useGetAllUserTemplatesQuery, useUpdateTemplateMutation, useFileUploadMutation, useGetOneTemplateQuery } = extendedApi

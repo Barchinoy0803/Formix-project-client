@@ -9,6 +9,15 @@ const baseQuery = fetchBaseQuery({
     if (validateToken(token)) {
       headers.set('Authorization', `Bearer ${token}`);
     }
+
+    const skipContentType = headers.get('X-skip-Content-Type') === 'true';
+    headers.delete('X-skip-Content-Type')
+
+    if (!skipContentType) {
+      headers.set('Content-Type', 'application/json')
+    }
+    headers.set('Accept', 'application/json')
+
     return headers;
   },
 });
@@ -28,5 +37,5 @@ export const mainApi = createApi({
   reducerPath: 'mainApi',
   baseQuery: baseQueryWithStatusHandling,
   endpoints: () => ({}),
-  tagTypes: ['USER'],
+  tagTypes: ['USER', 'TEMPLATE'],
 });
