@@ -19,3 +19,10 @@ export interface SelectOption {
     label: string
     value: string
 }
+
+export enum QUESTION_TYPE {
+    OPEN = 'OPEN',
+    CLOSE = 'CLOSE',
+    MULTICHOICE = 'MULTICHOICE',
+    NUMERICAL = 'NUMERICAL'
+}

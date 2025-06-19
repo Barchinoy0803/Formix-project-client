@@ -8,6 +8,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit, FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import CustomTabs from '../../components/Tabs';
+import { useTranslator } from '../../hooks/useTranslator';
 
 const Templates = () => {
   const navigate = useNavigate()
@@ -37,7 +38,6 @@ const Templates = () => {
   const handleCreate = () => {
     navigate(`/dashboard/template/new`)
   }
-
   const isAllTemplates = useMemo(() => {
     return activeTab === "all"
   }, [activeTab])

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { QUESTION_TYPE } from ".";
 
 export const RegisterSchema = z.object({
     username: z.string(),
@@ -25,8 +26,25 @@ export interface TemplateForm {
     topic: string;
     description: string;
     image?: string;
-    type: string
+    type: string;
+    Question: QuestionForm[]
 }
 
 export type RegisterForm = z.infer<typeof RegisterSchema>;
 export type LoginForm = z.infer<typeof LoginSchema>
+
+export interface QuestionForm {
+    sequence: number,
+    title: string,
+    description: string,
+    type: QUESTION_TYPE,
+    isPublished: boolean,
+    templateId: string,
+    Options: OptionForm[]
+}
+
+export interface OptionForm {
+    questionId: string,
+    title: string,
+    isSelected: boolean
+}

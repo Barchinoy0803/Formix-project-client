@@ -1,4 +1,4 @@
-import { TEMPLATE_TYPE } from "../types"
+import { QUESTION_TYPE, TEMPLATE_TYPE } from "../types"
 
 export const defaultUser = {
   username: "",
@@ -33,6 +33,26 @@ export const templateTypeOptions = [
     value: TEMPLATE_TYPE.PRIVATE
   }
 ]
+
+export const questionTypeOptions = [
+  {
+    label: "Open",
+    value: QUESTION_TYPE.OPEN
+  },
+  {
+    label: "Close",
+    value: QUESTION_TYPE.CLOSE
+  },
+  {
+    label: "Multichoice",
+    value: QUESTION_TYPE.MULTICHOICE
+  },
+  {
+    label: "Numerical",
+    value: QUESTION_TYPE.NUMERICAL
+  },
+]
+
 
 export const drawerListItems = [
   {
