@@ -1,0 +1,15 @@
+{
+    "dashboard": {
+        "title": "Boshqaruv paneli",
+        "templates": "Shablonlar",
+        "forms": "Formalar",
+        "analyze": "Tahlil",
+        "userManagement": "Foydalanuvchilar boshqaruvi"
+    },
+    "buttons": {
+        "delete": "O'chirish",
+        "update": "Yangilash",
+        "create": "Yaratish"
+    }
+
+}

@@ -10,12 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import CustomTabs from '../../components/Tabs';
 
 const Templates = () => {
-  const [activeTab, setActiveTab] = useState<string>("all")
   const navigate = useNavigate()
-  const { data, isLoading } = useGetAllUserTemplatesQuery({})
-  const { data: allData } = useGetTemplatesQuery({})
+
+  const [activeTab, setActiveTab] = useState<string>("all")
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>();
+
+  const {t: buttons} = useTranslator()
+  const { data: allData } = useGetTemplatesQuery({})
   const [deleteTemplate, { isLoading: deleteLoading }] = useDeleteTemplateMutation()
+  const { data, isLoading } = useGetAllUserTemplatesQuery({})
 
   const handleDelete = async () => {
     await deleteTemplate({ ids: [...selectedIds?.ids!] })

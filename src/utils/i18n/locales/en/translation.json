@@ -1,0 +1,14 @@
+{
+    "dashboard": {
+        "title": "Dashboard",
+        "templates": "Templates",
+        "forms": "Forms",
+        "analyze": "Analyze",
+        "userManagement": "User management"
+    },
+    "buttons": {
+        "delete": "Delete",
+        "update": "Update",
+        "create": "Create"
+    }
+}

@@ -1,13 +1,16 @@
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import { DrawerListItems } from '../../constants';
+import { drawerListItems } from '../../constants';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux';
+import LanguageSwitcher from '../LanguageSwitcher';
+import { useTranslator } from '../../hooks/useTranslator';
 
 const CustomDrawer = () => {
     const { userRole } = useSelector((state: RootState) => state.users)
+    const { t } = useTranslator('dashboard')
     const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (newOpen: boolean) => () => {
@@ -20,9 +23,9 @@ const CustomDrawer = () => {
             role="presentation"
             onClick={toggleDrawer(false)}
         >
-            <h2 className="text-2xl font-bold mb-6 border-b border-blue-400 pb-3">Dashboard</h2>
+            <h2 className="text-2xl font-bold mb-6 border-b border-blue-400 pb-3">{t('title')}</h2>
             <div className="flex flex-col gap-3">
-                {DrawerListItems.map((item) => (
+                {drawerListItems.map((item) => (
                     <NavLink
                         key={item.link}
                         to={item.link}
@@ -33,7 +36,7 @@ const CustomDrawer = () => {
                                 : 'hover:bg-blue-500 hover:text-white'}`
                         }
                     >
-                        {item.title}
+                        {t(item.title)}
                     </NavLink>
                 ))}
                 {
@@ -47,9 +50,10 @@ const CustomDrawer = () => {
                                 : 'hover:bg-blue-500 hover:text-white'}`
                         }
                     >
-                        User Managment
+                        {t('userManagement')}
                     </NavLink>
                 }
+                <LanguageSwitcher />
             </div>
         </div>
     );

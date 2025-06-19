@@ -1,0 +1,14 @@
+{
+    "dashboard": {
+        "title": "Панель управления",
+        "templates": "Шаблоны",
+        "forms": "Формы",
+        "analyze": "Анализ",
+        "userManagement": "Управление пользователями"
+    },
+    "buttons": {
+        "delete": "Удалить",
+        "update": "Обновить",
+        "create": "Создать"
+    }
+}

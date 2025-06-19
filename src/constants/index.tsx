@@ -34,17 +34,17 @@ export const templateTypeOptions = [
   }
 ]
 
-export const DrawerListItems = [
+export const drawerListItems = [
   {
-    title: "Templates",
+    title: "templates",
     link: "/dashboard/templates"
   },
   {
-    title: "Forms",
+    title: "forms",
     link: "/dashboard/forms"
   },
   {
-    title: "Analyze",
+    title: "analyze",
     link: "/dashboard/analyze"
   }
 ]

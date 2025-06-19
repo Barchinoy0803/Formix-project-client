@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { useRoutes } from 'react-router-dom'
+import { Navigate, useRoutes } from 'react-router-dom'
 import Private from './private'
 import Auth from '../pages/auth'
 import Register from '../pages/auth/register'
@@ -14,6 +14,7 @@ import CreateEditTemplate from '../pages/CreateEditTemplate'
 const MainRouter = () => {
     return (
         useRoutes([
+            {path: '/', element: <Navigate to='/dashboard'/>},
             {
                 path: '/auth', element: <Auth />,
                 children: [
