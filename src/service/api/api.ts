@@ -11,12 +11,12 @@ const baseQuery = fetchBaseQuery({
     }
 
     const skipContentType = headers.get('X-skip-Content-Type') === 'true';
-    headers.delete('X-skip-Content-Type')
+    headers.delete('X-skip-Content-Type');
 
     if (!skipContentType) {
-      headers.set('Content-Type', 'application/json')
+      headers.set('Content-Type', 'application/json');
     }
-    headers.set('Accept', 'application/json')
+    headers.set('Accept', 'application/json');
 
     return headers;
   },
