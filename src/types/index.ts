@@ -16,8 +16,8 @@ export enum TEMPLATE_TYPE {
 }
 
 export interface SelectOption {
-    label: string
-    value: string
+    label: string;
+    value: string;
 }
 
 export enum QUESTION_TYPE {
@@ -26,3 +26,10 @@ export enum QUESTION_TYPE {
     MULTICHOICE = 'MULTICHOICE',
     NUMERICAL = 'NUMERICAL'
 }
+
+export interface Option {
+    label: string;
+    value: string | number;
+}
+
+export type OptionValue = string | number

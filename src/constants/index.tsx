@@ -100,3 +100,14 @@ export const TemplateTableColumns = [
 ];
 
 export const defaultImageLink = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fdefault-image-icon&psig=AOvVaw1PRDcwsEDtSTJH9zlDEeNF&ust=1750335955327000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLiz_9j7-o0DFQAAAAAdAAAAABAE"
+
+export const YES_NO_OPTIONS = [
+  {
+    label: "YES",
+    value: "YES",
+  },
+  {
+    label: "NO",
+    value: "NO",
+  }
+]

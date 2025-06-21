@@ -49,7 +49,8 @@ export interface QuestionForm {
 export interface OptionForm {
     questionId: string,
     title: string,
-    isSelected: boolean
+    isSelected: boolean,
+    id?: string,
 }
 
 export interface AnswerForm {
@@ -62,4 +63,5 @@ export interface AnswerForm {
 export interface Form {
     templateId: string;
     Answer: AnswerForm[];
+    Question?: QuestionForm[]
 }
