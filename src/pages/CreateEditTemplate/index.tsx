@@ -10,6 +10,8 @@ import FileUpload from "../../components/FileUpload"
 import { useCreateTemplateMutation, useFileUploadMutation, useGetOneTemplateQuery, useUpdateTemplateMutation } from "../../service/api/template.api"
 import toast from "react-hot-toast"
 import Question from "../../components/Question"
+import { TiPlus } from "react-icons/ti";
+import { QUESTION_TYPE } from "../../types"
 
 const CreateEditTemplate = () => {
     const [file, setFile] = useState<File>()
@@ -19,15 +21,15 @@ const CreateEditTemplate = () => {
     const [fileUpload] = useFileUploadMutation()
     const [createTemplate] = useCreateTemplateMutation()
     const [updateTemplate] = useUpdateTemplateMutation()
-    const { data, isLoading } = useGetOneTemplateQuery(id, { skip: id === "new" })
-
+    const { data, isLoading, refetch } = useGetOneTemplateQuery(id, { skip: id === "new" })
 
     const methods = useForm<TemplateForm>({
         defaultValues: initialStateTemplate,
         mode: 'onChange'
     })
 
-    const { control, handleSubmit, reset } = methods
+    const { control, handleSubmit, reset, getValues } = methods
+    const { fields, remove, insert } = useFieldArray({ control, name: "Question" })
 
     useEffect(() => {
         if (data) {
@@ -42,11 +44,12 @@ const CreateEditTemplate = () => {
             setIsCreateOption(false)
         }
     }, [])
-    const { fields, remove } = useFieldArray({ control, name: "Question" })
 
     const handleRemoveQuestion = (index: number) => {
         remove(index)
+
     }
+    console.log(fields);
 
     const onSubmit = async (data: TemplateForm) => {
         let imageUrl = defaultImageLink;
@@ -68,9 +71,16 @@ const CreateEditTemplate = () => {
             }
         } else {
             await updateTemplate({ id, body: { ...data, image: imageUrl } })
+            await refetch()
         }
         reset(initialStateTemplate)
     };
+
+    const handleAddQuestion = () => {
+        const { id } = getValues()
+
+        insert(fields.length, { templateId: id, sequence: fields.length, description: "", type: QUESTION_TYPE.OPEN, Options: [], title: "", isPublished: false })
+    }
 
     return (
         <>
@@ -87,7 +97,10 @@ const CreateEditTemplate = () => {
                                     <CustomSelect control={control} name="type" label="Type" options={templateTypeOptions} />
                                 </div>
                                 <ControlledTextField lineCount={5} control={control} name='description' label="Description" />
-                                <Typography variant="h6">Questions</Typography>
+                                <div className="flex justify-between items-center">
+                                    <Typography variant="h6">Questions</Typography>
+                                    <Button onClick={handleAddQuestion} variant="outlined" startIcon={<TiPlus />}>Add question</Button>
+                                </div>
                                 {
                                     fields?.map((el, inx) => (
                                         <Question removeQuestion={() => handleRemoveQuestion(inx)} key={el.id} question={el} index={inx} />

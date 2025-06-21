@@ -13,7 +13,7 @@ const CustomSwitch = <T extends FieldValues>({ name, control, label }: SwitchPro
             <Controller name={name} control={control} render={({ field }) => (
                 <div className="flex items-center">
                     <Typography>{label}</Typography>
-                    <Switch {...field} onChange={(newValue) => field.onChange(newValue)} defaultChecked />
+                    <Switch {...field} onChange={(newValue) => field.onChange(newValue)}  checked={field.value}/>
                 </div>
             )} />
         </div>

@@ -6,14 +6,15 @@ interface ControlledTextFieldProps<T extends FieldValues> {
     control: Control<T>,
     label?: string,
     disabled?: boolean,
-    lineCount?: number
+    lineCount?: number,
+    size?: "medium" | "small";
 }
 
-const ControlledTextField = <T extends FieldValues>({ name, control, label, disabled, lineCount }: ControlledTextFieldProps<T>) => {
+const ControlledTextField = <T extends FieldValues>({ name, control, label, disabled, lineCount, size="medium" }: ControlledTextFieldProps<T>) => {
     return (
         <div>
             <Controller name={name} control={control} render={({ field, fieldState: { error } }) => (
-                <TextField minRows={lineCount} multiline={!!lineCount} disabled={disabled} label={label} fullWidth {...field} error={!!error} helperText={error?.message} value={field.value || ""} onChange={(newValue) => field.onChange(newValue)} />
+                <TextField size={size} minRows={lineCount} multiline={!!lineCount} disabled={disabled} label={label} fullWidth {...field} error={!!error} helperText={error?.message} value={field.value || ""} onChange={(newValue) => field.onChange(newValue)} />
             )} />
         </div>
     )

@@ -21,7 +21,11 @@ export const LoginSchema = z.object({
     password: z.string()
 })
 
+export type RegisterForm = z.infer<typeof RegisterSchema>;
+export type LoginForm = z.infer<typeof LoginSchema>
+
 export interface TemplateForm {
+    id: string;
     title: string;
     topic: string;
     description: string;
@@ -30,10 +34,9 @@ export interface TemplateForm {
     Question: QuestionForm[]
 }
 
-export type RegisterForm = z.infer<typeof RegisterSchema>;
-export type LoginForm = z.infer<typeof LoginSchema>
 
 export interface QuestionForm {
+    id?: string
     sequence: number,
     title: string,
     description: string,

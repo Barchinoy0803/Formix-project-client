@@ -20,7 +20,8 @@ export const initialStateTemplate = {
   topic: "",
   description: "",
   image: "",
-  type: TEMPLATE_TYPE.PUBLIC
+  type: TEMPLATE_TYPE.PUBLIC,
+  Question: []
 }
 
 export const templateTypeOptions = [
