@@ -10,11 +10,12 @@ import Templates from '../pages/Templates'
 import UserManagment from '../pages/UserManagment'
 import Analyze from '../pages/Analyze'
 import CreateEditTemplate from '../pages/CreateEditTemplate'
+import Survey from '../pages/Survey'
 
 const MainRouter = () => {
     return (
         useRoutes([
-            {path: '/', element: <Navigate to='/dashboard'/>},
+            { path: '/', element: <Navigate to='/dashboard' /> },
             {
                 path: '/auth', element: <Auth />,
                 children: [
@@ -34,6 +35,9 @@ const MainRouter = () => {
                 children: [
                     {
                         path: 'forms', element: <Forms />
+                    },
+                    {
+                        path: 'survey/:id', element: <Survey />
                     },
                     {
                         path: 'templates', element: <Templates />,

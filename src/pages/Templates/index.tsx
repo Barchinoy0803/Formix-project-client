@@ -13,7 +13,7 @@ const Templates = () => {
   const navigate = useNavigate()
 
   const [activeTab, setActiveTab] = useState<string>("all")
-  const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>();
+  const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>()
 
   const { data: allData } = useGetTemplatesQuery({})
   const [deleteTemplate, { isLoading: deleteLoading }] = useDeleteTemplateMutation()
@@ -33,7 +33,7 @@ const Templates = () => {
       toast.error("You cannot update more than one template at the same time")
     } else {
       navigate(`/dashboard/template/${ids[0]}`)
-    }
+    } 
   };
 
   const handleCreate = () => {
@@ -44,6 +44,10 @@ const Templates = () => {
     return activeTab === "all"
   }, [activeTab])
 
+  const handleStartSurvey = () => {
+    navigate(`/dashboard/survey/${ids[0]}`)
+  }
+
   return (
     <div className='container mx-auto flex flex-col gap-3 mt-[50px] mb-[30px]'>
       <div className='flex items-center gap-5 mb-3'>
@@ -51,7 +55,7 @@ const Templates = () => {
           isAllTemplates ?
             <Tooltip placement='top' title='Please select only one template to field out!'>
               <span>
-                <Button disabled={ids.length !== 1}>Start Survey</Button>
+                <Button onClick={handleStartSurvey} disabled={ids.length !== 1}>Start Survey</Button>
               </span>
             </Tooltip>
             : <>

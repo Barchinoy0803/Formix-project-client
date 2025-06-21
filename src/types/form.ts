@@ -51,3 +51,15 @@ export interface OptionForm {
     title: string,
     isSelected: boolean
 }
+
+export interface AnswerForm {
+    sequence: number;
+    answer: string;
+    questionId: string;
+    formId: string;
+}
+
+export interface Form {
+    templateId: string;
+    Answer: AnswerForm[];
+}
