@@ -1,5 +1,5 @@
 import { Button, CircularProgress, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useParams } from "react-router-dom"
 import ControlledTextField from "../../components/TextField"
 import { FormProvider, useFieldArray, useForm } from "react-hook-form"
@@ -16,12 +16,11 @@ import { QUESTION_TYPE } from "../../types"
 const CreateEditTemplate = () => {
     const [file, setFile] = useState<File>()
     const { id } = useParams()
-    const [isCreateOption, setIsCreateOption] = useState<boolean>(false)
 
     const [fileUpload] = useFileUploadMutation()
     const [createTemplate] = useCreateTemplateMutation()
     const [updateTemplate] = useUpdateTemplateMutation()
-    const { data, isLoading, refetch } = useGetOneTemplateQuery(id, { skip: id === "new" })
+    const { data, isLoading } = useGetOneTemplateQuery(id, { skip: id === "new" })
 
     const methods = useForm<TemplateForm>({
         defaultValues: initialStateTemplate,
@@ -31,25 +30,21 @@ const CreateEditTemplate = () => {
     const { control, handleSubmit, reset, getValues } = methods
     const { fields, remove, insert } = useFieldArray({ control, name: "Question" })
 
+    const isCreateOption = useMemo(() => {
+        return id === "new"
+    }, [id])
+
+
     useEffect(() => {
         if (data) {
             reset(data)
         }
     }, [data])
 
-    useEffect(() => {
-        if (id === "new") {
-            setIsCreateOption(true)
-        } else {
-            setIsCreateOption(false)
-        }
-    }, [])
-
     const handleRemoveQuestion = (index: number) => {
         remove(index)
 
     }
-    console.log(fields);
 
     const onSubmit = async (data: TemplateForm) => {
         let imageUrl = defaultImageLink;
@@ -71,7 +66,6 @@ const CreateEditTemplate = () => {
             }
         } else {
             await updateTemplate({ id, body: { ...data, image: imageUrl } })
-            await refetch()
         }
         reset(initialStateTemplate)
     };
@@ -89,7 +83,7 @@ const CreateEditTemplate = () => {
                     <Typography variant="h5" >{isCreateOption ? "Create new template" : "Update template"}</Typography>
                     <div>
                         <FormProvider {...methods}>
-                            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" action="">
+                            <form key={fields.length} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" action="">
                                 <FileUpload file={file} setFile={setFile} />
                                 <div className="grid grid-cols-3 gap-2">
                                     <ControlledTextField control={control} name='title' label="Title" />
@@ -102,7 +96,7 @@ const CreateEditTemplate = () => {
                                     <Button onClick={handleAddQuestion} variant="outlined" startIcon={<TiPlus />}>Add question</Button>
                                 </div>
                                 {
-                                    fields?.map((el, inx) => (
+                                    fields?.map((el:any, inx:any) => (
                                         <Question removeQuestion={() => handleRemoveQuestion(inx)} key={el.id} question={el} index={inx} />
                                     ))
                                 }
