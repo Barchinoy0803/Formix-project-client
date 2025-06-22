@@ -1,22 +1,60 @@
-import { memo, useState } from 'react'
-import { useGetFormsQuery } from '../../service/api/form.api'
-import { CircularProgress } from '@mui/material'
+import { memo, useMemo, useState } from 'react'
+import { useDeleteFormsMutation, useGetAllFormsQuery, useGetAllUserFormsQuery, useGetFormsQuery } from '../../service/api/form.api'
+import { Alert, Button, CircularProgress, Tooltip } from '@mui/material'
 import CustomTabs from '../../components/Tabs'
 import { FormTableColums, formTabNames } from '../../constants'
 import { GridRowSelectionModel } from '@mui/x-data-grid'
+import { FaRegTrashCan } from "react-icons/fa6";
+import { FaEdit, FaPlus } from 'react-icons/fa';
+import toast from 'react-hot-toast'
+
 
 const Form = () => {
-  const { data, isLoading } = useGetFormsQuery({})
+  const { data, isLoading } = useGetAllFormsQuery({})
+  const { data: alldata } = useGetAllUserFormsQuery({})
+  const { data: formsData } = useGetFormsQuery({})
+  const [deleteForms, { isLoading: deleteLoading }] = useDeleteFormsMutation()
   const [activeTab, setActiveTab] = useState<string>("all")
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>()
 
-  console.log(data);
+  // console.log(data);
+  // console.log(alldata);
+  // console.log(formsData);
+
+  const ids = useMemo(() => {
+    return selectedIds?.ids ? [...selectedIds.ids] : []
+  }, [selectedIds])
+
+  const isAllForms = useMemo(() => {
+    return activeTab === "all"
+  }, [activeTab])
+
+  const handleDelete = async () => {
+    await deleteForms({ ids: [...selectedIds?.ids!] })
+    toast.success("Forms deleted!")
+  }
 
 
   return (
     <div className='container mx-auto flex flex-col gap-3 mt-[50px] mb-[30px]'>
+      <Alert className='mb-5' variant="outlined" severity="info">
+        {activeTab === 'all'
+          ? "This table includes filled forms submitted to your templates."
+          : "This table includes forms that you have filled out."}
+      </Alert>
+      <div className='flex items-center gap-5 mb-3'>
+        <Tooltip placement='top' title='Delete forms'>
+          <Button color='error' disabled={deleteLoading || isAllForms} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>Delete</Button>
+        </Tooltip>
+        {/* <Tooltip placement='top' title='Update templates'>
+          <Button disabled={deleteLoading || isAllForms} onClick={handleUpdate} startIcon={<FaEdit />} variant='outlined'>Update</Button>
+        </Tooltip>
+        <Tooltip placement='top' title='Create templates'>
+          <Button disabled={deleteLoading} onClick={handleCreate} startIcon={<FaPlus />} variant='outlined'>Create</Button>
+        </Tooltip> */}
+      </div>
       {
-        isLoading ? <CircularProgress /> : <CustomTabs tabNames={formTabNames} setActiveTab={setActiveTab} activeTab={activeTab} allData={data} columns={FormTableColums} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={data} />
+        isLoading ? <CircularProgress /> : <CustomTabs tabNames={formTabNames} setActiveTab={setActiveTab} activeTab={activeTab} allData={formsData} columns={FormTableColums} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={alldata} />
       }
     </div>
   )

@@ -20,7 +20,7 @@ const Templates = () => {
 
   const handleDelete = async () => {
     await deleteTemplate({ ids: [...selectedIds?.ids!] })
-    toast.success("User deleted!")
+    toast.success("Templates deleted!")
   }
 
   const ids = useMemo(() => {

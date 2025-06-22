@@ -5,7 +5,7 @@ import Home from '../../pages/Home'
 
 const Private = () => {
     const token = localStorage.getItem("token") || ""
-    return validateToken(token) ? <Home/> : <Navigate to={"/signIn"}/>
+    return validateToken(token) ? <Home/> : <Navigate to={"/auth/login"}/>
 }
 
 export default memo(Private)

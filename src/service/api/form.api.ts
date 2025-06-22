@@ -2,10 +2,26 @@ import { mainApi } from "./api";
 
 const extendedApi = mainApi.injectEndpoints({
     endpoints: (build) => ({
-        getForms: build.query({
+        getAllForms: build.query({
             query: (params) => ({
                 method: "GET",
                 url: "/form",
+                params
+            }),
+            providesTags: ['FORM']
+        }),
+        getAllUserForms: build.query({
+            query: (params) => ({
+                method: "GET",
+                url: "/form/all-forms",
+                params
+            }),
+            providesTags: ['FORM']
+        }),
+        getForms: build.query({
+            query: (params) => ({
+                method: "GET",
+                url: "/form/forms",
                 params
             }),
             providesTags: ['FORM']
@@ -45,4 +61,4 @@ const extendedApi = mainApi.injectEndpoints({
     overrideExisting: false
 })
 
-export const { useCreateFormMutation, useDeleteFormsMutation, useGetFormsQuery, useGetOneFormQuery, useUpdateFormMutation } = extendedApi
+export const { useCreateFormMutation, useDeleteFormsMutation, useGetFormsQuery, useGetOneFormQuery, useUpdateFormMutation, useGetAllFormsQuery, useGetAllUserFormsQuery } = extendedApi
