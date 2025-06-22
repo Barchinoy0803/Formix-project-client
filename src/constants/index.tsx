@@ -1,7 +1,7 @@
 import i18next from "i18next"
 import { QUESTION_TYPE, TEMPLATE_TYPE } from "../types"
 import i18n from "../utils/i18n"
-import { Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 
 export const defaultUser = {
   username: "",
@@ -135,29 +135,40 @@ export const FormTableColums = [
     headerName: 'table.title',
     width: 250,
     renderCell: (params: any) => (
-      <Typography>{params.row.template.title || ""}</Typography>
-    )
+      <Box display="flex" alignItems="center" height="100%">
+        <Typography>{params.row.template.title || ""}</Typography>
+      </Box>
+    ),
   },
   {
     field: 'topic',
     headerName: 'table.topic',
     width: 250,
     renderCell: (params: any) => (
-      <Typography>{params.row.template.topic || ""}</Typography>
-    )
+      <Box display="flex" alignItems="center" height="100%">
+        <Typography>{params.row.template.topic || ""}</Typography>
+      </Box>
+    ),
   },
   {
     field: 'createdAt',
     headerName: 'Filled date',
     width: 250,
+    renderCell: (params: any) => (
+      <Box display="flex" alignItems="center" height="100%">
+        <Typography>{params.row.createdAt}</Typography>
+      </Box>
+    ),
   },
   {
     field: 'type',
     headerName: 'table.type',
     width: 150,
     renderCell: (params: any) => (
-      <Typography>{params.row.template.type || ""}</Typography>
-    )
+      <Box display="flex" alignItems="center" height="100%">
+        <Typography>{params.row.template.type || ""}</Typography>
+      </Box>
+    ),
   },
 ];
 

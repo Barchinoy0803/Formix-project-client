@@ -20,8 +20,8 @@ import { useCreateFormMutation } from '../../service/api/form.api'
 
 const Survey = () => {
   const { id } = useParams()
-  const { data: template, isLoading } = useGetOneTemplateQuery(id)
-  const [createForm, { isLoading: createLoading }] = useCreateFormMutation()
+  const { data: template } = useGetOneTemplateQuery(id)
+  const [createForm] = useCreateFormMutation()
   const { reset, control, handleSubmit } = useForm<Form>()
   const { fields } = useFieldArray({ control, name: 'Question' })
 
@@ -53,7 +53,7 @@ const Survey = () => {
 
   return (
     <Container maxWidth="lg" className="py-8 px-6 w-full max-w-6xl mx-auto">
-      {!isLoading ? (
+      {template ? (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-8">
           <Paper
             elevation={3}
