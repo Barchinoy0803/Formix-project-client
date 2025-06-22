@@ -2,7 +2,7 @@ import { memo, useMemo, useState } from 'react'
 import { useDeleteTemplateMutation, useGetAllUserTemplatesQuery, useGetTemplatesQuery } from '../../service/api/template.api'
 import { GridRowSelectionModel } from '@mui/x-data-grid';
 import { Button, CircularProgress, Tooltip } from '@mui/material';
-import { TemplateTableColumns } from '../../constants';
+import { TemplateTableColumns, templateTabNames } from '../../constants';
 import toast from 'react-hot-toast';
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit, FaPlus } from 'react-icons/fa';
@@ -71,7 +71,7 @@ const Templates = () => {
         }
       </div>
       {
-        isLoading ? <CircularProgress /> : <CustomTabs setActiveTab={setActiveTab} activeTab={activeTab} allData={allData} columns={TemplateTableColumns} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={data} />
+        isLoading ? <CircularProgress /> : <CustomTabs tabNames={templateTabNames} setActiveTab={setActiveTab} activeTab={activeTab} allData={allData} columns={TemplateTableColumns} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={data} />
       }
     </div>
   )

@@ -13,27 +13,28 @@ interface TabsProps {
     selectedIds: GridRowSelectionModel | undefined,
     setSelectedIds: React.Dispatch<React.SetStateAction<GridRowSelectionModel | undefined>>,
     allData: TemplateForm[],
-    activeTab:string,
+    activeTab: string,
     setActiveTab: React.Dispatch<React.SetStateAction<string>>
+    tabNames: string[]
 }
 
-const CustomTabs = ({ data, columns, selectedIds, setSelectedIds, allData, activeTab, setActiveTab }: TabsProps) => {
+const CustomTabs = ({ data, columns, selectedIds, setSelectedIds, allData, activeTab, setActiveTab, tabNames }: TabsProps) => {
 
     const handleChange = (_: React.SyntheticEvent, newValue: string) => {
         setActiveTab(newValue);
     };
-
+    
     return (
         <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={activeTab}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                        <Tab label="All templates" value='all' />
-                        <Tab label="Your Templates" value='owner' />
+                        <Tab label={tabNames[0]} value='all' />
+                        <Tab label={tabNames[1]} value='owner' />
                     </TabList>
                 </Box>
                 <TabPanel value="all">
-                     <CustomTable selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={allData} columns={columns} />
+                    <CustomTable selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={allData} columns={columns} />
                 </TabPanel>
                 <TabPanel value="owner">
                     <CustomTable selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={data} columns={columns} />

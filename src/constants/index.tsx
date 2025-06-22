@@ -161,3 +161,12 @@ export const FormTableColums = [
   },
 ];
 
+export const templateTabNames = [
+  "All templates",
+  "Your templates"
+];
+
+export const formTabNames = [
+  "All forms",
+  "Your forms"
+]
