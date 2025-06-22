@@ -12,9 +12,11 @@ import ControlledTextField from '../../../components/TextField'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoginForm, LoginSchema } from '../../../types/form'
 import { RootState } from '../../../redux'
+import { useTranslator } from '../../../hooks/useTranslator'
 
 const Login = () => {
     const { email } = useSelector((state: RootState) => state.users)
+    const { t } = useTranslator('auth')
     const { control, handleSubmit, setValue } = useForm<LoginForm>({
         defaultValues: initialStateLogin,
         resolver: zodResolver(LoginSchema),
@@ -42,9 +44,9 @@ const Login = () => {
         } catch (error) {
             const err = error as ErrorType;
             if (err.status === 404 || err.status === 400) {
-                toast.error(err.data?.message || "User not found!");
+                toast.error(err.data?.message || t('userNotFound'));
             } else {
-                toast.error("Your password is incorrect");
+                toast.error(t('incorrectPassword'));
             }
         }
     }
@@ -52,13 +54,13 @@ const Login = () => {
     return (
         <div className='w-[400px] h-[400px] max-[430px]:w-full flex flex-col gap-3'>
             <Typography variant="h5">
-                Login
+                {t('login')}
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4' action="">
                 <ControlledTextField disabled={!!email} control={control} name='email' label="Email" />
                 <ControlledTextField control={control} name='password' label="Password" />
-                <Button type='submit' loading={isLoading} variant='contained' color='primary' size='large'>Login</Button>
-                <span>If you don't have an account: <Link className='text-[#7985f7]' to='/auth/register'>Register</Link></span>
+                <Button type='submit' loading={isLoading} variant='contained' color='primary' size='large'>{t('login')}</Button>
+                <span>{t('noAccountNote')} <Link className='text-[#7985f7]' to='/auth/register'>{t('register')}</Link></span>
             </form>
         </div>
     )

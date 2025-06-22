@@ -9,6 +9,49 @@
     "buttons": {
         "delete": "Delete",
         "update": "Update",
-        "create": "Create"
+        "create": "Create",
+        "startSurvey": "Start Survey",
+        "addOption": "Add option"
+    },
+    "fileUpload": {
+        "sizeError": "File size must be less than 10MB",
+        "typeError": "Invalid file type. Only images and documents are allowed.",
+        "minSize": "0 Bytes",
+        "dropNote": "Drop files here or click to browse",
+        "supportNote": "Supports: Images (Max 10MB)",
+        "replace": "Replace file",
+        "title": "File upload"
+    },
+    "auth": {
+        "register": "Register",
+        "login": "Login",
+        "userNotFound": "User not found!",
+        "incorrectPassword": "Your password is incorrect",
+        "noAccountNote": "If you don't have an account:"
+    },
+    "question": {
+        "question": "Question",
+        "open": "Open",
+        "close": "Close",
+        "multichoice": "Multichoice",
+        "numerical": "Numerical",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "template": {
+        "public": "Public",
+        "private": "Private"
+    },
+    "table": {
+        "username": "Username",
+        "email": "Email",
+        "status": "Status",
+        "role": "Role",
+        "joinUs": "Join Us",
+        "image": "Image",
+        "title": "Title",
+        "topic": "Topic",
+        "description": "Description",
+        "type": "Type"
     }
 }

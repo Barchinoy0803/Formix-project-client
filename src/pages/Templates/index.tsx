@@ -11,7 +11,6 @@ import CustomTabs from '../../components/Tabs';
 
 const Templates = () => {
   const navigate = useNavigate()
-
   const [activeTab, setActiveTab] = useState<string>("all")
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>()
 

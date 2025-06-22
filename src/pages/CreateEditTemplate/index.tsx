@@ -18,8 +18,8 @@ const CreateEditTemplate = () => {
     const { id } = useParams()
 
     const [fileUpload] = useFileUploadMutation()
-    const [createTemplate] = useCreateTemplateMutation()
-    const [updateTemplate] = useUpdateTemplateMutation()
+    const [createTemplate, { isLoading: createLoading }] = useCreateTemplateMutation()
+    const [updateTemplate, { isLoading: updateLoading }] = useUpdateTemplateMutation()
     const { data, isLoading } = useGetOneTemplateQuery(id, { skip: id === "new" })
 
     const methods = useForm<TemplateForm>({
@@ -100,7 +100,7 @@ const CreateEditTemplate = () => {
                                         <Question removeQuestion={() => handleRemoveQuestion(inx)} key={el.id} question={el} index={inx} />
                                     ))
                                 }
-                                <Button type="submit" variant="contained">Submit</Button>
+                                <Button type="submit" variant="contained" disabled={createLoading || updateLoading}>Submit</Button>
                             </form>
                         </FormProvider>
                     </div>

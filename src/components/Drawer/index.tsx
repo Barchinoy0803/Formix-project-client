@@ -5,7 +5,6 @@ import { drawerListItems } from '../../constants';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux';
-import LanguageSwitcher from '../LanguageSwitcher';
 import { useTranslator } from '../../hooks/useTranslator';
 
 const CustomDrawer = () => {
@@ -89,10 +88,6 @@ const CustomDrawer = () => {
                             )}
                         </NavLink>
                     )}
-
-                    <div className="mt-6 pt-6 border-t border-white/20">
-                        <LanguageSwitcher />
-                    </div>
                 </nav>
             </div>
         </div>

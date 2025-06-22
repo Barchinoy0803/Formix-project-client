@@ -1,4 +1,6 @@
+import i18next from "i18next"
 import { QUESTION_TYPE, TEMPLATE_TYPE } from "../types"
+import i18n from "../utils/i18n"
 
 export const defaultUser = {
   username: "",
@@ -26,30 +28,30 @@ export const initialStateTemplate = {
 
 export const templateTypeOptions = [
   {
-    label: "Public",
+    label: 'template.public',
     value: TEMPLATE_TYPE.PUBLIC
   },
   {
-    label: "Private",
+    label: 'template.private',
     value: TEMPLATE_TYPE.PRIVATE
   }
 ]
 
 export const questionTypeOptions = [
   {
-    label: "Open",
+    label: "question.open",
     value: QUESTION_TYPE.OPEN
   },
   {
-    label: "Close",
+    label: "question.close",
     value: QUESTION_TYPE.CLOSE
   },
   {
-    label: "Multichoice",
+    label: "question.multichoice",
     value: QUESTION_TYPE.MULTICHOICE
   },
   {
-    label: "Numerical",
+    label: "question.numerical",
     value: QUESTION_TYPE.NUMERICAL
   },
 ]
@@ -71,17 +73,17 @@ export const drawerListItems = [
 ]
 
 export const UserTableColumns = [
-  { field: 'username', headerName: 'Username', width: 200 },
-  { field: 'email', headerName: 'Email', width: 400 },
-  { field: 'status', headerName: 'Status', width: 150 },
-  { field: 'role', headerName: 'Role', width: 150 },
-  { field: 'createdAt', headerName: 'Join Us', width: 450 },
+  { field: 'username', headerName: 'table.username', width: 200 },
+  { field: 'email', headerName: 'table.email', width: 400 },
+  { field: 'status', headerName: 'table.status', width: 150 },
+  { field: 'role', headerName: 'table.role', width: 150 },
+  { field: 'createdAt', headerName: 'table.joinUs', width: 450 },
 ];
 
 export const TemplateTableColumns = [
   {
     field: 'image',
-    headerName: 'Image',
+    headerName: 'table.image',
     width: 150,
     renderCell: (params: any) => (
       <img
@@ -93,21 +95,21 @@ export const TemplateTableColumns = [
     sortable: false,
     filterable: false,
   },
-  { field: 'title', headerName: 'Title', width: 250 },
-  { field: 'topic', headerName: 'Topic', width: 250 },
-  { field: 'description', headerName: 'description', width: 500 },
-  { field: 'type', headerName: 'type', width: 150 }
+  { field: 'title', headerName: 'table.title', width: 250 },
+  { field: 'topic', headerName: 'table.topic', width: 250 },
+  { field: 'description', headerName: 'table.description', width: 500 },
+  { field: 'type', headerName: 'table.type', width: 150 }
 ];
 
 export const defaultImageLink = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fdefault-image-icon&psig=AOvVaw1PRDcwsEDtSTJH9zlDEeNF&ust=1750335955327000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLiz_9j7-o0DFQAAAAAdAAAAABAE"
 
 export const YES_NO_OPTIONS = [
   {
-    label: "YES",
+    label: 'question.yes',
     value: "YES",
   },
   {
-    label: "NO",
+    label: 'question.no',
     value: "NO",
   }
 ]

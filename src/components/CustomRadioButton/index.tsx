@@ -2,6 +2,7 @@ import { FormControl, FormControlLabel, RadioGroup, Radio, Grid, Typography } fr
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 import { Option, OptionValue } from '../../types';
+import { useTranslator } from '../../hooks/useTranslator';
 
 interface RadioWithLabelProps<T extends FieldValues> {
     label?: string;
@@ -20,6 +21,8 @@ const RadioWithLabel = <T extends FieldValues>({
     control,
     name,
 }: RadioWithLabelProps<T>) => {
+    const { t } = useTranslator()
+
     return (
         <Grid container gap={0.25} flexDirection="column">
             {label && (
@@ -34,7 +37,7 @@ const RadioWithLabel = <T extends FieldValues>({
                     render={({ field }) => (
                         <RadioGroup row={isVertical} defaultValue={defaultValue} {...field}>
                             {options?.map(({ value, label }, index) => (
-                                <FormControlLabel key={`${index}${value}`} value={value} control={<Radio />} label={label} />
+                                <FormControlLabel key={`${index}${value}`} value={value} control={<Radio />} label={t(label)} />
                             ))}
                         </RadioGroup>
                     )}

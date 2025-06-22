@@ -9,7 +9,46 @@
     "buttons": {
         "delete": "O'chirish",
         "update": "Yangilash",
-        "create": "Yaratish"
+        "create": "Yaratish",
+        "startSurvey": "So‘rovnomani boshlash",
+        "addOption": "Variant qo‘shish"
+    },
+    "fileUpload": {
+        "sizeError": "Fayl hajmi 10MB dan kam bo‘lishi kerak",
+        "typeError": "Noto‘g‘ri fayl turi. Faqat rasm va hujjatlarga ruxsat beriladi.",
+        "minSize": "0 bayt",
+        "dropNote": "Fayllarni shu yerga tashlang yoki tanlash uchun bosing",
+        "supportNote": "Qo‘llab-quvvatlanadi: Rasm fayllari (Eng ko‘pi 10MB)",
+        "replace": "Faylni almashtirish",
+        "title": "Fayl yuklash"
+    },
+    "auth": {
+       "register": "Ro‘yxatdan o‘tish",
+       "login": "Kirish"
+    },
+    "question": {
+       "question": "Savol",
+       "open": "Ochiq",
+       "close": "Yopiq",
+       "multichoice": "Bir nechta tanlov",
+       "numerical": "Sonli",
+       "yes": "Ha",
+       "no": "Yo‘q"
+    },
+    "template": {
+       "public": "Ommaviy",
+       "private": "Shaxsiy"
+    },
+    "table": {
+       "username": "Foydalanuvchi nomi",
+       "email": "Elektron pochta",
+       "status": "Holati",
+       "role": "Rol",
+       "joinUs": "Bizga qo‘shiling",
+       "image": "Rasm",
+       "title": "Sarlavha",
+       "topic": "Mavzu",
+       "description": "Tavsif",
+       "type": "Tur"
     }
-
 }

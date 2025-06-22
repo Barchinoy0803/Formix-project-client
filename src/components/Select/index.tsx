@@ -4,6 +4,7 @@ import Select from '@mui/material/Select';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import { SelectOption } from '../../types';
 import { FormControl } from '@mui/material';
+import { useTranslator } from '../../hooks/useTranslator';
 
 interface SelectProps<T extends FieldValues> {
     name: Path<T>,
@@ -13,6 +14,7 @@ interface SelectProps<T extends FieldValues> {
 }
 
 const CustomSelect = <T extends FieldValues>({ name, control, label, options }: SelectProps<T>) => {
+    const { t } = useTranslator();
 
     return (
         <div>
@@ -30,7 +32,7 @@ const CustomSelect = <T extends FieldValues>({ name, control, label, options }: 
                     >
                         {
                             options.map((option) => (
-                                <MenuItem value={option.value}>{option.label}</MenuItem>
+                                <MenuItem value={option.value}>{t(option.label)}</MenuItem>
                             ))
                         }
                     </Select>
