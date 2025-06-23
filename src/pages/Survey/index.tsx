@@ -1,5 +1,5 @@
-import { memo, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { memo, useEffect, useMemo } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import { useGetOneTemplateQuery } from '../../service/api/template.api'
 import {
   Button,
@@ -16,14 +16,32 @@ import {
 import { useFieldArray, useForm } from 'react-hook-form'
 import { Form, QuestionForm } from '../../types/form'
 import { renderQuestion } from './helpers'
-import { useCreateFormMutation } from '../../service/api/form.api'
+import { useCreateFormMutation, useGetOneFormQuery, useIsExistingTemplateMutation, useUpdateFormMutation } from '../../service/api/form.api'
 
 const Survey = () => {
-  const { id } = useParams()
-  const { data: template } = useGetOneTemplateQuery(id)
+  const location = useLocation();
+  const { id } = useParams();
+  const [isExsist] = useIsExistingTemplateMutation()
   const [createForm] = useCreateFormMutation()
+  const [updateForm] = useUpdateFormMutation()
   const { reset, control, handleSubmit } = useForm<Form>()
   const { fields } = useFieldArray({ control, name: 'Question' })
+
+  const isUpdateForm = useMemo(() => {
+    return location.pathname.includes("form")
+  }, [location])
+
+  const { data: form } = useGetOneFormQuery(id, {
+    skip: !isUpdateForm
+  });
+
+  const { data: template } = useGetOneTemplateQuery(
+    isUpdateForm ? form?.templateId : id,
+    {
+      skip: isUpdateForm && !form?.templateId,
+    }
+  );
+
 
   useEffect(() => {
     if (template) {
@@ -40,15 +58,30 @@ const Survey = () => {
     }
   }, [template])
 
+  useEffect(() => {
+    if (form) {
+      console.log(form);
+
+      reset({ Answer: form.answer })
+    }
+  }, [form])
+
   const onSubmit = async (data: Form) => {
     const payload = {
       templateId: id,
       Answer: data.Answer
     }
-    console.log(data);
-    const res = await createForm(payload)
-    console.log(res);
-
+    if (!isUpdateForm) {
+      const { data: filledForm } = await isExsist(id)
+      if (filledForm) {
+        await updateForm({ id: filledForm.id, body: payload })
+      }
+    }
+    if (isUpdateForm) {
+      await updateForm({ id, body: payload })
+    } else {
+      await createForm(payload)
+    }
   }
 
   return (

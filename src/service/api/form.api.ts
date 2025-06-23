@@ -31,6 +31,14 @@ const extendedApi = mainApi.injectEndpoints({
                 method: "GET",
                 url: `/form/${id}`,
                 id
+            }),
+            providesTags: ['FORM']
+        }),
+        isExistingTemplate: build.mutation({
+            query: (templateId) => ({
+                method: "POST",
+                url: `/form/isexisting/${templateId}`,
+                templateId
             })
         }),
         createForm: build.mutation({
@@ -61,4 +69,4 @@ const extendedApi = mainApi.injectEndpoints({
     overrideExisting: false
 })
 
-export const { useCreateFormMutation, useDeleteFormsMutation, useGetFormsQuery, useGetOneFormQuery, useUpdateFormMutation, useGetAllFormsQuery, useGetAllUserFormsQuery } = extendedApi
+export const { useCreateFormMutation, useDeleteFormsMutation, useGetFormsQuery, useGetOneFormQuery, useUpdateFormMutation, useGetAllFormsQuery, useGetAllUserFormsQuery, useIsExistingTemplateMutation } = extendedApi

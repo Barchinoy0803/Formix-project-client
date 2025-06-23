@@ -7,19 +7,17 @@ import { GridRowSelectionModel } from '@mui/x-data-grid'
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit, FaPlus } from 'react-icons/fa';
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 
 const Form = () => {
+  const navigate = useNavigate()
   const { data, isLoading } = useGetAllFormsQuery({})
   const { data: alldata } = useGetAllUserFormsQuery({})
   const { data: formsData } = useGetFormsQuery({})
   const [deleteForms, { isLoading: deleteLoading }] = useDeleteFormsMutation()
   const [activeTab, setActiveTab] = useState<string>("all")
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>()
-
-  // console.log(data);
-  // console.log(alldata);
-  // console.log(formsData);
 
   const ids = useMemo(() => {
     return selectedIds?.ids ? [...selectedIds.ids] : []
@@ -34,6 +32,9 @@ const Form = () => {
     toast.success("Forms deleted!")
   }
 
+  const handleUpdate = async () => {
+    navigate(`/dashboard/form/${ids[0]}`)
+  }
 
   return (
     <div className='container mx-auto flex flex-col gap-3 mt-[50px] mb-[30px]'>
@@ -46,10 +47,10 @@ const Form = () => {
         <Tooltip placement='top' title='Delete forms'>
           <Button color='error' disabled={deleteLoading || isAllForms} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>Delete</Button>
         </Tooltip>
-        {/* <Tooltip placement='top' title='Update templates'>
+        <Tooltip placement='top' title='Update templates'>
           <Button disabled={deleteLoading || isAllForms} onClick={handleUpdate} startIcon={<FaEdit />} variant='outlined'>Update</Button>
         </Tooltip>
-        <Tooltip placement='top' title='Create templates'>
+        {/* <Tooltip placement='top' title='Create templates'>
           <Button disabled={deleteLoading} onClick={handleCreate} startIcon={<FaPlus />} variant='outlined'>Create</Button>
         </Tooltip> */}
       </div>

@@ -37,6 +37,9 @@ const MainRouter = () => {
                         path: 'forms', element: <Forms />
                     },
                     {
+                        path: 'form/:id', element: <Survey />
+                    },
+                    {
                         path: 'survey/:id', element: <Survey />
                     },
                     {
