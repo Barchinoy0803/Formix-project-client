@@ -10,18 +10,19 @@ interface renderQuestionProps<T extends FieldValues> {
     control: Control<T>,
     index: number,
     question: QuestionForm,
+    isReadMode?: boolean
 }
 
-export const renderQuestion = <T extends FieldValues>({ question, control, index }: renderQuestionProps<T>) => {
+export const renderQuestion = <T extends FieldValues>({ question, control, index, isReadMode=false }: renderQuestionProps<T>) => {
     switch (question.type) {
         case QUESTION_TYPE.OPEN:
-            return <ControlledTextField control={control} name={`Answer.${index}.answer` as Path<T>} />
+            return <ControlledTextField disabled={isReadMode} control={control} name={`Answer.${index}.answer` as Path<T>} />
         case QUESTION_TYPE.CLOSE:
-            return <RadioWithLabel control={control} name={`Answer.${index}.answer` as Path<T>} options={YES_NO_OPTIONS} defaultValue={YES_NO_OPTIONS[0].value} />
+            return <RadioWithLabel   disabled={isReadMode} control={control} name={`Answer.${index}.answer` as Path<T>} options={YES_NO_OPTIONS} defaultValue={YES_NO_OPTIONS[0].value} />
         case QUESTION_TYPE.NUMERICAL:
-            return <ControlledTextField type='number' control={control} name={`Answer.${index}.answer` as Path<T>} />
+            return <ControlledTextField disabled={isReadMode} type='number' control={control} name={`Answer.${index}.answer` as Path<T>} />
         case QUESTION_TYPE.MULTICHOICE:
-            return <CheckboxGroup control={control} name={`Answer.${index}.answer` as Path<T>} options={getCheckboxOptions(question.Options)} />
+            return <CheckboxGroup disabled={isReadMode} control={control} name={`Answer.${index}.answer` as Path<T>} options={getCheckboxOptions(question.Options)} />
         default:
             return null;
     }

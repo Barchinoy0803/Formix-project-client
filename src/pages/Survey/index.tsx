@@ -27,6 +27,9 @@ const Survey = () => {
   const { reset, control, handleSubmit } = useForm<Form>()
   const { fields } = useFieldArray({ control, name: 'Question' })
 
+  const searchParams = new URLSearchParams(location.search);
+  const isReadMode = searchParams.get('readMode');
+
   const isUpdateForm = useMemo(() => {
     return location.pathname.includes("form")
   }, [location])
@@ -156,22 +159,24 @@ const Survey = () => {
                 </Box>
                 <Divider className="mb-6 border-gray-200" />
                 <Box className="w-full">
-                  {renderQuestion({ question, control, index })}
+                  {renderQuestion({ question, control, index, isReadMode: !!isReadMode })}
                 </Box>
               </Paper>
             ))}
           </Stack>
-
-          <Box className="flex justify-center pt-6">
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-semibold px-12 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
-            >
-              Submit Survey
-            </Button>
-          </Box>
+          {
+            !isReadMode &&
+            <Box className="flex justify-center pt-6">
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-semibold px-12 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
+              >
+                Submit Survey
+              </Button>
+            </Box>
+          }
         </form>
       ) : (
         <Box className="flex flex-col items-center justify-center min-h-screen space-y-6">

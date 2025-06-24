@@ -7,7 +7,8 @@ import { GridRowSelectionModel } from '@mui/x-data-grid'
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit, FaPlus } from 'react-icons/fa';
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { FaEye } from "react-icons/fa";
 
 
 const Form = () => {
@@ -36,6 +37,10 @@ const Form = () => {
     navigate(`/dashboard/form/${ids[0]}`)
   }
 
+  const handleShow = async () => {
+    navigate(`/dashboard/form/${ids[0]}?readMode=true`)
+  }
+
   return (
     <div className='container mx-auto flex flex-col gap-3 mt-[50px] mb-[30px]'>
       <Alert className='mb-5' variant="outlined" severity="info">
@@ -44,15 +49,19 @@ const Form = () => {
           : "This table includes forms that you have filled out."}
       </Alert>
       <div className='flex items-center gap-5 mb-3'>
-        <Tooltip placement='top' title='Delete forms'>
-          <Button color='error' disabled={deleteLoading || isAllForms} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>Delete</Button>
-        </Tooltip>
-        <Tooltip placement='top' title='Update templates'>
-          <Button disabled={deleteLoading || isAllForms} onClick={handleUpdate} startIcon={<FaEdit />} variant='outlined'>Update</Button>
-        </Tooltip>
-        {/* <Tooltip placement='top' title='Create templates'>
-          <Button disabled={deleteLoading} onClick={handleCreate} startIcon={<FaPlus />} variant='outlined'>Create</Button>
-        </Tooltip> */}
+        {
+          !isAllForms ? <>
+            <Tooltip placement='top' title='Delete forms'>
+              <Button color='error' disabled={deleteLoading || isAllForms} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>Delete</Button>
+            </Tooltip>
+            <Tooltip placement='top' title='Update forms'>
+              <Button disabled={deleteLoading || isAllForms} onClick={handleUpdate} startIcon={<FaEdit />} variant='outlined'>Update</Button>
+            </Tooltip>
+          </> :
+            <Tooltip placement='top' title='Show forms'>
+              <Button disabled={deleteLoading} onClick={handleShow} startIcon={<FaEye />} variant='outlined'>Show</Button>
+            </Tooltip>
+        }
       </div>
       {
         isLoading ? <CircularProgress /> : <CustomTabs tabNames={formTabNames} setActiveTab={setActiveTab} activeTab={activeTab} allData={formsData} columns={FormTableColums} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={alldata} />

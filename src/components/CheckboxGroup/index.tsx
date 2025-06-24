@@ -7,9 +7,10 @@ interface CheckboxGroupProps<T extends FieldValues> {
     options: Option[];
     control: Control<T>;
     name: Path<T>;
+    disabled?: boolean
 }
 
-const CheckboxGroup = <T extends FieldValues>({ label, options, control, name }: CheckboxGroupProps<T>) => {
+const CheckboxGroup = <T extends FieldValues>({ label, options, control, name, disabled = false }: CheckboxGroupProps<T>) => {
     const handleCheckboxChange =
         (field: ControllerRenderProps<T, Path<T>>, optionValue: OptionValue) =>
             (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +43,7 @@ const CheckboxGroup = <T extends FieldValues>({ label, options, control, name }:
                                     key={value}
                                     control={
                                         <Checkbox
+                                            disabled={disabled}
                                             checked={Array.isArray(field.value) ? (field.value as OptionValue[]).includes(value) : false}
                                             onChange={handleCheckboxChange(field, value)}
                                             value={value}

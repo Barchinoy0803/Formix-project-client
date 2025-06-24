@@ -11,6 +11,7 @@ interface RadioWithLabelProps<T extends FieldValues> {
     defaultValue?: OptionValue;
     control: Control<T>;
     name: Path<T>;
+    disabled?: boolean
 }
 
 const RadioWithLabel = <T extends FieldValues>({
@@ -20,6 +21,7 @@ const RadioWithLabel = <T extends FieldValues>({
     defaultValue,
     control,
     name,
+    disabled=false
 }: RadioWithLabelProps<T>) => {
     const { t } = useTranslator()
 
@@ -35,9 +37,9 @@ const RadioWithLabel = <T extends FieldValues>({
                     name={name}
                     control={control}
                     render={({ field }) => (
-                        <RadioGroup row={isVertical} defaultValue={defaultValue} {...field}>
+                        <RadioGroup  row={isVertical} defaultValue={defaultValue} {...field}>
                             {options?.map(({ value, label }, index) => (
-                                <FormControlLabel key={`${index}${value}`} value={value} control={<Radio />} label={t(label)} />
+                                <FormControlLabel disabled={disabled} key={`${index}${value}`} value={value} control={<Radio />} label={t(label)} />
                             ))}
                         </RadioGroup>
                     )}
