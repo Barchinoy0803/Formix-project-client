@@ -10,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux";
 import toast from "react-hot-toast";
+import { useTranslator } from "../../../hooks/useTranslator";
 
 const OtpVerification = () => {
     const { email } = useSelector((state: RootState) => state.users)
-
+    const { t } = useTranslator('auth')
+    const { t:buttons } = useTranslator('buttons')
     const { control, handleSubmit } = useForm<OtpForm>({
         defaultValues: OtpDefaultValues
     });
@@ -29,7 +31,7 @@ const OtpVerification = () => {
                 navigate("/auth/login")
             }
         } catch (error) {
-            toast.error(`Invalid code.\nPlease enter correct code that you recieve on ${email}.`)
+            toast.error(t('otpError'))
         }
 
     };
@@ -37,7 +39,7 @@ const OtpVerification = () => {
     return (
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
             <Typography variant="h5">
-                Email Verification
+                {t('otpTitle')}
             </Typography>
 
             <Controller
@@ -45,7 +47,7 @@ const OtpVerification = () => {
                 control={control}
                 rules={{
                     validate: (value) =>
-                        value.length === 6 || 'OTP must be exactly 6 digits',
+                        value.length === 6 || t('otpLength'),
                 }}
                 render={({ field }) => (
                     <Box >
@@ -60,7 +62,7 @@ const OtpVerification = () => {
             />
 
             <Typography variant="body2" className=" text-gray-600">
-                We have sent a verification code to your email.
+                {t('sentCodeNote')}
             </Typography>
 
             <Button
@@ -69,7 +71,7 @@ const OtpVerification = () => {
                 loading={isLoading}
                 className=" w-[150px]"
             >
-                Send
+                {buttons('send')}
             </Button>
         </form>
     )

@@ -10,7 +10,7 @@ interface CheckboxGroupProps<T extends FieldValues> {
     disabled?: boolean
 }
 
-const CheckboxGroup = <T extends FieldValues>({ label, options, control, name, disabled = false }: CheckboxGroupProps<T>) => {
+const CheckboxGroup = <T extends FieldValues>({ label, options, control, name, disabled }: CheckboxGroupProps<T>) => {
     const handleCheckboxChange =
         (field: ControllerRenderProps<T, Path<T>>, optionValue: OptionValue) =>
             (event: React.ChangeEvent<HTMLInputElement>) => {

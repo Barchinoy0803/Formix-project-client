@@ -181,3 +181,9 @@ export const formTabNames = [
   "All forms",
   "Your forms"
 ]
+
+ export const languages = [
+    { code: 'uz', label: 'UZ' },
+    { code: 'en', label: 'EN' },
+    { code: 'ru', label: 'RU' },
+  ];

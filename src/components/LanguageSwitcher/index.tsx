@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { languages } from '../../constants';
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
@@ -9,11 +10,7 @@ const LanguageSwitcher = () => {
     localStorage.setItem('lng', lng);
   };
 
-  const languages = [
-    { code: 'uz', label: 'UZ' },
-    { code: 'en', label: 'EN' },
-    { code: 'ru', label: 'RU' },
-  ];
+ 
 
   return (
     <div className="flex justify-center">

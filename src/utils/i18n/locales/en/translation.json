@@ -27,7 +27,11 @@
         "login": "Login",
         "userNotFound": "User not found!",
         "incorrectPassword": "Your password is incorrect",
-        "noAccountNote": "If you don't have an account:"
+        "noAccountNote": "If you don't have an account:",
+        "otpError": "Invalid code.\nPlease enter correct code that you recieve on your email.",
+        "otpLength": "OTP must be exactly 6 digits",
+        "sentCodeNote": "We have sent a verification code to your email.",
+        "otpTitle": "Email Verification"
     },
     "question": {
         "question": "Question",
@@ -36,7 +40,8 @@
         "multichoice": "Multichoice",
         "numerical": "Numerical",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "send": "Send"
     },
     "template": {
         "public": "Public",
