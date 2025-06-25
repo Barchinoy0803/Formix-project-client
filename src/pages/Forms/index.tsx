@@ -1,21 +1,20 @@
 import { memo, useMemo, useState } from 'react'
-import { useDeleteFormsMutation, useGetAllFormsQuery, useGetAllUserFormsQuery, useGetFormsQuery } from '../../service/api/form.api'
+import { useDeleteFormsMutation, useGetAllUserFormsQuery, useGetFormsQuery } from '../../service/api/form.api'
 import { Alert, Button, CircularProgress, Tooltip } from '@mui/material'
 import CustomTabs from '../../components/Tabs'
 import { FormTableColums, formTabNames } from '../../constants'
 import { GridRowSelectionModel } from '@mui/x-data-grid'
 import { FaRegTrashCan } from "react-icons/fa6";
-import { FaEdit, FaPlus } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
 import toast from 'react-hot-toast'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FaEye } from "react-icons/fa";
 
 
 const Form = () => {
   const navigate = useNavigate()
-  const { data, isLoading } = useGetAllFormsQuery({})
   const { data: alldata } = useGetAllUserFormsQuery({})
-  const { data: formsData } = useGetFormsQuery({})
+  const { data: formsData, isLoading } = useGetFormsQuery({})
   const [deleteForms, { isLoading: deleteLoading }] = useDeleteFormsMutation()
   const [activeTab, setActiveTab] = useState<string>("all")
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>()

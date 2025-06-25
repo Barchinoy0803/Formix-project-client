@@ -1,5 +1,5 @@
-import { memo, useEffect, useMemo } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { memo, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { useGetOneTemplateQuery } from '../../service/api/template.api'
 import {
   Button,
@@ -16,35 +16,14 @@ import {
 import { useFieldArray, useForm } from 'react-hook-form'
 import { Form, QuestionForm } from '../../types/form'
 import { renderQuestion } from './helpers'
-import { useCreateFormMutation, useGetOneFormQuery, useIsExistingTemplateMutation, useUpdateFormMutation } from '../../service/api/form.api'
+import { useCreateFormMutation } from '../../service/api/form.api'
 
 const Survey = () => {
-  const location = useLocation();
-  const { id } = useParams();
-  const [isExsist] = useIsExistingTemplateMutation()
+  const { id } = useParams()
+  const { data: template } = useGetOneTemplateQuery(id)
   const [createForm] = useCreateFormMutation()
-  const [updateForm] = useUpdateFormMutation()
   const { reset, control, handleSubmit } = useForm<Form>()
   const { fields } = useFieldArray({ control, name: 'Question' })
-
-  const searchParams = new URLSearchParams(location.search);
-  const isReadMode = searchParams.get('readMode');
-
-  const isUpdateForm = useMemo(() => {
-    return location.pathname.includes("form")
-  }, [location])
-
-  const { data: form } = useGetOneFormQuery(id, {
-    skip: !isUpdateForm
-  });
-
-  const { data: template } = useGetOneTemplateQuery(
-    isUpdateForm ? form?.templateId : id,
-    {
-      skip: isUpdateForm && !form?.templateId,
-    }
-  );
-
 
   useEffect(() => {
     if (template) {
@@ -61,30 +40,12 @@ const Survey = () => {
     }
   }, [template])
 
-  useEffect(() => {
-    if (form) {
-      console.log(form);
-
-      reset({ Answer: form.answer })
-    }
-  }, [form])
-
   const onSubmit = async (data: Form) => {
     const payload = {
       templateId: id,
       Answer: data.Answer
     }
-    if (!isUpdateForm) {
-      const { data: filledForm } = await isExsist(id)
-      if (filledForm) {
-        await updateForm({ id: filledForm.id, body: payload })
-      }
-    }
-    if (isUpdateForm) {
-      await updateForm({ id, body: payload })
-    } else {
-      await createForm(payload)
-    }
+    await createForm(payload)
   }
 
   return (
@@ -159,24 +120,22 @@ const Survey = () => {
                 </Box>
                 <Divider className="mb-6 border-gray-200" />
                 <Box className="w-full">
-                  {renderQuestion({ question, control, index, isReadMode: !!isReadMode })}
+                  {renderQuestion({ question, control, index })}
                 </Box>
               </Paper>
             ))}
           </Stack>
-          {
-            !isReadMode &&
-            <Box className="flex justify-center pt-6">
-              <Button
-                type="submit"
-                variant="contained"
-                size="large"
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-semibold px-12 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
-              >
-                Submit Survey
-              </Button>
-            </Box>
-          }
+
+          <Box className="flex justify-center pt-6">
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-semibold px-12 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
+            >
+              Submit Survey
+            </Button>
+          </Box>
         </form>
       ) : (
         <Box className="flex flex-col items-center justify-center min-h-screen space-y-6">
