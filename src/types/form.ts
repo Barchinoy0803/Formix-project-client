@@ -47,10 +47,10 @@ export interface QuestionForm {
 }
 
 export interface OptionForm {
-    questionId: string,
-    title: string,
-    isSelected: boolean,
-    id?: string,
+    questionId: string;
+    title: string;
+    id?: string;
+    isSelected: boolean;
 }
 
 export interface AnswerForm {
@@ -58,6 +58,7 @@ export interface AnswerForm {
     answer: string;
     questionId: string;
     formId: string;
+    selectedOptionOnAnswer: SelectedOptionOnAnswer[]
 }
 
 export interface Form {
@@ -65,3 +66,11 @@ export interface Form {
     Answer: AnswerForm[];
     Question?: QuestionForm[]
 }
+
+export interface SelectedOptionOnAnswer {
+    answerId: string;
+    optionId: string;
+    isSelected: boolean;
+    option: OptionForm[]
+}
+

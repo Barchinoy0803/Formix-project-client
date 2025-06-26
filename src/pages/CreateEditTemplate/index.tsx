@@ -46,6 +46,12 @@ const CreateEditTemplate = () => {
 
     }
 
+    const handleAddQuestion = () => {
+        const { id } = getValues()
+
+        insert(fields.length, { templateId: id, sequence: fields.length, description: "", type: QUESTION_TYPE.OPEN, Options: [], title: "", isPublished: false })
+    }
+
     const onSubmit = async (data: TemplateForm) => {
         let imageUrl = defaultImageLink;
         if (file) {
@@ -65,16 +71,13 @@ const CreateEditTemplate = () => {
                 toast.error("Something went wrong!")
             }
         } else {
+            console.log(data);
+            
             await updateTemplate({ id, body: { ...data, image: imageUrl } })
         }
         reset(initialStateTemplate)
     };
 
-    const handleAddQuestion = () => {
-        const { id } = getValues()
-
-        insert(fields.length, { templateId: id, sequence: fields.length, description: "", type: QUESTION_TYPE.OPEN, Options: [], title: "", isPublished: false })
-    }
 
     return (
         <>

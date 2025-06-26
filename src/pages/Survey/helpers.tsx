@@ -26,6 +26,7 @@ export const renderQuestion = <T extends FieldValues>({ question, control, index
         default:
             return null;
     }
+    
 }
 
 export const getCheckboxOptions = (options: OptionForm[]) => {
