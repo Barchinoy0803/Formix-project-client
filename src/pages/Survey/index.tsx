@@ -14,7 +14,7 @@ import {
   Stack
 } from '@mui/material'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { Form, QuestionForm } from '../../types/form'
+import { AnswerForm, Form, QuestionForm } from '../../types/form'
 import { renderQuestion } from './helpers'
 import { useCreateFormMutation, useGetOneFormQuery, useIsExistingTemplateMutation, useUpdateFormMutation } from '../../service/api/form.api'
 
@@ -70,23 +70,30 @@ const Survey = () => {
     }
 
   }, [form])
-
+  
   const onSubmit = async (data: Form) => {
     const payload = {
       templateId: template.id,
-      Answer: data.Answer
+      Answer: data.Answer.map((a: AnswerForm) => ({
+        ...a,
+        answer:
+          Array.isArray(a.selectedOptionOnAnswer) && a.selectedOptionOnAnswer.length > 0
+            ? a.selectedOptionOnAnswer
+            : a.answer,
+      }))
     }
 
     if (!isUpdateForm) {
       const { data: filledForm } = await isExsist(id)
+
       if (filledForm) {
         await updateForm({ id: filledForm.id, body: payload })
+      } else {
+        await createForm(payload)
       }
     }
     if (isUpdateForm) {
       await updateForm({ id, body: payload })
-    } else {
-      await createForm(payload)
     }
   }
 

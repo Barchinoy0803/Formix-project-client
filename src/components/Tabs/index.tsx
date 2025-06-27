@@ -22,8 +22,9 @@ const CustomTabs = ({ data, columns, selectedIds, setSelectedIds, allData, activ
 
     const handleChange = (_: React.SyntheticEvent, newValue: string) => {
         setActiveTab(newValue);
+        setSelectedIds(undefined)
     };
-    
+
     return (
         <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={activeTab}>

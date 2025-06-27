@@ -11,11 +11,12 @@ import UserManagment from '../pages/UserManagment'
 import Analyze from '../pages/Analyze'
 import CreateEditTemplate from '../pages/CreateEditTemplate'
 import Survey from '../pages/Survey'
+import Home from '../pages/Home'
 
 const MainRouter = () => {
     return (
         useRoutes([
-            { path: '/', element: <Navigate to='/dashboard' /> },
+            { path: '/', element: <Home /> },
             {
                 path: '/auth', element: <Auth />,
                 children: [

@@ -1,17 +1,27 @@
-import { memo } from 'react'
-import CustomDrawer from '../../components/Drawer'
-import { Outlet } from 'react-router-dom'
-import LanguageSwitcher from '../../components/LanguageSwitcher'
+import { memo, useState } from 'react'
+import Navbar from '../../components/Navbar'
+import { useGetTemplatesQuery } from '../../service/api/template.api'
+import { Box, CircularProgress } from '@mui/material'
+import Card from '../../components/Card'
+import { TemplateForm } from '../../types/form'
+import AddTemplate from '../../components/AddTemplate'
 
 const Home = () => {
+  const [search, setSearch] = useState<string>('');
+
+  const { data: allTemplates, isLoading } = useGetTemplatesQuery({ search })
   return (
-    <div className='flex flex-col gap-3 container mx-auto p-8'>
-      <div className='flex items-center justify-between'>
-        <CustomDrawer />
-        <LanguageSwitcher />
+    <Box className='flex flex-col gap-6'>
+      <Navbar search={search} setSearch={setSearch} />
+      <div className='container mx-auto flex gap-5'>
+        <AddTemplate />
+        {
+          isLoading ? <CircularProgress /> : allTemplates?.map((template: TemplateForm) => (
+            <Card templateData={template} />
+          ))
+        }
       </div>
-      <Outlet />
-    </div>
+    </Box>
   )
 }
 

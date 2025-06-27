@@ -10,7 +10,7 @@ interface renderQuestionProps<T extends FieldValues> {
     control: Control<T>,
     index: number,
     question: QuestionForm,
-    isReadMode?: boolean
+    isReadMode?: boolean,
 }
 
 export const renderQuestion = <T extends FieldValues>({ question, control, index, isReadMode=false }: renderQuestionProps<T>) => {
@@ -22,11 +22,10 @@ export const renderQuestion = <T extends FieldValues>({ question, control, index
         case QUESTION_TYPE.NUMERICAL:
             return <ControlledTextField disabled={isReadMode} type='number' control={control} name={`Answer.${index}.answer` as Path<T>} />
         case QUESTION_TYPE.MULTICHOICE:
-            return <CheckboxGroup disabled={isReadMode} control={control} name={`Answer.${index}.answer` as Path<T>} options={getCheckboxOptions(question.Options)} />
+            return <CheckboxGroup disabled={isReadMode} control={control} name={`Answer.${index}.selectedOptionOnAnswer` as Path<T>} options={getCheckboxOptions(question.Options)} />
         default:
             return null;
     }
-    
 }
 
 export const getCheckboxOptions = (options: OptionForm[]) => {

@@ -10,18 +10,20 @@ interface SelectProps<T extends FieldValues> {
     name: Path<T>,
     control: Control<T>,
     label?: string,
-    options: SelectOption[]
+    options: SelectOption[],
+    disabled?: boolean;
 }
 
-const CustomSelect = <T extends FieldValues>({ name, control, label, options }: SelectProps<T>) => {
+const CustomSelect = <T extends FieldValues>({ name, control, label, options, disabled }: SelectProps<T>) => {
     const { t } = useTranslator();
 
     return (
         <div>
             <Controller name={name} control={control} render={({ field, fieldState: { error } }) => (
-                 <FormControl className='w-[255px]'>
+                <FormControl className='w-[255px]'>
                     <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
                     <Select
+                        disabled={disabled}
                         labelId="demo-simple-select-helper-label"
                         id="demo-simple-select-helper"
                         {...field}
@@ -36,7 +38,7 @@ const CustomSelect = <T extends FieldValues>({ name, control, label, options }: 
                             ))
                         }
                     </Select>
-                 </FormControl>
+                </FormControl>
             )} />
         </div>
     );

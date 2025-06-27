@@ -1,6 +1,6 @@
 import { Button, CircularProgress, Typography } from "@mui/material"
 import { useEffect, useMemo, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import ControlledTextField from "../../components/TextField"
 import { FormProvider, useFieldArray, useForm } from "react-hook-form"
 import { TemplateForm } from "../../types/form"
@@ -15,6 +15,7 @@ import { QUESTION_TYPE } from "../../types"
 
 const CreateEditTemplate = () => {
     const [file, setFile] = useState<File>()
+    const location = useLocation();
     const { id } = useParams()
 
     const [fileUpload] = useFileUploadMutation()
@@ -22,18 +23,20 @@ const CreateEditTemplate = () => {
     const [updateTemplate, { isLoading: updateLoading }] = useUpdateTemplateMutation()
     const { data, isLoading } = useGetOneTemplateQuery(id, { skip: id === "new" })
 
+    const searchParams = new URLSearchParams(location.search);
+    const isReadMode = searchParams.get('readmode');
+
     const methods = useForm<TemplateForm>({
         defaultValues: initialStateTemplate,
         mode: 'onChange'
     })
 
-    const { control, handleSubmit, reset, getValues } = methods
+    const { control, handleSubmit, reset, getValues, formState: { isDirty, isValid } } = methods
     const { fields, remove, insert } = useFieldArray({ control, name: "Question" })
 
     const isCreateOption = useMemo(() => {
         return id === "new"
     }, [id])
-
 
     useEffect(() => {
         if (data) {
@@ -72,9 +75,11 @@ const CreateEditTemplate = () => {
             }
         } else {
             console.log(data);
-            
+
             await updateTemplate({ id, body: { ...data, image: imageUrl } })
         }
+        console.log(data);
+        
         reset(initialStateTemplate)
     };
 
@@ -87,23 +92,26 @@ const CreateEditTemplate = () => {
                     <div>
                         <FormProvider {...methods}>
                             <form key={fields.length} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" action="">
-                                <FileUpload file={file} setFile={setFile} />
+                                <FileUpload isReadMode={!!isReadMode} file={file} setFile={setFile} />
                                 <div className="grid grid-cols-3 gap-2">
-                                    <ControlledTextField control={control} name='title' label="Title" />
-                                    <ControlledTextField control={control} name='topic' label="Topic" />
-                                    <CustomSelect control={control} name="type" label="Type" options={templateTypeOptions} />
+                                    <ControlledTextField disabled={!!isReadMode} control={control} name='title' label="Title" />
+                                    <ControlledTextField disabled={!!isReadMode} control={control} name='topic' label="Topic" />
+                                    <CustomSelect disabled={!!isReadMode} control={control} name="type" label="Type" options={templateTypeOptions} />
                                 </div>
-                                <ControlledTextField lineCount={5} control={control} name='description' label="Description" />
+                                <ControlledTextField disabled={!!isReadMode} lineCount={5} control={control} name='description' label="Description" />
                                 <div className="flex justify-between items-center">
                                     <Typography variant="h6">Questions</Typography>
-                                    <Button onClick={handleAddQuestion} variant="outlined" startIcon={<TiPlus />}>Add question</Button>
+                                    <Button disabled={!!isReadMode} onClick={handleAddQuestion} variant="outlined" startIcon={<TiPlus />}>Add question</Button>
                                 </div>
                                 {
-                                    fields?.map((el:any, inx:any) => (
-                                        <Question removeQuestion={() => handleRemoveQuestion(inx)} key={el.id} question={el} index={inx} />
+                                    fields?.map((el: any, inx: any) => (
+                                        <Question isReadMode={!!isReadMode} removeQuestion={() => handleRemoveQuestion(inx)} key={el.id} question={el} index={inx} />
                                     ))
                                 }
-                                <Button type="submit" variant="contained" disabled={createLoading || updateLoading}>Submit</Button>
+                                {
+                                    !isReadMode &&
+                                    <Button type="submit" variant="contained" disabled={createLoading || updateLoading || !isValid || !isDirty}>Submit</Button>
+                                }
                             </form>
                         </FormProvider>
                     </div>

@@ -36,25 +36,31 @@ const CheckboxGroup = <T extends FieldValues>({ label, options, control, name, d
                 <Controller
                     name={name}
                     control={control}
-                    render={({ field }) => (
-                        <FormGroup>
-                            {options.map(({ value, label }) => (
-                                <FormControlLabel
-                                    key={value}
-                                    control={
-                                        <Checkbox
-                                            disabled={disabled}
-                                            checked={Array.isArray(field.value) ? (field.value as OptionValue[]).includes(value) : false}
-                                            onChange={handleCheckboxChange(field, value)}
-                                            value={value}
-                                        />
-                                    }
-                                    label={label}
-                                />
-                            ))}
-                        </FormGroup>
-                    )}
+                    render={({ field }) => {
+                        console.log('field:', field);
+                        console.log('field value:', field.value); 
+
+                        return (
+                            <FormGroup>
+                                {options.map(({ value, label }) => (
+                                    <FormControlLabel
+                                        key={value}
+                                        control={
+                                            <Checkbox
+                                                disabled={disabled}
+                                                checked={Array.isArray(field.value) ? (field.value as OptionValue[]).includes(value) : false}
+                                                onChange={handleCheckboxChange(field, value)}
+                                                value={value}
+                                            />
+                                        }
+                                        label={label}
+                                    />
+                                ))}
+                            </FormGroup>
+                        );
+                    }}
                 />
+
             </FormControl>
         </Grid>
     );

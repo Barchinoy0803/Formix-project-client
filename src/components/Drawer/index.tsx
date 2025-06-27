@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux';
 import { useTranslator } from '../../hooks/useTranslator';
+import { Button } from '@mui/material';
 
 const CustomDrawer = () => {
     const { userRole } = useSelector((state: RootState) => state.users);
@@ -92,25 +93,16 @@ const CustomDrawer = () => {
             </div>
         </div>
     );
-
+    
     return (
         <div>
-            <button
+            <Button
+                variant='outlined'
+                startIcon={<MenuIcon className="transition-transform duration-300 group-hover:rotate-180 text-[#47aed6]" />}
                 onClick={toggleDrawer(true)}
-                className="group relative flex items-center gap-3 bg-gradient-to-r from-slate-800 to-blue-800 hover:from-slate-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl shadow-lg shadow-blue-900/30 transition-all duration-300 overflow-hidden backdrop-blur-sm border border-white/10"
             >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-
-                <div className="relative z-10 flex items-center gap-3">
-                    <MenuIcon className="transition-transform duration-300 group-hover:rotate-180" />
-                    <span className="font-medium">Menu</span>
-                </div>
-
-                <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-blue-400/50 to-indigo-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{
-                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                    maskComposite: 'exclude'
-                }}></div>
-            </button>
+                <span className="font-medium text-[#47aed6]">Menu</span>
+            </Button>
 
             <Drawer
                 anchor="left"

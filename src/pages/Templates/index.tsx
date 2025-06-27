@@ -32,7 +32,7 @@ const Templates = () => {
       toast.error("You cannot update more than one template at the same time")
     } else {
       navigate(`/dashboard/template/${ids[0]}`)
-    } 
+    }
   };
 
   const handleCreate = () => {
@@ -59,10 +59,10 @@ const Templates = () => {
             </Tooltip>
             : <>
               <Tooltip placement='top' title='Delete templates'>
-                <Button color='error' disabled={deleteLoading || isAllTemplates} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>Delete</Button>
+                <Button color='error' disabled={deleteLoading || isAllTemplates || !ids.length} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>Delete</Button>
               </Tooltip>
               <Tooltip placement='top' title='Update templates'>
-                <Button disabled={deleteLoading || isAllTemplates} onClick={handleUpdate} startIcon={<FaEdit />} variant='outlined'>Update</Button>
+                <Button disabled={isAllTemplates || !ids.length} onClick={handleUpdate} startIcon={<FaEdit />} variant='outlined'>Update</Button>
               </Tooltip>
               <Tooltip placement='top' title='Create templates'>
                 <Button disabled={deleteLoading} onClick={handleCreate} startIcon={<FaPlus />} variant='outlined'>Create</Button>

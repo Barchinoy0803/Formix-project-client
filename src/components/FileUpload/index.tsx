@@ -5,9 +5,10 @@ import { useTranslator } from "../../hooks/useTranslator";
 interface FileUploadProps {
   file?: File;
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+  isReadMode?: boolean;
 }
 
-const FileUpload = ({ file, setFile }: FileUploadProps) => {
+const FileUpload = ({ file, setFile, isReadMode }: FileUploadProps) => {
   const [previewURL, setPreviewURL] = useState<string>("");
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
@@ -82,11 +83,10 @@ const FileUpload = ({ file, setFile }: FileUploadProps) => {
 
       {!file ? (
         <div
-          className={`border-2 p-6 text-center rounded-lg transition-all duration-200 cursor-pointer ${
-            isDragOver
-              ? "border-blue-600 bg-blue-50 border-dashed"
-              : "border-gray-300 border-dashed hover:border-blue-500 hover:bg-blue-50"
-          }`}
+          className={`border-2 p-6 text-center rounded-lg transition-all duration-200 cursor-pointer ${isDragOver
+            ? "border-blue-600 bg-blue-50 border-dashed"
+            : "border-gray-300 border-dashed hover:border-blue-500 hover:bg-blue-50"
+            }`}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -97,6 +97,7 @@ const FileUpload = ({ file, setFile }: FileUploadProps) => {
           <p className="text-sm text-gray-500">{t('supportNote')}</p>
 
           <input
+            disabled={isReadMode}
             id="file-upload"
             type="file"
             accept="image/*,.pdf,.doc,.docx"
