@@ -37,7 +37,6 @@ export interface TemplateForm {
 
 export interface AllowedUsers {
     id: string;
-    username: string
 }
 
 export interface QuestionForm {
