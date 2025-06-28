@@ -2,7 +2,7 @@ import { Button, CircularProgress, Typography } from "@mui/material"
 import { useEffect, useMemo, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import ControlledTextField from "../../components/TextField"
-import { FormProvider, useFieldArray, useForm } from "react-hook-form"
+import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form"
 import { TemplateForm } from "../../types/form"
 import { defaultImageLink, initialStateTemplate, templateTypeOptions } from "../../constants"
 import CustomSelect from "../../components/Select"
@@ -11,7 +11,10 @@ import { useCreateTemplateMutation, useFileUploadMutation, useGetOneTemplateQuer
 import toast from "react-hot-toast"
 import Question from "../../components/Question"
 import { TiPlus } from "react-icons/ti";
-import { QUESTION_TYPE } from "../../types"
+import { QUESTION_TYPE, TEMPLATE_TYPE } from "../../types"
+import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core"
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
+import UserSelection from "./userSelection"
 
 const CreateEditTemplate = () => {
     const [file, setFile] = useState<File>()
@@ -32,7 +35,8 @@ const CreateEditTemplate = () => {
     })
 
     const { control, handleSubmit, reset, getValues, formState: { isDirty, isValid } } = methods
-    const { fields, remove, insert } = useFieldArray({ control, name: "Question" })
+    const { fields, remove, insert, move } = useFieldArray({ control, name: "Question" })
+    const templateType = useWatch({ control, name: "type" })
 
     const isCreateOption = useMemo(() => {
         return id === "new"
@@ -79,16 +83,31 @@ const CreateEditTemplate = () => {
             await updateTemplate({ id, body: { ...data, image: imageUrl } })
         }
         console.log(data);
-        
+
         reset(initialStateTemplate)
     };
+
+
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event
+
+        if (!over) return
+
+        if (active.id !== over.id) {
+            const oldIndex = fields.findIndex((item) => item.id === active.id)
+            const newIndex = fields.findIndex((item) => item.id === over.id)
+            move(oldIndex, newIndex)
+        }
+    }
 
 
     return (
         <>
             {
                 !isLoading ? <div className="container mx-auto w-[800px] flex flex-col gap-3">
-                    <Typography variant="h5" >{isCreateOption ? "Create new template" : "Update template"}</Typography>
+                    {
+                        !isReadMode && <Typography variant="h5" >{isCreateOption ? "Create new template" : "Update template"}</Typography>
+                    }
                     <div>
                         <FormProvider {...methods}>
                             <form key={fields.length} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" action="">
@@ -98,16 +117,23 @@ const CreateEditTemplate = () => {
                                     <ControlledTextField disabled={!!isReadMode} control={control} name='topic' label="Topic" />
                                     <CustomSelect disabled={!!isReadMode} control={control} name="type" label="Type" options={templateTypeOptions} />
                                 </div>
+                                {
+                                    templateType === TEMPLATE_TYPE.PRIVATE && <UserSelection control={control} name='allowedUsers'/>
+                                }
                                 <ControlledTextField disabled={!!isReadMode} lineCount={5} control={control} name='description' label="Description" />
                                 <div className="flex justify-between items-center">
                                     <Typography variant="h6">Questions</Typography>
                                     <Button disabled={!!isReadMode} onClick={handleAddQuestion} variant="outlined" startIcon={<TiPlus />}>Add question</Button>
                                 </div>
-                                {
-                                    fields?.map((el: any, inx: any) => (
-                                        <Question isReadMode={!!isReadMode} removeQuestion={() => handleRemoveQuestion(inx)} key={el.id} question={el} index={inx} />
-                                    ))
-                                }
+                                <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                                    <SortableContext items={fields} strategy={verticalListSortingStrategy}>
+                                        {
+                                            fields?.map((el: any, inx: any) => (
+                                                <Question isReadMode={!!isReadMode} removeQuestion={() => handleRemoveQuestion(inx)} key={el.id} question={el} index={inx} />
+                                            ))
+                                        }
+                                    </SortableContext>
+                                </DndContext>
                                 {
                                     !isReadMode &&
                                     <Button type="submit" variant="contained" disabled={createLoading || updateLoading || !isValid || !isDirty}>Submit</Button>

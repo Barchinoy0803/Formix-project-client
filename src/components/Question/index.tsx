@@ -5,9 +5,12 @@ import CustomSelect from "../Select"
 import { questionTypeOptions } from "../../constants"
 import CustomSwitch from "../CustomSwitch"
 import { QUESTION_TYPE } from "../../types"
-import { Button, IconButton } from "@mui/material"
+import { Button, IconButton, Tooltip } from "@mui/material"
 import { FaTrash } from "react-icons/fa6";
 import { useTranslator } from "../../hooks/useTranslator"
+import { useSortable } from "@dnd-kit/sortable"
+import { RxDragHandleDots2 } from "react-icons/rx";
+import { getDndStyle } from "./helpers"
 
 interface QuestionProps {
     question: QuestionForm,
@@ -16,14 +19,14 @@ interface QuestionProps {
     isReadMode: boolean;
 }
 
-const Question = ({ index, removeQuestion, isReadMode }: QuestionProps) => {
+const Question = ({ index, removeQuestion, isReadMode, question }: QuestionProps) => {
     const { control, getValues } = useFormContext<TemplateForm>()
     const { t } = useTranslator('question');
     const { t: buttons } = useTranslator('buttons');
     const questionType = useWatch({ control, name: `Question.${index}.type` })
 
     const { fields, remove, insert } = useFieldArray({ name: `Question.${index}.Options`, control })
-    console.log(fields);
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: question.id! })
 
     const handleDeleteOption = (inx: number) => {
         remove(inx)
@@ -33,11 +36,18 @@ const Question = ({ index, removeQuestion, isReadMode }: QuestionProps) => {
         const { Question } = getValues()
         insert(fields.length, { questionId: Question[index].id!, title: "", isSelected: false })
     }
-
+    
     return (
-        <div className="bg-white shadow-md rounded-2xl p-6 mb-6 border border-gray-200">
+        <div ref={setNodeRef} className="bg-white shadow-md rounded-2xl p-6 mb-6 border border-gray-200" style={getDndStyle(transform, transition)}>
             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">{t('question')} {index + 1}</h3>
+                <div className="flex items-center gap-3">
+                    <Tooltip placement="top" title='Drag and drop'>
+                        <IconButton {...attributes} {...listeners}>
+                            <RxDragHandleDots2 className="text-[25px]" />
+                        </IconButton>
+                    </Tooltip>
+                    <h3 className="text-lg font-semibold">{t('question')} {index + 1}</h3>
+                </div>
                 <IconButton disabled={isReadMode} onClick={removeQuestion}>
                     <FaTrash className="text-gray-400 hover:text-red-600 transition-colors" />
                 </IconButton>

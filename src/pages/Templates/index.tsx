@@ -6,17 +6,20 @@ import { TemplateTableColumns, templateTabNames } from '../../constants';
 import toast from 'react-hot-toast';
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit, FaPlus } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import CustomTabs from '../../components/Tabs';
+import { OutletContext } from '../../types';
 
 const Templates = () => {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<string>("all")
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>()
+  const { search } = useOutletContext<OutletContext>()
+  console.log(search);
 
-  const { data: allData } = useGetTemplatesQuery({})
+  const { data: allData } = useGetTemplatesQuery({ search }, { skip: activeTab !== "all" })
   const [deleteTemplate, { isLoading: deleteLoading }] = useDeleteTemplateMutation()
-  const { data, isLoading } = useGetAllUserTemplatesQuery({})
+  const { data, isLoading } = useGetAllUserTemplatesQuery({ search },  { skip: activeTab === "all" })
 
   const handleDelete = async () => {
     await deleteTemplate({ ids: [...selectedIds?.ids!] })

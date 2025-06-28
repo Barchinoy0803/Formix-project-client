@@ -33,3 +33,7 @@ export interface Option {
 }
 
 export type OptionValue = string | number
+
+export interface OutletContext {
+    search: string
+}

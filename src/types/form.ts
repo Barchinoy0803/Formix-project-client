@@ -31,9 +31,14 @@ export interface TemplateForm {
     description: string;
     image?: string;
     type: string;
-    Question: QuestionForm[]
+    Question: QuestionForm[];
+    allowedUsers?: AllowedUsers[]
 }
 
+export interface AllowedUsers {
+    id: string;
+    username: string
+}
 
 export interface QuestionForm {
     id?: string
