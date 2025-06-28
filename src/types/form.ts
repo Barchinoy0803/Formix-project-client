@@ -36,6 +36,7 @@ export interface TemplateForm {
 }
 
 export interface AllowedUsers {
+    username: string;
     id: string;
 }
 
