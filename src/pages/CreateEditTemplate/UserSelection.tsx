@@ -1,15 +1,16 @@
 import { memo } from 'react'
 import { Autocomplete, TextField } from '@mui/material'
-import { Control, Controller, FieldValues, Path } from 'react-hook-form'
+import { Control, Controller } from 'react-hook-form'
 import { getAllUserOptions } from './helpers'
 import { useGetUsersQuery } from '../../service/api/user.api'
+import { TemplateForm, AllowedUsers } from '../../types/form'
 
-interface UserSelectionProps <T extends FieldValues> {
-    name: Path<T>,
-    control: Control<T>,
+interface UserSelectionProps {
+    name: keyof TemplateForm, 
+    control: Control<TemplateForm>,
 }
 
-const UserSelection = <T extends FieldValues> ({ control, name }: UserSelectionProps<T>) => {
+const UserSelection = ({ control, name }: UserSelectionProps) => {
   const { data: allUsers } = useGetUsersQuery({})
   const userOptions = getAllUserOptions(allUsers)
 
@@ -18,26 +19,39 @@ const UserSelection = <T extends FieldValues> ({ control, name }: UserSelectionP
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <Autocomplete
-            className="w-full"
-            multiple
-            limitTags={6}
-            id="multiple-limit-tags"
-            options={userOptions}
-            value={value || []}
-            onChange={(_, newValue) => onChange(newValue)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Users"
-                placeholder="Users"
-                error={!!error}
-                helperText={error?.message}
-              />
-            )}
-          />
-        )}
+        render={({ field: { onChange, value }, fieldState: { error } }) => {
+          const usersArray = Array.isArray(value) && 
+            value.every(item => typeof item === 'object' && 'id' in item) 
+              ? value as AllowedUsers[] 
+              : []
+
+          return (
+            <Autocomplete
+              className="w-full"
+              multiple
+              limitTags={6}
+              id="multiple-limit-tags"
+              options={userOptions}
+              value={usersArray.map(user => user.id) || []}
+              onChange={(_, newValue) => {
+                const selectedUsers = newValue.map(id => ({
+                  id,
+                  username: userOptions.find((opt: any) => opt.value === id)?.label || id
+                }))
+                onChange(selectedUsers)
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Users"
+                  placeholder="Users"
+                  error={!!error}
+                  helperText={error?.message}
+                />
+              )}
+            />
+          )
+        }}
       />
     </div>
   )

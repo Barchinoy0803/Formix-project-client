@@ -26,7 +26,7 @@ const Survey = () => {
 
   const [createForm] = useCreateFormMutation()
   const [updateForm] = useUpdateFormMutation()
-  const { reset, control, handleSubmit, getValues } = useForm<Form>()
+  const { reset, control, handleSubmit } = useForm<Form>()
   const { fields } = useFieldArray({ control, name: 'Question' })
 
   const searchParams = new URLSearchParams(location.search);

@@ -14,7 +14,7 @@ import { TiPlus } from "react-icons/ti";
 import { QUESTION_TYPE, TEMPLATE_TYPE } from "../../types"
 import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import UserSelection from "./userSelection"
+import UserSelection from "./UserSelection"
 
 const CreateEditTemplate = () => {
     const [file, setFile] = useState<File>()
