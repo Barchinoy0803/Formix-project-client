@@ -47,6 +47,7 @@ const CreateEditTemplate = () => {
             reset(data)
         }
     }, [data])
+    console.log(getValues())
 
     const handleRemoveQuestion = (index: number) => {
         remove(index)
@@ -118,7 +119,7 @@ const CreateEditTemplate = () => {
                                     <CustomSelect disabled={!!isReadMode} control={control} name="type" label="Type" options={templateTypeOptions} />
                                 </div>
                                 {
-                                    templateType === TEMPLATE_TYPE.PRIVATE && <UserSelection control={control} name='allowedUsers'/>
+                                    templateType === TEMPLATE_TYPE.PRIVATE && <UserSelection control={control} name='TemplateAccess'/>
                                 }
                                 <ControlledTextField disabled={!!isReadMode} lineCount={5} control={control} name='description' label="Description" />
                                 <div className="flex justify-between items-center">

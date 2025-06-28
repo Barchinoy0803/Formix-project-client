@@ -32,7 +32,7 @@ export interface TemplateForm {
     image?: string;
     type: string;
     Question: QuestionForm[];
-    allowedUsers?: AllowedUsers[]
+    TemplateAccess?: AllowedUsers[]
 }
 
 export interface AllowedUsers {
