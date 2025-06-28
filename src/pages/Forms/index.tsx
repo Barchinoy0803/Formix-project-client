@@ -9,9 +9,13 @@ import { FaEdit } from 'react-icons/fa';
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { FaEye } from "react-icons/fa";
+import { RootState } from '../../redux'
+import { useSelector } from 'react-redux'
+import Card from '../../components/Card'
 
 
 const Form = () => {
+  const { searchtext, searchResults } = useSelector((state: RootState) => state.templates)
   const navigate = useNavigate()
   const { data: alldata } = useGetAllUserFormsQuery({})
   const { data: formsData, isLoading } = useGetFormsQuery({})
@@ -63,7 +67,7 @@ const Form = () => {
         }
       </div>
       {
-        isLoading ? <CircularProgress /> : <CustomTabs tabNames={formTabNames} setActiveTab={setActiveTab} activeTab={activeTab} allData={formsData} columns={FormTableColums} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={alldata} />
+        searchtext.length ? <div className='flex items-center gap-4'>{searchResults.map((item) => (<Card templateData={item} />))}</div> : isLoading ? <CircularProgress /> : <CustomTabs tabNames={formTabNames} setActiveTab={setActiveTab} activeTab={activeTab} allData={formsData} columns={FormTableColums} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={alldata} />
       }
     </div>
   )

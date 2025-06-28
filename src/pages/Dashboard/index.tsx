@@ -1,14 +1,30 @@
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import CustomDrawer from '../../components/Drawer'
 import { Outlet, useLocation } from 'react-router-dom'
 import LanguageSwitcher from '../../components/LanguageSwitcher'
 import { CiSearch } from "react-icons/ci"
+import { useDispatch } from 'react-redux'
+import { setSearchResults, setSearchText } from '../../redux/features/template.slice'
+import { useGetTemplatesQuery } from '../../service/api/template.api'
 
 const Dashboard = () => {
+    const dispatch = useDispatch()
     const [search, setSearch] = useState('')
     const location = useLocation()
-
     const showSearch = ['/dashboard/templates', '/dashboard/forms', '/dashboard/analyze'].includes(location.pathname)
+
+    const { data: allData } = useGetTemplatesQuery({ search })
+
+    useEffect(() => {
+        if (allData) {
+            dispatch(setSearchResults(allData))
+        }
+    }, [allData])
+
+
+    useEffect(() => {
+        dispatch(setSearchText(search))
+    }, [search])
 
     return (
         <div className='flex flex-col gap-3'>

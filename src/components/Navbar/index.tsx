@@ -1,16 +1,21 @@
 import { NavLink } from "react-router-dom"
 import { useTranslator } from "../../hooks/useTranslator"
-import { Dispatch, SetStateAction } from "react";
 import { CiSearch } from "react-icons/ci";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchText } from "../../redux/features/template.slice";
 
 
-interface NavbarProps {
-  search: string;
-  setSearch: Dispatch<SetStateAction<string>>
-}
-
-const Navbar = ({ search, setSearch }: NavbarProps) => {
+const Navbar = () => {
   const { t } = useTranslator('auth')
+  const dispatch = useDispatch()
+  const [search, setSearch] = useState<string>("")
+
+  useEffect(() => {
+    dispatch(setSearchText(search))
+  }, [])
+
+
   return (
     <nav className="bg-white shadow-sm border-b border-gray-100 mb-6">
       <div className="max-w-7xl mx-auto">
