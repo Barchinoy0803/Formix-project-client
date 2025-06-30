@@ -79,3 +79,6 @@ export interface SelectedOptionOnAnswer {
     option: OptionForm[]
 }
 
+export interface QuestionAnalyzesForm {
+    question: string | number;
+}

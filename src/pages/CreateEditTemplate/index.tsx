@@ -47,11 +47,9 @@ const CreateEditTemplate = () => {
             reset(data)
         }
     }, [data])
-    console.log(getValues())
 
     const handleRemoveQuestion = (index: number) => {
         remove(index)
-
     }
 
     const handleAddQuestion = () => {

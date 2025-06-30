@@ -10,13 +10,32 @@ const extendedApi = mainApi.injectEndpoints({
             }),
             providesTags: ['QUESTION']
         }),
+        getTemplateQuestions: build.query({
+            query: (params) => ({
+                method: "GET",
+                url: "/question",
+                params
+            }),
+            providesTags: ['QUESTION']
+        }),
         getOneQuestion: build.query({
             query: (id) => ({
                 method: "GET",
                 url: `/question/${id}`,
                 id
-            })
+            }),
+            providesTags: ['QUESTION']
         }),
+
+        getAnalyzes: build.query({
+            query: (id) => ({
+                method: "GET",
+                url: `/analyze/${id}`,
+                id
+            }),
+            providesTags: ['ANALYZE']
+        }),
+
         createQuestion: build.mutation({
             query: (body) => ({
                 method: "POST",
@@ -45,4 +64,4 @@ const extendedApi = mainApi.injectEndpoints({
     overrideExisting: false
 })
 
-export const { useCreateQuestionMutation, useDeleteQuestionMutation, useGetOneQuestionQuery, useGetQuestionsQuery, useUpdateQuestionMutation } = extendedApi
+export const { useCreateQuestionMutation, useDeleteQuestionMutation, useGetOneQuestionQuery, useGetQuestionsQuery, useUpdateQuestionMutation, useGetTemplateQuestionsQuery, useGetAnalyzesQuery } = extendedApi

@@ -8,7 +8,7 @@ import Login from '../pages/auth/login'
 import Forms from '../pages/Forms'
 import Templates from '../pages/Templates'
 import UserManagment from '../pages/UserManagment'
-import Analyze from '../pages/Analyze'
+import Template from '../pages/Template'
 import CreateEditTemplate from '../pages/CreateEditTemplate'
 import Survey from '../pages/Survey'
 import Home from '../pages/Home'
@@ -47,14 +47,11 @@ const MainRouter = () => {
                         path: 'templates', element: <Templates />,
                     },
                     {
-                        path: 'template/:id', element: <CreateEditTemplate />,
+                        path: 'template/:id', element: <Template />,
                     },
                     {
                         path: 'user-managment', element: <UserManagment />
-                    },
-                    {
-                        path: 'analyze', element: <Analyze />
-                    },
+                    }
                 ]
             },
         ])

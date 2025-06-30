@@ -37,9 +37,6 @@ const CheckboxGroup = <T extends FieldValues>({ label, options, control, name, d
                     name={name}
                     control={control}
                     render={({ field }) => {
-                        console.log('field:', field);
-                        console.log('field value:', field.value); 
-
                         return (
                             <FormGroup>
                                 {options.map(({ value, label }) => (

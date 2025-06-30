@@ -33,8 +33,6 @@ const Register = () => {
         navigate("/auth/email-verification")
       }
     } catch (error) {
-      console.log(error);
-
       const err = error as ErrorType
       if (err.status === 400 || err.status === 409) {
         toast.error(err.data.message)
