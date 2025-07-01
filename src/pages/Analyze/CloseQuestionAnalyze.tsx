@@ -1,13 +1,15 @@
 import ReactECharts from 'echarts-for-react'
+import { useTranslator } from '../../hooks/useTranslator'
 
 interface CloseQuestionAnalyzeProps {
     analyze: any
 }
 
 const CloseQuestionAnalyze = ({ analyze }: CloseQuestionAnalyzeProps) => {
+    const { t } = useTranslator('analyze')
     const option = {
         title: {
-            text: 'Answers',
+            text: t('answers'),
         },
         tooltip: { trigger: "item" },
         legend: { orient: "vertical", right: "right" },
@@ -19,10 +21,10 @@ const CloseQuestionAnalyze = ({ analyze }: CloseQuestionAnalyzeProps) => {
                 radius: "65%",
                 data: [
                     {
-                        value: analyze.YES, name: "Yes"
+                        value: analyze.YES, name: t('yes')
                     },
                     {
-                        value: analyze.NO, name: "No"
+                        value: analyze.NO, name: t('no')
                     }
                 ]
             },

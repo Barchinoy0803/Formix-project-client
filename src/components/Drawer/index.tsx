@@ -101,7 +101,7 @@ const CustomDrawer = () => {
                 startIcon={<MenuIcon className="transition-transform duration-300 group-hover:rotate-180 text-[#47aed6]" />}
                 onClick={toggleDrawer(true)}
             >
-                <span className="font-medium text-[#47aed6]">Menu</span>
+                <span className="font-medium text-[#47aed6]">{t('menu')}</span>
             </Button>
 
             <Drawer

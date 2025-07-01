@@ -6,7 +6,8 @@
         "analyze": "Tahlil",
         "userManagement": "Foydalanuvchilar boshqaruvi",
         "search": "Qidirish",
-        "blankTemplate": "Bo‘sh shablon"
+        "blankTemplate": "Bo‘sh shablon",
+        "menu": "Menyu"
     },
     "buttons": {
         "delete": "O'chirish",
@@ -15,7 +16,8 @@
         "startSurvey": "So‘rovnomani boshlash",
         "addOption": "Variant qo‘shish",
         "send": "Yuborish",
-        "otpTitle": "Emailni Tasdiqlash"
+        "otpTitle": "Emailni Tasdiqlash",
+        "submit": "Yuborish"
     },
     "fileUpload": {
         "sizeError": "Fayl hajmi 10MB dan kam bo‘lishi kerak",
@@ -34,7 +36,20 @@
        "noAccountNote": "Agar sizda akkaunt bo‘lmasa:",
        "otpError": "Noto‘g‘ri kod.\nIltimos, emailingizga yuborilgan to‘g‘ri kodni kiriting.",
        "otpLength": "OTP aynan 6 raqamdan iborat bo‘lishi kerak",
-       "sentCodeNote": "Tasdiqlash kodi emailingizga yuborildi."
+       "sentCodeNote": "Tasdiqlash kodi emailingizga yuborildi.",
+       "otpTitle": "Elektron pochta tasdiqlanishi",
+       "haveAccount": "Hisobingiz bormi?",
+       "users": "Foydalanuvchilar",
+       "userDeleted": "Foydalanuvchi o‘chirildi!",
+       "statusUpdated": "Foydalanuvchi holati yangilandi!",
+       "blockUsers": "Foydalanuvchilarni bloklash",
+       "unlockUsers": "Foydalanuvchilarning blokini ochish",
+       "promoteAdmin": "Admin lavozimiga ko‘tarish",
+       "demoteAdmin": "Admin lavozimidan tushirish",
+       "deleteUsers": "Foydalanuvchilarni o‘chirish",
+       "block": "Bloklash",
+       "unblock": "Blokdan chiqarish",
+       "delete": "O‘chirish"
     },
     "question": {
        "question": "Savol",
@@ -49,7 +64,13 @@
        "public": "Ommaviy",
        "private": "Shaxsiy",
        "all": "Barcha shablonlar",
-       "your": "Sizning shablonlaringiz"
+       "your": "Sizning shablonlaringiz",
+       "createTemplate": "Yangi shablon yaratish",
+       "updateTemplate": "Shablonni yangilash",
+       "success": "Muvaffaqiyatli yaratildi!",
+       "error": "Nimadir noto‘g‘ri ketdi!",
+       "questions": "Savollar",
+       "addQuestion": "Savol qo‘shish"
     },
     "table": {
        "username": "Foydalanuvchi nomi",
@@ -65,7 +86,26 @@
     },
     "forms": {
       "all": "Barcha shakllar",
-      "your": "Sizning shakllaringiz"
+      "your": "Sizning shakllaringiz",
+      "deleteToast": "Formlar o‘chirildi!",
+      "allNote": "Ushbu jadval sizning shablonlaringizga yuborilgan to‘ldirilgan formlarni o‘z ichiga oladi.",
+      "yourNote": "Ushbu jadval siz to‘ldirgan formlarni o‘z ichiga oladi.",
+      "deleteForms": "Formlarni o‘chirish",
+      "updateForms": "Formlarni yangilash",
+      "showForms": "Formlarni ko‘rsatish",
+      "delete": "O‘chirish",
+      "update": "Yangilash",
+      "show": "Ko‘rsatish",
+      "submitSurvey": "Surveyni yuborish"
+    },
+    "analyze": {
+      "answers": "Javoblar",
+      "yes": "Ha",
+      "no": "Yo‘q"
+    },
+    "validation": {
+      "emailError": "Email manzili to‘g‘ri formatda bo‘lishi kerak (masalan, user@gmail.com)",
+      "passwordError": "Parol kamida 8 ta belgidan iborat bo‘lishi kerak",
+      "passwordReqError": "Parolda kamida bitta katta harf, bitta kichik harf, bitta raqam va bitta maxsus belgi (masalan, !@#$%^&*()) bo‘lishi kerak"
     }
-
 }

@@ -15,11 +15,14 @@ import { QUESTION_TYPE, TEMPLATE_TYPE } from "../../types"
 import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import UserSelection from "./UserSelection"
+import { useTranslator } from "../../hooks/useTranslator"
 
 const CreateEditTemplate = () => {
     const [file, setFile] = useState<File>()
     const location = useLocation();
     const { id } = useParams()
+    const { t } = useTranslator('buttons')
+    const { t:template } = useTranslator('template')
 
     const [fileUpload] = useFileUploadMutation()
     const [createTemplate, { isLoading: createLoading }] = useCreateTemplateMutation()
@@ -76,9 +79,9 @@ const CreateEditTemplate = () => {
             const result = await createTemplate({ ...payload, image: imageUrl });
 
             if (result) {
-                toast.success("Successfully created!")
+                toast.success(template('success'))
             } else {
-                toast.error("Something went wrong!")
+                toast.error(template('error'))
             }
         } else {
             await updateTemplate({ id, body: { ...payload, image: imageUrl } })
@@ -106,7 +109,7 @@ const CreateEditTemplate = () => {
             {
                 !isLoading ? <div className="container mx-auto w-[800px] flex flex-col gap-3">
                     {
-                        !isReadMode && <Typography variant="h5" >{isCreateOption ? "Create new template" : "Update template"}</Typography>
+                        !isReadMode && <Typography variant="h5" >{isCreateOption ? template('createTemplate') : template('updateTemplate')}</Typography>
                     }
                     <div>
                         <FormProvider {...methods}>
@@ -122,8 +125,8 @@ const CreateEditTemplate = () => {
                                 }
                                 <ControlledTextField disabled={!!isReadMode} lineCount={5} control={control} name='description' label="Description" />
                                 <div className="flex justify-between items-center">
-                                    <Typography variant="h6">Questions</Typography>
-                                    <Button disabled={!!isReadMode} onClick={handleAddQuestion} variant="outlined" startIcon={<TiPlus />}>Add question</Button>
+                                    <Typography variant="h6">{template('questions')}</Typography>
+                                    <Button disabled={!!isReadMode} onClick={handleAddQuestion} variant="outlined" startIcon={<TiPlus />}>{template('addQuestion')}</Button>
                                 </div>
                                 <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                                     <SortableContext items={fields} strategy={verticalListSortingStrategy}>
@@ -136,7 +139,7 @@ const CreateEditTemplate = () => {
                                 </DndContext>
                                 {
                                     !isReadMode &&
-                                    <Button type="submit" variant="contained" disabled={createLoading || updateLoading || !isValid || !isDirty}>Submit</Button>
+                                    <Button type="submit" variant="contained" disabled={createLoading || updateLoading || !isValid || !isDirty}>{t('submit')}</Button>
                                 }
                             </form>
                         </FormProvider>

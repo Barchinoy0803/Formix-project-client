@@ -1,15 +1,16 @@
 import { z } from "zod";
 import { QUESTION_TYPE } from ".";
+import i18next from "i18next";
 
 export const RegisterSchema = z.object({
     username: z.string(),
-    email: z.string().email({ message: "Email should be as email (e.g. user@gmail.com)" }),
-    password: z.string().min(8, { message: "Password should be at least 8 characters" }).refine((value) => (
+    email: z.string().email({ message: i18next.t('validation.emailError') }),
+    password: z.string().min(8, { message: i18next.t('validation.passwordError') }).refine((value) => (
         /[A-Z]/.test(value) &&
         /[a-z]/.test(value) &&
         /[0-9]/.test(value) &&
         /[^A-Za-z0-9]/.test(value)
-    ), { message: "Password should include at least one uppercase letter, one lowercase letter, one number, one special character (e.g. !@#$%^&*())" }),
+    ), { message: i18next.t('validation.passwordReqError') }),
 })
 
 export interface OtpForm {
@@ -17,7 +18,7 @@ export interface OtpForm {
 }
 
 export const LoginSchema = z.object({
-    email: z.string().email({ message: "Email should be as email (e.g. user@gmail.com)" }),
+    email: z.string().email({ message: i18next.t('validation.emailError') }),
     password: z.string()
 })
 

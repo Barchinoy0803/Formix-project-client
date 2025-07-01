@@ -10,8 +10,6 @@ const LanguageSwitcher = () => {
     localStorage.setItem('lng', lng);
   };
 
- 
-
   return (
     <div className="flex justify-center">
       <select

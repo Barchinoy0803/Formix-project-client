@@ -12,9 +12,10 @@ import { FaEye } from "react-icons/fa";
 import { RootState } from '../../redux'
 import { useSelector } from 'react-redux'
 import Card from '../../components/Card'
-
+import { useTranslator } from '../../hooks/useTranslator'
 
 const Form = () => {
+  const { t } = useTranslator('forms')
   const { searchtext, searchResults } = useSelector((state: RootState) => state.templates)
   const navigate = useNavigate()
   const { data: alldata } = useGetAllUserFormsQuery({})
@@ -33,7 +34,7 @@ const Form = () => {
 
   const handleDelete = async () => {
     await deleteForms({ ids: [...selectedIds?.ids!] })
-    toast.success("Forms deleted!")
+    toast.success(t('deleteToast'))
   }
 
   const handleUpdate = async () => {
@@ -47,22 +48,20 @@ const Form = () => {
   return (
     <div className='container mx-auto flex flex-col gap-3 mt-[50px] mb-[30px]'>
       <Alert className='mb-5' variant="outlined" severity="info">
-        {activeTab === 'all'
-          ? "This table includes filled forms submitted to your templates."
-          : "This table includes forms that you have filled out."}
+        {activeTab === 'all' ? t('allNote') : t('yourNote')}
       </Alert>
       <div className='flex items-center gap-5 mb-3'>
         {
           !isAllForms ? <>
-            <Tooltip placement='top' title='Delete forms'>
-              <Button color='error' disabled={deleteLoading || isAllForms} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>Delete</Button>
+            <Tooltip placement='top' title={t('deleteForms')}>
+              <Button color='error' disabled={deleteLoading || isAllForms} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>{t('delete')}</Button>
             </Tooltip>
-            <Tooltip placement='top' title='Update forms'>
-              <Button disabled={deleteLoading || isAllForms} onClick={handleUpdate} startIcon={<FaEdit />} variant='outlined'>Update</Button>
+            <Tooltip placement='top' title={t('updateForms')}>
+              <Button disabled={deleteLoading || isAllForms} onClick={handleUpdate} startIcon={<FaEdit />} variant='outlined'>{t('update')}</Button>
             </Tooltip>
           </> :
-            <Tooltip placement='top' title='Show forms'>
-              <Button disabled={deleteLoading} onClick={handleShow} startIcon={<FaEye />} variant='outlined'>Show</Button>
+            <Tooltip placement='top' title={t('showForms')}>
+              <Button disabled={deleteLoading} onClick={handleShow} startIcon={<FaEye />} variant='outlined'>{t('show')}</Button>
             </Tooltip>
         }
       </div>

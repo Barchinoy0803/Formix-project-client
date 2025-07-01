@@ -11,9 +11,11 @@ import { RegisterForm, RegisterSchema } from '../../../types/form'
 import ControlledTextField from '../../../components/TextField'
 import { useDispatch } from 'react-redux'
 import { setEmail } from '../../../redux/features/user.slice'
+import { useTranslator } from '../../../hooks/useTranslator'
 
 const Register = () => {
   const dispatch = useDispatch()
+  const { t } = useTranslator('auth')
   const { control, handleSubmit, formState: { isValid } } = useForm<RegisterForm>(
     {
       defaultValues: defaultUser,
@@ -44,14 +46,14 @@ const Register = () => {
   return (
     <div className='w-[400px] h-[400px] max-[430px]:w-full flex flex-col gap-3'>
       <Typography variant="h5">
-        Register
+        {t('register')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4' action="">
         <ControlledTextField label='Username' name='username' control={control} />
         <ControlledTextField label='Email' name='email' control={control} />
         <ControlledTextField label='Password' name='password' control={control} />
-        <Button disabled={!isValid} type='submit' loading={isLoading} variant='contained' color='primary' size='large'>Register</Button>
-        <span>Do you have an account? <Link className='text-[#7985f7]' to='/auth/login'>Login</Link></span>
+        <Button disabled={!isValid} type='submit' loading={isLoading} variant='contained' color='primary' size='large'>{t('register')}</Button>
+        <span>{t('haveAccount')} <Link className='text-[#7985f7]' to='/auth/login'>{t('login')}</Link></span>
       </form>
     </div>
   )

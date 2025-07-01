@@ -3,6 +3,7 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { Control, Controller } from 'react-hook-form';
 import { useGetUsersQuery } from '../../service/api/user.api';
 import { TemplateForm, AllowedUsers } from '../../types/form';
+import { useTranslator } from '../../hooks/useTranslator';
 
 type UserOption = AllowedUsers;
 
@@ -17,6 +18,7 @@ interface UserSelectionProps {
 
 const UserSelection = ({ control, name }: UserSelectionProps) => {
   const { data: allUsers, isFetching } = useGetUsersQuery({});
+  const { t } = useTranslator()
 
   const userOptions: UserOption[] = useMemo(
     () =>
@@ -50,8 +52,8 @@ const UserSelection = ({ control, name }: UserSelectionProps) => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Users"
-                placeholder="Users"
+                label={t('users')}
+                placeholder={t('users')}
                 error={!!error}
                 helperText={error?.message}
               />

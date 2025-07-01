@@ -1,13 +1,15 @@
 import ReactECharts from 'echarts-for-react'
+import { useTranslator } from '../../hooks/useTranslator'
 
 interface MultichoiceQuestionAnalyzeProps {
     analyze: any
 }
 
 const MultichoiceQuestionAnalyze = ({ analyze }: MultichoiceQuestionAnalyzeProps) => {
+    const { t } = useTranslator('analyze')
     const option = {
         title: {
-            text: 'Answers',
+            text: t('answers')
         },
         tooltip: { trigger: "item" },
         legend: { orient: "vertical", right: "right" },

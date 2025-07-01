@@ -1,13 +1,15 @@
 import ReactECharts from 'echarts-for-react'
+import { useTranslator } from '../../hooks/useTranslator'
 
 interface NumericalQuestionAnalyzeProps {
     analyze: any
 }
 
 const NumericalQuestionAnalyze = ({ analyze }: NumericalQuestionAnalyzeProps) => {
+    const { t } = useTranslator('analyze')
     const option = {
         title: {
-            text: 'Answers',
+            text: t('answers'),
         },
         tooltip: {},
         xAxis: {

@@ -6,7 +6,8 @@
         "analyze": "Analyze",
         "userManagement": "User management",
         "search": "Search",
-        "blankTemplate": "Blank template"
+        "blankTemplate": "Blank template",
+        "menu": "Menu"
     },
     "buttons": {
         "delete": "Delete",
@@ -14,7 +15,8 @@
         "create": "Create",
         "startSurvey": "Start Survey",
         "addOption": "Add option",
-        "send": "Send"
+        "send": "Send",
+        "submit": "Submit"
     },
     "fileUpload": {
         "sizeError": "File size must be less than 10MB",
@@ -34,7 +36,19 @@
         "otpError": "Invalid code.\nPlease enter correct code that you recieve on your email.",
         "otpLength": "OTP must be exactly 6 digits",
         "sentCodeNote": "We have sent a verification code to your email.",
-        "otpTitle": "Email Verification"
+        "otpTitle": "Email Verification",
+        "haveAccount": "Do you have an account?",
+        "users": "Users",
+        "userDeleted": "User deleted!",
+        "statusUpdated": "User status updated!",
+        "blockUsers": "Block Users",
+        "unlockUsers": "Unlock Users",
+        "promoteAdmin": "Promote Admin",
+        "demoteAdmin": "Demote Admin",
+        "deleteUsers": "Delete Users",
+        "block": "Block",
+        "unblock": "Unblock",
+        "delete": "Delete"
     },
     "question": {
         "question": "Question",
@@ -50,7 +64,13 @@
         "public": "Public",
         "private": "Private",
         "all": "All templates",
-        "your": "Your templates"
+        "your": "Your templates",
+        "createTemplate": "Create new template",
+        "updateTemplate": "Update template",
+        "success": "Successfully created!",
+        "error": "Something went wrong!",
+        "questions": "Questions",
+        "addQuestion": "Add question"
     },
     "table": {
         "username": "Username",
@@ -66,6 +86,26 @@
     },
     "forms": {
         "all": "All forms",
-        "your": "Your forms"
+        "your": "Your forms",
+        "deleteToast": "Forms deleted!",
+        "allNote": "This table includes filled forms submitted to your templates.",
+        "yourNote": "This table includes forms that you have filled out.",
+        "deleteForms": "Delete forms",
+        "updateForms": "Update forms",
+        "showForms": "Show forms",
+        "delete": "Delete",
+        "update": "Update",
+        "show": "Show",
+        "submitSurvey": "Submit Survey"
+    },
+    "analyze": {
+        "answers": "Answers",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "validation": {
+        "emailError": "Email should be as email (e.g. user@gmail.com)",
+        "passwordError": "Password should be at least 8 characters",
+        "passwordReqError": "Password should include at least one uppercase letter, one lowercase letter, one number, one special character (e.g. !@#$%^&*())"
     }
 }

@@ -8,9 +8,11 @@ import toast from 'react-hot-toast';
 import { FaUserShield, FaUserSlash } from "react-icons/fa";
 import { CustomTable } from '../../components/Table';
 import { UserTableColumns } from '../../constants';
+import { useTranslator } from '../../hooks/useTranslator';
 
 const UserManagment = () => {
     const { data, isLoading } = useGetUsersQuery({})
+    const { t } = useTranslator('auth')
     const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>();
     const [deleteUser, { isLoading: deleteLoading }] = useDeleteUsersMutation()
     const [updateUserRole] = useUpdateUserRoleMutation()
@@ -18,36 +20,36 @@ const UserManagment = () => {
 
     const handleDelete = async () => {
         await deleteUser({ ids: [...selectedIds?.ids!] })
-        toast.success("User deleted!")
+        toast.success(t('userDeleted'))
     }
 
     const handleUpdateUserStatus = async (isBlockAction: boolean) => {
         await updateUserStatus({ ids: [...selectedIds?.ids!], status: isBlockAction ? "BLOCKED" : "ACTIVE" })
-        toast.success("User status updated!")
+        toast.success(t('statusUpdated'))
     }
 
      const handleUpdateUserRole = async (isAdminAction: boolean) => {
         await updateUserRole({ ids: [...selectedIds?.ids!], role: isAdminAction ? "ADMIN" : "USER" })
-        toast.success("User status updated!")
+        toast.success(t('statusUpdated'))
     }
 
     return (
         <div className='container mx-auto flex flex-col gap-3 mt-[50px] mb-[30px]'>
             <div className='flex items-center gap-5 mb-3'>
-                <Tooltip placement='top' title='Block Users'>
-                    <Button onClick={() => handleUpdateUserStatus(true)} startIcon={<FaLock />} variant='outlined'>Block</Button>
+                <Tooltip placement='top' title={t('blockUsers')}>
+                    <Button onClick={() => handleUpdateUserStatus(true)} startIcon={<FaLock />} variant='outlined'>{t('block')}</Button>
                 </Tooltip>
-                <Tooltip placement='top' title='Unlock Users'>
-                    <Button onClick={() => handleUpdateUserStatus(false)} startIcon={<FaUnlockKeyhole className='text-[#1976d2]' />} variant='outlined'>Unblock</Button>
+                <Tooltip placement='top' title={t('unlockUsers')}>
+                    <Button onClick={() => handleUpdateUserStatus(false)} startIcon={<FaUnlockKeyhole className='text-[#1976d2]' />} variant='outlined'>{t('unblock')}</Button>
                 </Tooltip>
-                <Tooltip placement='top' title='Promote Admin'>
-                    <Button className='text-red-600' disabled={deleteLoading} onClick={() => handleUpdateUserRole(true)} startIcon={<FaUserShield />} variant='outlined'>Promote Admin</Button>
+                <Tooltip placement='top' title={t('promoteAdmin')}>
+                    <Button className='text-red-600' disabled={deleteLoading} onClick={() => handleUpdateUserRole(true)} startIcon={<FaUserShield />} variant='outlined'>{t('promoteAdmin')}</Button>
                 </Tooltip>
-                <Tooltip placement='top' title='Demote Admin'>
-                    <Button className='text-red-600' disabled={deleteLoading} onClick={() => handleUpdateUserRole(false)} startIcon={<FaUserSlash />} variant='outlined'>Demote Admin</Button>
+                <Tooltip placement='top' title={t('demoteAdmin')}>
+                    <Button className='text-red-600' disabled={deleteLoading} onClick={() => handleUpdateUserRole(false)} startIcon={<FaUserSlash />} variant='outlined'>{t('demoteAdmin')}</Button>
                 </Tooltip>
-                <Tooltip placement='top' title='Delete Users'>
-                    <Button color='error' disabled={deleteLoading} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>Delete</Button>
+                <Tooltip placement='top' title={t('deleteUsers')}>
+                    <Button color='error' disabled={deleteLoading} onClick={handleDelete} startIcon={<FaRegTrashCan />} variant='outlined'>{t('delete')}</Button>
                 </Tooltip>
             </div>
             {

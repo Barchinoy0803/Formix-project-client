@@ -6,12 +6,14 @@ import { CiSearch } from "react-icons/ci"
 import { useDispatch } from 'react-redux'
 import { setSearchResults, setSearchText } from '../../redux/features/template.slice'
 import { useGetTemplatesQuery } from '../../service/api/template.api'
+import { useTranslator } from '../../hooks/useTranslator'
 
 const Dashboard = () => {
     const dispatch = useDispatch()
     const [search, setSearch] = useState('')
     const location = useLocation()
     const showSearch = ['/dashboard/templates', '/dashboard/forms', '/dashboard/analyze'].includes(location.pathname)
+    const { t } = useTranslator('dashboard')
 
     const { data: allData } = useGetTemplatesQuery({ search })
 
@@ -38,7 +40,7 @@ const Dashboard = () => {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="w-[600px] h-[45px] outline-none"
-                                placeholder="Search"
+                                placeholder={t('search')}
                             />
                         </div>
                     )}

@@ -17,10 +17,12 @@ import { useFieldArray, useForm } from 'react-hook-form'
 import { AnswerForm, Form, QuestionForm } from '../../types/form'
 import { renderQuestion } from './helpers'
 import { useCreateFormMutation, useGetOneFormQuery, useIsExistingTemplateMutation, useUpdateFormMutation } from '../../service/api/form.api'
+import { useTranslator } from '../../hooks/useTranslator'
 
 const Survey = () => {
   const location = useLocation();
   const { id } = useParams();
+  const { t } = useTranslator('submitSurvey')
 
   const [isExsist] = useIsExistingTemplateMutation()
 
@@ -81,7 +83,6 @@ const Survey = () => {
             : a.answer,
       }))
     }
-    console.log(payload);
 
     if (!isUpdateForm) {
       const { data: filledForm } = await isExsist(id)
@@ -169,7 +170,6 @@ const Survey = () => {
                 </Box>
                 <Divider className="mb-6 border-gray-200" />
                 <Box className="w-full">
-                  {/* {renderQuestion({ question, control, index })} */}
                   {renderQuestion({ question, control, index, isReadMode: !!isReadMode })}
                 </Box>
               </Paper>
@@ -185,7 +185,7 @@ const Survey = () => {
                 size="large"
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg font-semibold px-12 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
               >
-                Submit Survey
+                {t('submitSurvey')}
               </Button>
             </Box>
           }
@@ -193,21 +193,6 @@ const Survey = () => {
       ) : (
         <Box className="flex flex-col items-center justify-center min-h-screen space-y-6">
           <CircularProgress size={64} thickness={4} className="text-blue-600" />
-          <Stack spacing={1} alignItems="center" className="text-center space-y-2">
-            <Typography
-              variant="h5"
-              component="p"
-              className="text-gray-700 text-xl font-medium"
-            >
-              Loading survey...
-            </Typography>
-            <Typography
-              variant="body2"
-              className="text-gray-500 text-sm"
-            >
-              Please wait while we fetch your data
-            </Typography>
-          </Stack>
         </Box>
       )}
     </Container>

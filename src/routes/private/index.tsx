@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { validateToken } from '../../helpers'
 import Dashboard from '../../pages/Dashboard'
 
