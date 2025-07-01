@@ -1,6 +1,4 @@
-import i18next from "i18next"
 import { QUESTION_TYPE, TEMPLATE_TYPE } from "../types"
-import i18n from "../utils/i18n"
 import { Box, Typography } from "@mui/material"
 
 export const defaultUser = {
@@ -173,13 +171,13 @@ export const FormTableColums = [
 ];
 
 export const templateTabNames = [
-  "All templates",
-  "Your templates"
+  'template.all',
+  'template.your'
 ];
 
 export const formTabNames = [
-  "All forms",
-  "Your forms"
+  'forms.all',
+  'forms.your'
 ]
 
  export const languages = [

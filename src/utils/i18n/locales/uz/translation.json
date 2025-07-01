@@ -4,7 +4,9 @@
         "templates": "Shablonlar",
         "forms": "Formalar",
         "analyze": "Tahlil",
-        "userManagement": "Foydalanuvchilar boshqaruvi"
+        "userManagement": "Foydalanuvchilar boshqaruvi",
+        "search": "Qidirish",
+        "blankTemplate": "Bo‘sh shablon"
     },
     "buttons": {
         "delete": "O'chirish",
@@ -45,7 +47,9 @@
     },
     "template": {
        "public": "Ommaviy",
-       "private": "Shaxsiy"
+       "private": "Shaxsiy",
+       "all": "Barcha shablonlar",
+       "your": "Sizning shablonlaringiz"
     },
     "table": {
        "username": "Foydalanuvchi nomi",
@@ -58,5 +62,10 @@
        "topic": "Mavzu",
        "description": "Tavsif",
        "type": "Tur"
+    },
+    "forms": {
+      "all": "Barcha shakllar",
+      "your": "Sizning shakllaringiz"
     }
+
 }

@@ -4,7 +4,9 @@
         "templates": "Шаблоны",
         "forms": "Формы",
         "analyze": "Анализ",
-        "userManagement": "Управление пользователями"
+        "userManagement": "Управление пользователями",
+        "search": "Поиск",
+        "blankTemplate": "Пустой шаблон"
     },
     "buttons": {
         "delete": "Удалить",
@@ -45,7 +47,9 @@
     },
     "template": {
         "public": "Публичный",
-        "private": "Приватный"
+        "private": "Приватный",
+        "all": "Все шаблоны",
+        "your": "Ваши шаблоны"
     },
     "table": {
         "username": "Имя пользователя",
@@ -58,5 +62,9 @@
         "topic": "Тема",
         "description": "Описание",
         "type": "Тип"
+    },
+    "forms": {
+       "all": "Все формы",
+       "your": "Ваши формы"
     }
 }

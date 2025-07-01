@@ -6,6 +6,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { CustomTable } from '../Table';
 import { TemplateForm } from '../../types/form';
 import { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
+import { useTranslator } from '../../hooks/useTranslator';
 
 interface TabsProps {
     data: TemplateForm[],
@@ -19,6 +20,7 @@ interface TabsProps {
 }
 
 const CustomTabs = ({ data, columns, selectedIds, setSelectedIds, allData, activeTab, setActiveTab, tabNames }: TabsProps) => {
+    const { t } = useTranslator()
 
     const handleChange = (_: React.SyntheticEvent, newValue: string) => {
         setActiveTab(newValue);
@@ -30,8 +32,8 @@ const CustomTabs = ({ data, columns, selectedIds, setSelectedIds, allData, activ
             <TabContext value={activeTab}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                        <Tab label={tabNames[0]} value='all' />
-                        <Tab label={tabNames[1]} value='owner' />
+                        <Tab label={t(tabNames[0])} value='all' />
+                        <Tab label={t(tabNames[1])} value='owner' />
                     </TabList>
                 </Box>
                 <TabPanel value="all">

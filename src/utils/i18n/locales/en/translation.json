@@ -4,14 +4,17 @@
         "templates": "Templates",
         "forms": "Forms",
         "analyze": "Analyze",
-        "userManagement": "User management"
+        "userManagement": "User management",
+        "search": "Search",
+        "blankTemplate": "Blank template"
     },
     "buttons": {
         "delete": "Delete",
         "update": "Update",
         "create": "Create",
         "startSurvey": "Start Survey",
-        "addOption": "Add option"
+        "addOption": "Add option",
+        "send": "Send"
     },
     "fileUpload": {
         "sizeError": "File size must be less than 10MB",
@@ -45,7 +48,9 @@
     },
     "template": {
         "public": "Public",
-        "private": "Private"
+        "private": "Private",
+        "all": "All templates",
+        "your": "Your templates"
     },
     "table": {
         "username": "Username",
@@ -58,5 +63,9 @@
         "topic": "Topic",
         "description": "Description",
         "type": "Type"
+    },
+    "forms": {
+        "all": "All forms",
+        "your": "Your forms"
     }
 }

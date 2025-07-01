@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom"
 import { useTranslator } from "../../hooks/useTranslator"
 import { Dispatch, SetStateAction } from "react";
 import { CiSearch } from "react-icons/ci";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 
 interface NavbarProps {
@@ -11,6 +12,7 @@ interface NavbarProps {
 
 const Navbar = ({ search, setSearch }: NavbarProps) => {
   const { t } = useTranslator('auth')
+  const { t:dashboard } = useTranslator('dashboard')
   return (
     <nav className="bg-white shadow-sm border-b border-gray-100 mb-6">
       <div className="max-w-7xl mx-auto">
@@ -21,10 +23,11 @@ const Navbar = ({ search, setSearch }: NavbarProps) => {
           <div>
             <div className="flex gap-1 items-center justify-center bg-[#f1f3f4] rounded-3xl">
               <CiSearch className="mx-3 text-[20px]" />
-              <input value={search} onChange={(e) => setSearch(e.target.value)} className="w-[600px] h-[45px] outline-none" placeholder="Search" />
+              <input value={search} onChange={(e) => setSearch(e.target.value)} className="w-[600px] h-[45px] outline-none" placeholder={dashboard('search')} />
             </div>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex gap-1">
+            <LanguageSwitcher />
             <NavLink
               to="auth/register"
               className={({ isActive }) =>
