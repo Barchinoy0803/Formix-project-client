@@ -72,7 +72,6 @@ const Survey = () => {
   }, [form])
 
   const onSubmit = async (data: Form) => {
-    console.log(data);
     const payload = {
       templateId: template.id,
       Answer: data.Answer.map((a: AnswerForm) => ({

@@ -88,3 +88,8 @@ export interface QuestionAnalyzesForm {
 export interface TagForm {
     name: string;
 }
+
+export interface CreateDeleteForm {
+    id?: string;
+    name: string;
+}

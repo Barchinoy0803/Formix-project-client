@@ -133,7 +133,7 @@ const CreateEditTemplate = () => {
                                         isLoading={isFetching}
                                         label="Tags"
                                         placeholder="Select tags"
-                                        mapOption={(u) => ({ value: u.id, label: u.username })}
+                                        mapOption={(u) => ({ value: u.id, label: u.name })}
                                     />
                                     <ManageTag />
                                 </Box>
@@ -169,7 +169,7 @@ const CreateEditTemplate = () => {
                             </form>
                         </FormProvider>
                     </Box>
-                    <CreateDeleteTagDialog/>
+                    <CreateDeleteTagDialog tags={tagData} />
                 </Box> : <CircularProgress />
             }
         </>

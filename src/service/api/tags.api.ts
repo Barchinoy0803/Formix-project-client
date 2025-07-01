@@ -3,7 +3,7 @@ import { mainApi } from "./api";
 const extendedApi = mainApi.injectEndpoints({
     endpoints: (build) => ({
         getAllTags: build.query({
-            query: (params) => ({
+            query: () => ({
                 method: "GET",
                 url: "/tag",
             }),
@@ -18,12 +18,11 @@ const extendedApi = mainApi.injectEndpoints({
             invalidatesTags: ['TAG']
         }),
         deleteTag: build.mutation({
-            query: (body) => ({
-                method: "DELETE",
-                url: "/tag",
-                body
+                query: (id) => ({
+                url: `/tag/${id}`,    
+                method: 'DELETE',
             }),
-            invalidatesTags: ['TAG']
+            invalidatesTags: ['TAG'],
         }),
     }),
     overrideExisting: false
