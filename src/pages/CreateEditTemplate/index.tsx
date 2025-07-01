@@ -47,11 +47,9 @@ const CreateEditTemplate = () => {
             reset(data)
         }
     }, [data])
-    console.log(getValues())
 
     const handleRemoveQuestion = (index: number) => {
         remove(index)
-
     }
 
     const handleAddQuestion = () => {
@@ -62,6 +60,10 @@ const CreateEditTemplate = () => {
 
     const onSubmit = async (data: TemplateForm) => {
         let imageUrl = defaultImageLink;
+        const payload = {
+            ...data,
+            allowedUsers: data.TemplateAccess?.map((item) => ({ id: item.id }))
+        }
         if (file) {
             const formData = new FormData();
             formData.append("file", file);
@@ -71,7 +73,7 @@ const CreateEditTemplate = () => {
         }
         if (isCreateOption) {
 
-            const result = await createTemplate({ ...data, image: imageUrl });
+            const result = await createTemplate({ ...payload, image: imageUrl });
 
             if (result) {
                 toast.success("Successfully created!")
@@ -79,11 +81,8 @@ const CreateEditTemplate = () => {
                 toast.error("Something went wrong!")
             }
         } else {
-            console.log(data);
-
-            await updateTemplate({ id, body: { ...data, image: imageUrl } })
+            await updateTemplate({ id, body: { ...payload, image: imageUrl } })
         }
-        console.log(data);
 
         reset(initialStateTemplate)
     };
@@ -119,7 +118,7 @@ const CreateEditTemplate = () => {
                                     <CustomSelect disabled={!!isReadMode} control={control} name="type" label="Type" options={templateTypeOptions} />
                                 </div>
                                 {
-                                    templateType === TEMPLATE_TYPE.PRIVATE && <UserSelection control={control} name='TemplateAccess'/>
+                                    templateType === TEMPLATE_TYPE.PRIVATE && <UserSelection control={control} name='TemplateAccess' />
                                 }
                                 <ControlledTextField disabled={!!isReadMode} lineCount={5} control={control} name='description' label="Description" />
                                 <div className="flex justify-between items-center">

@@ -11,7 +11,7 @@ import {
   CardContent,
   CardMedia,
   Divider,
-  Stack
+  Stack 
 } from '@mui/material'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { AnswerForm, Form, QuestionForm } from '../../types/form'
@@ -35,7 +35,6 @@ const Survey = () => {
   const isUpdateForm = useMemo(() => {
     return location.pathname.includes("form")
   }, [location])
-  console.log(isUpdateForm);
 
   const { data: form } = useGetOneFormQuery(id, {
     skip: !isUpdateForm
@@ -66,12 +65,12 @@ const Survey = () => {
   useEffect(() => {
     if (form) {
       reset({ Answer: form.answer })
-      console.log(form.answer);
     }
 
   }, [form])
-  
+
   const onSubmit = async (data: Form) => {
+    console.log(data);
     const payload = {
       templateId: template.id,
       Answer: data.Answer.map((a: AnswerForm) => ({
@@ -82,6 +81,7 @@ const Survey = () => {
             : a.answer,
       }))
     }
+    console.log(payload);
 
     if (!isUpdateForm) {
       const { data: filledForm } = await isExsist(id)
