@@ -34,6 +34,12 @@ const MainRouter = () => {
                 path: '/dashboard', element: <Private />,
                 children: [
                     {
+                        path: 'templates', element: <Templates />,
+                    },
+                    {
+                        index: true, element: <Templates /> 
+                    },
+                    {
                         path: 'forms', element: <Forms />
                     },
                     {
@@ -41,9 +47,6 @@ const MainRouter = () => {
                     },
                     {
                         path: 'survey/:id', element: <Survey />
-                    },
-                    {
-                        path: 'templates', element: <Templates />,
                     },
                     {
                         path: 'template/:id', element: <Template />,

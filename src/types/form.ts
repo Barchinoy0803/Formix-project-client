@@ -39,6 +39,7 @@ export interface TemplateForm {
 export interface AllowedUsers {
     username: string;
     id: string;
+    value?: string
 }
 
 export interface QuestionForm {
@@ -82,4 +83,8 @@ export interface SelectedOptionOnAnswer {
 
 export interface QuestionAnalyzesForm {
     question: string | number;
+}
+
+export interface TagForm {
+    name: string;
 }

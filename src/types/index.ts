@@ -1,3 +1,13 @@
+export enum TEMPLATE_TYPE {
+    PRIVATE = 'PRIVATE',
+    PUBLIC = 'PUBLIC'
+}
+
+export enum MODAL_TYPE {
+    CREATE = 'CREATE',
+    DELETE = 'DELETE'
+}
+
 export interface User {
     username?: string,
     email: string,
@@ -10,10 +20,6 @@ export interface ErrorType {
     data: { message: string }
 }
 
-export enum TEMPLATE_TYPE {
-    PRIVATE = 'PRIVATE',
-    PUBLIC = 'PUBLIC'
-}
 
 export interface SelectOption {
     label: string;
@@ -36,4 +42,9 @@ export type OptionValue = string | number
 
 export interface OutletContext {
     search: string
+}
+
+export interface CreateDeleteModal {
+    isOpen: boolean;
+    type?: MODAL_TYPE;
 }
