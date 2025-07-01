@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { QUESTION_TYPE } from ".";
+import { Option, QUESTION_TYPE } from ".";
 import i18next from "i18next";
 
 export const RegisterSchema = z.object({
@@ -33,7 +33,8 @@ export interface TemplateForm {
     image?: string;
     type: string;
     Question: QuestionForm[];
-    TemplateAccess?: AllowedUsers[]
+    TemplateAccess?: AllowedUsers[],
+    tagIds: string[] | Option[]
 }
 
 export interface AllowedUsers {

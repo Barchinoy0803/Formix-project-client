@@ -82,9 +82,11 @@ const CreateEditTemplate = () => {
 
     const onSubmit = async (data: TemplateForm) => {
         let imageUrl = defaultImageLink;
+        console.log(data)
         const payload = {
             ...data,
-            allowedUsers: data.TemplateAccess?.map((item) => ({ id: item.value }))
+            allowedUsers: data.TemplateAccess?.map((item) => ({ id: item.value })),
+            tagIds: data.tagIds.map((tag:any) => tag.value)
         }
 
         if (file) {
@@ -127,7 +129,7 @@ const CreateEditTemplate = () => {
                                 </Box>
                                 <Box className="flex gap-3">
                                     <MultiSelect
-                                        name="Tags"
+                                        name="tagIds"
                                         control={control}
                                         data={tagData}
                                         isLoading={isFetching}

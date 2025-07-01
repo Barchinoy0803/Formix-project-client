@@ -61,7 +61,7 @@ const CreateDeleteTagDialog = ({tags}: CreateDeleteTagDialogProps) => {
               <ControlledTextField control={control} name='name' label='Tag name'/> : 
               <Box className="flex flex-col gap-3">
                 {
-                  tags.length ? tags?.map((tag) => <Box className="flex items-center justify-between px-3 py-2 bg-gray-100 rounded-2xl">
+                  tags?.length ? tags?.map((tag) => <Box className="flex items-center justify-between px-3 py-2 bg-gray-100 rounded-2xl">
                     <Typography>{tag.name}</Typography>
                     <IconButton onClick={() => handleDelete(tag.id)}><MdDelete className='text-[red]'/></IconButton>
                   </Box>) : <Typography>There is not any tags</Typography>
