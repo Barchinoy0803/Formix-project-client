@@ -28,7 +28,6 @@ const Comments = ({ templateId }: { templateId: string }) => {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [showPicker, setShowPicker] = useState(false);
 
-  /* ---------- SOCKET ---------- */
   useEffect(() => {
     connectSocket();
     socket.emit('comment:getAll', templateId);
@@ -42,7 +41,6 @@ const Comments = ({ templateId }: { templateId: string }) => {
     };
   }, [templateId]);
 
-  /* ---------- EMOJI ---------- */
   const insertEmoji = (emoji: string) => {
     const quill = quillRef.current?.getEditor();
     if (!quill) return;
@@ -52,10 +50,9 @@ const Comments = ({ templateId }: { templateId: string }) => {
     quill.insertText(pos, emoji);
     quill.setSelection(pos + emoji.length);
     setValue('content', quill.root.innerHTML, { shouldDirty: true });
-    setShowPicker(false); // automatik yopamiz
+    setShowPicker(false);
   };
 
-  /* ---------- SUBMIT ---------- */
   const onSubmit = ({ content }: { content: string }) => {
     if (!content.trim()) return;
     socket.emit('comment:new', { context: content, templateId });
@@ -88,7 +85,6 @@ const Comments = ({ templateId }: { templateId: string }) => {
             )}
           />
 
-          {/* ‑‑‑ Toolbar: emoji toggle + send ‑‑‑ */}
           <div className="flex justify-between items-center">
             <div>
               <IconButton
@@ -104,7 +100,6 @@ const Comments = ({ templateId }: { templateId: string }) => {
             </Button>
           </div>
 
-          {/* ‑‑‑ EmojiPicker pop‑up ‑‑‑ */}
           {showPicker && (
             <ClickAwayListener onClickAway={() => setShowPicker(false)}>
               <div className="relative z-50">
@@ -117,7 +112,6 @@ const Comments = ({ templateId }: { templateId: string }) => {
           )}
         </form>
 
-        {/* ‑‑‑ Comment list ‑‑‑ */}
         <div className="mt-4">
           {comments.map((c) => (
             <Box key={c.id} className="mb-3 border p-2 rounded">
