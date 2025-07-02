@@ -1,20 +1,27 @@
-import { Socket } from "socket.io-client";
-import { io } from "socket.io-client";
-import type { Socket } from "socket.io-client";  // <-- import type only
+import { io, Socket } from 'socket.io-client';
+
+export interface CommentType {
+  id: string;
+  context: string;
+  templateId: string;
+  userId: string;
+  createdAt: string;
+}
 
 interface ServerToClientEvents {
-  "comment:new": (comment: any) => void;
-  "comment:getAll": (comments: any[]) => void;
+  'comment:new': (comment: CommentType) => void;
+  'comment:getAll': (comments: CommentType[]) => void;
+  'comment:error': (err: { message: string }) => void;
 }
 
 interface ClientToServerEvents {
-  "comment:new": (data: any) => void;
-  "comment:getAll": () => void;
+  'comment:new': (payload: { context: string; templateId: string }) => void;
+  'comment:getAll': (payload: { templateId: string }) => void;
 }
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io("http://localhost:3001", {
-  transports: ["websocket"],
-  withCredentials: true,
-});
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
+  import.meta.env.VITE_BASE_URL!,
+  { autoConnect: true, transports: ['websocket'] },
+);
 
 export default socket;

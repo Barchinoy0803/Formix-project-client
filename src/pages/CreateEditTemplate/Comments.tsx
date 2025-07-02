@@ -1,77 +1,74 @@
 import { memo, useEffect, useState } from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Box,
+  Button,
+} from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { Box, Button } from '@mui/material';
-import { AiOutlineComment } from "react-icons/ai";
+import { AiOutlineComment } from 'react-icons/ai';
+import { IoMdSend } from 'react-icons/io';
 import { useForm, Controller } from 'react-hook-form';
 import ReactQuill from 'react-quill-new';
-import { IoMdSend } from "react-icons/io";
-import socket from '../../service/socket';
+import 'react-quill-new/dist/quill.snow.css';
+import socket, { CommentType } from '../../service/socket';
 
-interface CommentType {
-  id: string;
-  context: string;
+interface CommentsProps {
+  templateId: string;
 }
 
-const Comments = ({ templateId }: { templateId: string }) => {
-  const { handleSubmit, control, reset } = useForm({
-    defaultValues: {
-      content: '',
-    },
-  });
+interface FormValues {
+  content: string;
+}
 
+const Comments = ({ templateId }: CommentsProps) => {
+  const { handleSubmit, control, reset } = useForm<FormValues>({
+    defaultValues: { content: '' },
+  });
   const [comments, setComments] = useState<CommentType[]>([]);
+  const [count, setCount] = useState<number>(0)
 
   useEffect(() => {
-    socket.on('comment:new', (comment: any) => {
-      setComments((prev) => [...prev, comment]);
-    });
+    const onNew = (c: CommentType) => {
+      if (c.templateId === templateId) setComments(prev => [...prev, c]);
+    };
+    const onAll = (list: CommentType[]) => setComments(list);
+    console.log(comments)
 
-    socket.emit('comment:getAll');
-    socket.on('comment:getAll', (data: CommentType[]) => {
-      setComments(data);
-    });
+    socket.on('comment:new', onNew);
+    socket.on('comment:getAll', onAll);
+    socket.emit('comment:getAll', { templateId });
 
     return () => {
-      socket.off('comment:new');
-      socket.off('comment:getAll');
+      socket.off('comment:new', onNew);
+      socket.off('comment:getAll', onAll);
     };
-  }, []);
+  }, [templateId, count]);
 
-  const onSubmit = (data: any) => {
-    if (!data.context.trim()) return;
-
-    socket.emit('comment:new', {
-      context: data.context,
-      templateId
-    });
-
-    reset();
+  const onSubmit = ({ content }: FormValues) => {
+    socket.emit('comment:new', { context: content, templateId });
+    setCount((prev) => prev++)
+    reset({ content: '' });
   };
 
   return (
     <Accordion>
-      <AccordionSummary
-        expandIcon={<ArrowDropDownIcon />}
-        aria-controls="panel2-content"
-        id="panel2-header"
-      >
+      <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
         <Box className="flex gap-2 items-center">
-          <AiOutlineComment className='text-2xl' />
-          <Typography variant='h6' component="span">Comments</Typography>
+          <AiOutlineComment className="text-2xl" />
+          <Typography variant="h6">Comments</Typography>
         </Box>
       </AccordionSummary>
       <AccordionDetails>
-        <form className='flex flex-col gap-3' onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name="content"
             control={control}
             rules={{ required: 'Comment is required' }}
             render={({ field, fieldState }) => (
-              <div>
+              <>
                 <ReactQuill
                   theme="snow"
                   value={field.value}
@@ -83,21 +80,26 @@ const Comments = ({ templateId }: { templateId: string }) => {
                     {fieldState.error.message}
                   </Typography>
                 )}
-              </div>
+              </>
             )}
           />
-          <div className='flex justify-end'>
-            <Button type="submit" endIcon={<IoMdSend />} variant="outlined">Send</Button>
+          <div className="flex justify-end">
+            <Button type="submit" endIcon={<IoMdSend />} variant="outlined">
+              Send
+            </Button>
           </div>
         </form>
 
-        <div className="mt-4">
-          {comments.map((comment) => (
-            <Box key={comment.id} className="mb-3 border p-2 rounded">
-              <div dangerouslySetInnerHTML={{ __html: comment.context }} />
+        <Box mt={4}>
+          {comments.map(c => (
+            <Box key={c.id} className="mb-3 border p-2 rounded">
+              <div dangerouslySetInnerHTML={{ __html: c.context }} />
+              <Typography variant="caption" color="text.secondary">
+                {new Date(c.createdAt).toLocaleString()}
+              </Typography>
             </Box>
           ))}
-        </div>
+        </Box>
       </AccordionDetails>
     </Accordion>
   );
