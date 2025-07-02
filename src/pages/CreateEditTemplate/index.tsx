@@ -88,19 +88,19 @@ const CreateEditTemplate = () => {
                     }
                     <Box>
                         <FormProvider {...methods}>
-                            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" action="">
+                            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 mb-3" action="">
                                 <Details file={file} setFile={setFile} tagData={tagData} isReadMode={!!isReadMode} />
                                 <Questions isReadMode={!!isReadMode} />
-                                {
-                                    isReadMode &&
-                                    <Comments />
-                                }
                                 {
                                     !isReadMode &&
                                     <Button type="submit" variant="contained" disabled={createLoading || updateLoading || !isValid || !isDirty}>{t('submit')}</Button>
                                 }
                             </form>
                         </FormProvider>
+                        {
+                            isReadMode &&
+                            <Comments templateId={id!}/>
+                        }
                     </Box>
                     <CreateDeleteTagDialog tags={tagData} />
                 </Box> : <CircularProgress className="grid place-content-center" />

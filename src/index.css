@@ -1,6 +1,7 @@
 @import "tailwindcss";
+@import 'react-quill-new/dist/quill.snow.css'; 
 
 .link.active {
     color: blue;
-    background-color: rgb(29, 12, 138);
+    background-color: rgb(42, 27, 139);
 }
