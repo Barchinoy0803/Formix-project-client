@@ -8,11 +8,13 @@ export interface CommentType {
 interface ServerToClientEvents {
   'comment:new': (comment: CommentType) => void;
   'comment:getAll': (comments: CommentType[]) => void;
+  'comment:delete': (comments: CommentType[]) => void;
 }
 
 interface ClientToServerEvents {
   'comment:new': (payload: { context: string; templateId: string }) => void;
   'comment:getAll': (templateId: string) => void;          
+  'comment:delete': (templateId: string) => void;          
 }
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
