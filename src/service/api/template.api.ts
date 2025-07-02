@@ -25,7 +25,7 @@ const extendedApi = mainApi.injectEndpoints({
         method: "GET",
         url: `/template/${id}`,
       }),
-      providesTags: (result, error, id) => [{ type: 'TEMPLATE', id }],
+      providesTags: (id) => [{ type: 'TEMPLATE', id }],
     }),
 
     createTemplate: build.mutation({

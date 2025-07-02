@@ -1,25 +1,17 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material"
 import { useEffect, useMemo, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
-import ControlledTextField from "../../components/TextField"
-import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 import { TemplateForm } from "../../types/form"
-import { defaultImageLink, initialStateTemplate, templateTypeOptions } from "../../constants"
-import CustomSelect from "../../components/Select"
-import FileUpload from "../../components/FileUpload"
+import { defaultImageLink, initialStateTemplate } from "../../constants"
 import { useCreateTemplateMutation, useFileUploadMutation, useGetOneTemplateQuery, useUpdateTemplateMutation } from "../../service/api/template.api"
 import toast from "react-hot-toast"
-import Question from "../../components/Question"
-import { TiPlus } from "react-icons/ti";
-import { QUESTION_TYPE, TEMPLATE_TYPE } from "../../types"
-import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core"
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { useTranslator } from "../../hooks/useTranslator"
-import MultiSelect from "../../components/MultiSelect"
-import { useGetUsersQuery } from "../../service/api/user.api"
 import { useGetAllTagsQuery } from "../../service/api/tags.api"
-import ManageTag from "./ManageTag"
 import CreateDeleteTagDialog from "./CreateDeleteDialog"
+import Details from "./Details"
+import Questions from "./Questions"
+import Comments from "./Comments"
 
 const CreateEditTemplate = () => {
     const [file, setFile] = useState<File>()
@@ -32,8 +24,6 @@ const CreateEditTemplate = () => {
     const [createTemplate, { isLoading: createLoading }] = useCreateTemplateMutation()
     const [updateTemplate, { isLoading: updateLoading }] = useUpdateTemplateMutation()
 
-
-    const { data: allUsers, isFetching } = useGetUsersQuery({});
     const { data, isLoading } = useGetOneTemplateQuery(id, { skip: id === "new" })
     const { data: tagData } = useGetAllTagsQuery({})
 
@@ -45,9 +35,7 @@ const CreateEditTemplate = () => {
         mode: 'onChange'
     })
 
-    const { control, handleSubmit, reset, getValues, formState: { isDirty, isValid } } = methods
-    const { fields, remove, insert, move } = useFieldArray({ control, name: "Question" })
-    const templateType = useWatch({ control, name: "type" })
+    const { handleSubmit, reset, getValues, formState: { isDirty, isValid } } = methods
 
     const isCreateOption = useMemo(() => {
         return id === "new"
@@ -57,36 +45,16 @@ const CreateEditTemplate = () => {
         if (data) {
             reset(data)
         }
+        console.log(getValues());
+
     }, [data])
-
-    const handleRemoveQuestion = (index: number) => {
-        remove(index)
-    }
-
-    const handleAddQuestion = () => {
-        const { id } = getValues()
-        insert(fields.length, { templateId: id, sequence: fields.length, description: "", type: QUESTION_TYPE.OPEN, Options: [], title: "", isPublished: false })
-    }
-
-    const handleDragEnd = (event: DragEndEvent) => {
-        const { active, over } = event
-
-        if (!over) return
-
-        if (active.id !== over.id) {
-            const oldIndex = fields.findIndex((item) => item.id === active.id)
-            const newIndex = fields.findIndex((item) => item.id === over.id)
-            move(oldIndex, newIndex)
-        }
-    }
 
     const onSubmit = async (data: TemplateForm) => {
         let imageUrl = defaultImageLink;
-        console.log(data)
         const payload = {
             ...data,
             allowedUsers: data.TemplateAccess?.map((item) => ({ id: item.value })),
-            tagIds: data.tagIds.map((tag:any) => tag.value)
+            tagIds: data.tagIds.map((tag: any) => tag.value)
         }
 
         if (file) {
@@ -120,50 +88,13 @@ const CreateEditTemplate = () => {
                     }
                     <Box>
                         <FormProvider {...methods}>
-                            <form key={fields.length} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" action="">
-                                <FileUpload isReadMode={!!isReadMode} file={file} setFile={setFile} />
-                                <Box className="grid grid-cols-3 gap-2">
-                                    <ControlledTextField disabled={!!isReadMode} control={control} name='title' label="Title" />
-                                    <ControlledTextField disabled={!!isReadMode} control={control} name='topic' label="Topic" />
-                                    <CustomSelect disabled={!!isReadMode} control={control} name="type" label="Type" options={templateTypeOptions} />
-                                </Box>
-                                <Box className="flex gap-3">
-                                    <MultiSelect
-                                        name="tagIds"
-                                        control={control}
-                                        data={tagData}
-                                        isLoading={isFetching}
-                                        label="Tags"
-                                        placeholder="Select tags"
-                                        mapOption={(u) => ({ value: u.id, label: u.name })}
-                                    />
-                                    <ManageTag />
-                                </Box>
+                            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" action="">
+                                <Details file={file} setFile={setFile} tagData={tagData} isReadMode={!!isReadMode} />
+                                <Questions isReadMode={!!isReadMode} />
                                 {
-                                    templateType === TEMPLATE_TYPE.PRIVATE && <MultiSelect
-                                        name="TemplateAccess"
-                                        control={control}
-                                        data={allUsers}
-                                        isLoading={isFetching}
-                                        label="Users"
-                                        placeholder="Select users"
-                                        mapOption={(u) => ({ value: u.id, label: u.username })}
-                                    />
+                                    isReadMode &&
+                                    <Comments />
                                 }
-                                <ControlledTextField disabled={!!isReadMode} lineCount={5} control={control} name='description' label="Description" />
-                                <Box className="flex justify-between items-center">
-                                    <Typography variant="h6">{template('questions')}</Typography>
-                                    <Button disabled={!!isReadMode} onClick={handleAddQuestion} variant="outlined" startIcon={<TiPlus />}>{template('addQuestion')}</Button>
-                                </Box>
-                                <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                                    <SortableContext items={fields} strategy={verticalListSortingStrategy}>
-                                        {
-                                            fields?.map((el: any, inx: any) => (
-                                                <Question isReadMode={!!isReadMode} removeQuestion={() => handleRemoveQuestion(inx)} key={el.id} question={el} index={inx} />
-                                            ))
-                                        }
-                                    </SortableContext>
-                                </DndContext>
                                 {
                                     !isReadMode &&
                                     <Button type="submit" variant="contained" disabled={createLoading || updateLoading || !isValid || !isDirty}>{t('submit')}</Button>
@@ -172,7 +103,7 @@ const CreateEditTemplate = () => {
                         </FormProvider>
                     </Box>
                     <CreateDeleteTagDialog tags={tagData} />
-                </Box> : <CircularProgress />
+                </Box> : <CircularProgress className="grid place-content-center" />
             }
         </>
     )

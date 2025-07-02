@@ -22,7 +22,9 @@ export const initialStateTemplate = {
   description: "",
   image: "",
   type: TEMPLATE_TYPE.PUBLIC,
-  Question: []
+  Question: [],
+  tags: [],
+  allowedUsers: []
 }
 
 export const templateTypeOptions = [
@@ -84,7 +86,7 @@ export const TemplateTableColumns = [
     field: 'image',
     headerName: 'table.image',
     width: 150,
-    renderCell: (params: any) => (
+    renderCell: () => (
       <img
         src={defaultImageLink}
         alt="template"
