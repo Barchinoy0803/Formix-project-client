@@ -48,3 +48,9 @@ export interface CreateDeleteModal {
     isOpen: boolean;
     type?: MODAL_TYPE;
 }
+
+export interface CommentType {
+    id: string;
+    context: string;
+    user?: { username: string, id: string };
+}

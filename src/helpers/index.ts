@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode"
+
 export const validateToken = (token: string): boolean => {
     const payload = token.split(".")[1]
     if (payload) {
@@ -14,4 +16,10 @@ export const validateToken = (token: string): boolean => {
         }
     }
     return false
+}
+
+export const getUserId = () => {
+    const token = localStorage.getItem("token")
+    const data = jwtDecode(token!) as any
+    return data.id
 }
