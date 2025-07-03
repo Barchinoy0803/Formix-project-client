@@ -52,5 +52,6 @@ export interface CreateDeleteModal {
 export interface CommentType {
     id: string;
     context: string;
+    templateId?: string;
     user?: { username: string, id: string };
 }

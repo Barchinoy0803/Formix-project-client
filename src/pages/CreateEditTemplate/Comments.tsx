@@ -21,29 +21,65 @@ import { getUserId } from '../../helpers';
 const Comments = ({ templateId }: { templateId: string }) => {
   const quillRef = useRef<ReactQuill | null>(null);
 
-  const { handleSubmit, control, reset, setValue } = useForm({
-    defaultValues: { content: '' },
+  const { handleSubmit, control, reset, setValue } = useForm<CommentType>({
+    defaultValues: { context: '' },
   });
 
   const [comments, setComments] = useState<CommentType[]>([]);
-  const [showPicker, setShowPicker] = useState(false);
+  const [showPicker, setShowPicker] = useState<boolean>(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false)
 
-useEffect(() => {
-  connectSocket();
-  socket.emit('comment:getAll', templateId);
+  useEffect(() => {
+    connectSocket();
+    socket.emit('comment:getAll', templateId);
 
-  socket.on('comment:getAll', setComments);
-  socket.on('comment:new', (c) => setComments((p) => [...p, c]));
-  socket.on('comment:delete', (id) =>
-    setComments((prev) => prev.filter((comment) => comment.id !== id))
-  );
+    socket.on('comment:getAll', setComments);
+    socket.on('comment:new', (c) => setComments((p) => [...p, c]));
+    socket.on('comment:delete', (id) =>
+      setComments((prev) => prev.filter((comment) => comment.id !== id))
+    );
+    socket.on('comment:update', (updatedComment) =>
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === updatedComment.id ? updatedComment : comment
+        )
+      )
+    );
 
-  return () => {
-    socket.off('comment:getAll');
-    socket.off('comment:new');
-    socket.off('comment:delete');
+    return () => {
+      socket.off('comment:getAll');
+      socket.off('comment:new');
+      socket.off('comment:delete');
+      socket.off('comment:update')
+    };
+  }, [templateId]);
+
+  const handleEditComment = (comment: CommentType) => {
+    setIsEditMode(true)
+    reset(comment)
+  }
+
+  const handleDeleteComment = (id: string) => {
+    socket.emit('comment:delete', { id, templateId })
+  }
+
+  const onSubmit = ({ context, id }: { context: string, id: string }) => {
+    if (!context.trim()) return;
+    if (!isEditMode) {
+      socket.emit('comment:new', { context, templateId });
+    } else {
+      socket.emit('comment:update', {
+        id,
+        updateData: {
+          context,
+          templateId,
+        },
+        templateId
+      });
+      setIsEditMode(false);
+    }
+    setValue("context", "");
   };
-}, [templateId]);
 
 
   const insertEmoji = (emoji: string) => {
@@ -54,19 +90,9 @@ useEffect(() => {
     const pos = range ? range.index : quill.getLength();
     quill.insertText(pos, emoji);
     quill.setSelection(pos + emoji.length);
-    setValue('content', quill.root.innerHTML, { shouldDirty: true });
+    setValue('context', quill.root.innerHTML, { shouldDirty: true });
     setShowPicker(false);
   };
-
-const handleDeleteComment = (id: string) => {
-  socket.emit('comment:delete', { id, templateId })
-}
-  const onSubmit = ({ content }: { content: string }) => {
-    if (!content.trim()) return;
-    socket.emit('comment:new', { context: content, templateId });
-    reset();
-  };
-
 
   return (
     <Box className="rounded-xl shadow-lg overflow-hidden bg-white border border-gray-200">
@@ -124,7 +150,7 @@ const handleDeleteComment = (id: string) => {
                   {
                     getUserId() === c.user?.id &&
                     <Box className="flex justify-end">
-                      <IconButton><MdEdit /></IconButton>
+                      <IconButton onClick={() => handleEditComment(c)}><MdEdit /></IconButton>
                       <IconButton onClick={() => handleDeleteComment(c.id)}><MdDelete /></IconButton>
                     </Box>
                   }
@@ -151,7 +177,7 @@ const handleDeleteComment = (id: string) => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <Box className="comment-editor">
                 <Controller
-                  name="content"
+                  name="context"
                   control={control}
                   rules={{ required: true }}
                   render={({ field }) => (

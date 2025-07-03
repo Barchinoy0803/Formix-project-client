@@ -8,20 +8,29 @@ export interface CommentType {
 interface ServerToClientEvents {
   'comment:new': (comment: CommentType) => void;
   'comment:getAll': (comments: CommentType[]) => void;
-  'comment:delete': (id: string, templateId: string) => void; // Change back to comment:delete
+  'comment:delete': (id: string, templateId: string) => void;
+  'comment:update': (comment: CommentType) => void;
 }
 
 interface ClientToServerEvents {
   'comment:new': (payload: { context: string; templateId: string }) => void;
-  'comment:getAll': (templateId: string) => void;          
-  'comment:delete': (payload: { id: string; templateId: string }) => void; // Change back to comment:delete
+  'comment:getAll': (templateId: string) => void;
+  'comment:delete': (payload: { id: string; templateId: string }) => void;
+  'comment:update': (payload: {
+    id: string;
+    updateData: {
+      context: string;
+      templateId: string;
+    };
+    templateId: string;
+  }) => void;
 }
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
   `${import.meta.env.VITE_BASE_URL}/comments`,
   {
-    autoConnect: false,                                     
-    transports: ['websocket'],                            
+    autoConnect: false,
+    transports: ['websocket'],
   },
 );
 
