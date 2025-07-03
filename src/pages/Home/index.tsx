@@ -20,18 +20,20 @@ const Home = () => {
       <Navbar />
       <div className='container mx-auto flex gap-5'>
         <NavLink to={'/dashboard/templates'} className="flex flex-col gap-2 ">
-            <div className="bg-white w-[200px] h-[200px] flex items-center justify-center text-[75px] border border-gray-200 rounded-sm">
-                <button className="p-[200px] cursor-pointer">
-                    <FaPlus className="text-[#47aed6]" />
-                </button>
-            </div>
-            <Typography>{t('blankTemplate')}</Typography>
+          <div className="bg-white w-[200px] h-[200px] flex items-center justify-center text-[75px] border border-gray-200 rounded-sm">
+            <button className="p-[200px] cursor-pointer">
+              <FaPlus className="text-[#47aed6]" />
+            </button>
+          </div>
+          <Typography>{t('blankTemplate')}</Typography>
         </NavLink>
-        {
-          isLoading ? <CircularProgress /> : allTemplates?.map((template: TemplateForm) => (
-            <Card templateData={template} />
-          ))
-        }
+        <Box className="flex gap-3 flex-wrap">
+          {
+            isLoading ? <CircularProgress /> : allTemplates?.map((template: TemplateForm) => (
+              <Card templateData={template} />
+            ))
+          }
+        </Box>
       </div>
     </Box>
   )

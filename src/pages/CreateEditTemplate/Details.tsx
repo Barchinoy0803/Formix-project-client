@@ -1,5 +1,5 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Box, IconButton, Typography } from '@mui/material'
 import { Dispatch, memo, SetStateAction } from 'react'
 import ControlledTextField from "../../components/TextField"
 import CustomSelect from "../../components/Select"
@@ -12,6 +12,8 @@ import { TEMPLATE_TYPE } from '../../types'
 import { TemplateForm } from '../../types/form'
 import { templateTypeOptions } from '../../constants'
 import { TbListDetails } from "react-icons/tb";
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 
 interface DetailsProps {
   isReadMode: boolean;
@@ -27,15 +29,22 @@ const Details = ({ isReadMode, file, setFile, tagData }: DetailsProps) => {
   const templateType = useWatch({ control, name: "type" })
 
   return (
-    <div>
+    <Box>
+      <Box className="flex justify-between p-3 shadow-sm shadow-gray-300 rounded">
+        <Typography variant='h6'>Template</Typography>
+        <Box>
+          <IconButton><ThumbUpAltIcon className='text-2xl' /></IconButton>
+          <IconButton><ThumbUpOffAltIcon className='text-2xl' /></IconButton>
+        </Box>
+      </Box>
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel2-content"
           id="panel2-header"
         >
-          <Box  className='flex gap-2 items-center'>
-            <TbListDetails className='text-2xl'/>
+          <Box className='flex gap-2 items-center'>
+            <TbListDetails className='text-2xl' />
             <Typography variant='h6' component="span">Details</Typography>
           </Box>
         </AccordionSummary>
@@ -77,7 +86,7 @@ const Details = ({ isReadMode, file, setFile, tagData }: DetailsProps) => {
           <ControlledTextField disabled={!!isReadMode} lineCount={5} control={control} name='description' label="Description" />
         </AccordionDetails>
       </Accordion>
-    </div>
+    </Box>
   )
 }
 
