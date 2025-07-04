@@ -89,7 +89,7 @@ const CreateEditTemplate = () => {
                     <Box>
                         <FormProvider {...methods}>
                             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 mb-3" action="">
-                                <Details file={file} setFile={setFile} tagData={tagData} isReadMode={!!isReadMode} />
+                                <Details templateId={id!} file={file} setFile={setFile} tagData={tagData} isReadMode={!!isReadMode} />
                                 <Questions isReadMode={!!isReadMode} />
                                 {
                                     !isReadMode &&
