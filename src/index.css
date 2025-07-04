@@ -18,3 +18,8 @@
 .content::-webkit-scrollbar-thumb:hover {
   background-color: #858484;
 }
+
+.container-home{
+  width: 1200px;
+  margin: 0 auto;
+}

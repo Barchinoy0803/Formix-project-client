@@ -20,6 +20,15 @@ const extendedApi = mainApi.injectEndpoints({
       providesTags: [{ type: 'TEMPLATE', id: 'LIST' }],
     }),
 
+    getTop5PopularTemplates: build.query({
+      query: (params) => ({
+        method: "GET",
+        url: "/template/top",
+        params
+      }),
+      providesTags: [{ type: 'TEMPLATE', id: 'LIST' }],
+    }),
+
     getOneTemplate: build.query({
       query: (id) => ({
         method: "GET",
@@ -79,5 +88,6 @@ export const {
   useGetAllUserTemplatesQuery,
   useUpdateTemplateMutation,
   useFileUploadMutation,
-  useGetOneTemplateQuery
+  useGetOneTemplateQuery,
+  useGetTop5PopularTemplatesQuery
 } = extendedApi;

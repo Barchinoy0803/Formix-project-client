@@ -29,10 +29,10 @@ import { templateTypeOptions } from '../../constants';
 import { TbListDetails } from "react-icons/tb";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import socket, { connectSocket, LikeType } from '../../service/socket';
 import { getUserId } from '../../helpers';
 import { getBgColor } from './helpers';
 import PersonIcon from '@mui/icons-material/Person';
+import likeSocket, { connectSocket, LikeType } from '../../service/likeSocket';
 
 interface DetailsProps {
   isReadMode: boolean;
@@ -53,9 +53,9 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
 
   useEffect(() => {
     connectSocket();
-    socket.emit('like:getAll', { templateId });
+    likeSocket.emit('like:getAll', { templateId });
 
-    socket.on('like:updated', (data) => {
+    likeSocket.on('like:updated', (data) => {
       if (data.templateId === templateId) {
         setLikes(data.likes);
         setLikeCount(data.count);
@@ -63,19 +63,19 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
       }
     });
 
-    socket.on('like:error', (error) => {
+    likeSocket.on('like:error', (error) => {
       console.error('Like error:', error);
     });
 
     return () => {
-      socket.off('like:updated');
-      socket.off('like:error');
+      likeSocket.off('like:updated');
+      likeSocket.off('like:error');
     };
   }, [templateId]);
 
   const handleLikeToggle = () => {
     if (!getUserId()) return;
-    socket.emit('like:toggle', { templateId });
+    likeSocket.emit('like:toggle', { templateId });
   };
 
   const handleOpenLikesList = (event: React.MouseEvent<HTMLElement>) => {
