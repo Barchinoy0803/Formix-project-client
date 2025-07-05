@@ -10,6 +10,7 @@ import { FaPlus } from 'react-icons/fa6'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux'
 import { BiShowAlt, BiHide } from "react-icons/bi";
+import SimpleTable from '../../components/SimpleTable'
 
 const Home = () => {
   const { searchtext } = useSelector((state: RootState) => state.templates)
@@ -58,9 +59,8 @@ const Home = () => {
           <Typography fontFamily={'revert'} variant='h5'>The most popular forms</Typography>
           <Box className="flex gap-5">
             {
-              topLoading ? <CircularProgress /> : topRatingTemplates?.map((template: TemplateForm) => (
-                <Card templateData={template} />
-              ))
+              topLoading ? <CircularProgress /> :
+              <SimpleTable data={topRatingTemplates}/>
             }
           </Box>
         </Box>
