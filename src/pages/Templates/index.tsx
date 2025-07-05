@@ -19,13 +19,13 @@ const Templates = () => {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<string>("all")
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>()
-  const { search } = useOutletContext<OutletContext>()
+  
   const { t } = useTranslator('buttons')
   const { t:template } = useTranslator('template')
 
-  const { data: allData } = useGetTemplatesQuery({ search }, { skip: activeTab !== "all" })
+  const { data: allData } = useGetTemplatesQuery({ skip: activeTab !== "all" })
   const [deleteTemplate, { isLoading: deleteLoading }] = useDeleteTemplateMutation()
-  const { data, isLoading } = useGetAllUserTemplatesQuery({ search }, { skip: activeTab === "all" })
+  const { data, isLoading } = useGetAllUserTemplatesQuery({ skip: activeTab === "all" })
 
   const ids = useMemo(() => {
     return selectedIds?.ids ? [...selectedIds.ids] : []

@@ -4,10 +4,11 @@ import { CiSearch } from "react-icons/ci";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchText } from "../../redux/features/template.slice";
+import { setSearchResults, setSearchText } from "../../redux/features/template.slice";
 import { validateToken } from "../../helpers";
 import { Box } from "@mui/material";
 import CustomDrawer from "../Drawer";
+import { useGetTemplatesQuery } from "../../service/api/template.api";
 
 
 const Navbar = () => {
@@ -17,6 +18,8 @@ const Navbar = () => {
   const [search, setSearch] = useState<string>("")
   const token = localStorage.getItem("token")
 
+  const {data} = useGetTemplatesQuery({search})
+
   const isValidUser = useMemo(() => {
     if(token){
       return validateToken(token)
@@ -24,8 +27,12 @@ const Navbar = () => {
   }, [token])
 
   useEffect(() => {
+    dispatch(setSearchResults(data));
+  }, [data])
+
+  useEffect(() => {
     dispatch(setSearchText(search))
-  }, [])
+  }, [search])
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-100 mb-6">

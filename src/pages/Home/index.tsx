@@ -13,7 +13,7 @@ import { BiShowAlt, BiHide } from "react-icons/bi";
 import SimpleTable from '../../components/SimpleTable'
 
 const Home = () => {
-  const { searchtext } = useSelector((state: RootState) => state.templates)
+  const { searchtext, searchResults } = useSelector((state: RootState) => state.templates)
   const { t } = useTranslator('dashboard')
   const { t:buttons } = useTranslator('buttons')
   const { t:home } = useTranslator('home')
@@ -33,9 +33,11 @@ const Home = () => {
   }, [allTemplates, showAll])
 
   return (
-    <Box className='flex flex-col gap-6'>
+    <Box className='flex flex-col gap-6 container mx-auto'>
       <Navbar />
-      <Box className="flex justify-between container-home">
+      {
+        !searchtext.length ? <>
+        <Box className="flex justify-between container-home">
         <Typography fontFamily={'revert'} variant='h5'>{home('newForm')}</Typography>
         <Button startIcon={showAll ? <BiHide /> : <BiShowAlt />} variant='outlined' onClick={() => setShowAll(p => !p)}>{showAll ? buttons('hide'): buttons('showAll')}</Button>
       </Box>
@@ -67,6 +69,8 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
+        </> : <div className='flex items-center wrap gap-4'>{searchResults.map((item) => (<Card templateData={item} />))}</div>
+      }
     </Box>
   )
 }
