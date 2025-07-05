@@ -23,6 +23,7 @@ const Question = ({ index, removeQuestion, isReadMode, question }: QuestionProps
     const { control, getValues } = useFormContext<TemplateForm>()
     const { t } = useTranslator('question');
     const { t: buttons } = useTranslator('buttons');
+    const { t: table } = useTranslator('table');
     const questionType = useWatch({ control, name: `Question.${index}.type` })
 
     const { fields, remove, insert } = useFieldArray({ name: `Question.${index}.Options`, control })
@@ -41,7 +42,7 @@ const Question = ({ index, removeQuestion, isReadMode, question }: QuestionProps
         <div ref={setNodeRef} className="bg-white shadow-md rounded-2xl p-6 mb-6 border border-gray-200" style={getDndStyle(transform, transition)}>
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-3">
-                    <Tooltip placement="top" title='Drag and drop'>
+                    <Tooltip placement="top" title={buttons('dragAndDrop')}>
                         <IconButton {...attributes} {...listeners}>
                             <RxDragHandleDots2 className="text-[25px]" />
                         </IconButton>
@@ -54,13 +55,13 @@ const Question = ({ index, removeQuestion, isReadMode, question }: QuestionProps
             </div>
 
             <div className="flex flex-col gap-5">
-                <ControlledTextField disabled={isReadMode} label="Title" name={`Question.${index}.title`} control={control} />
-                <ControlledTextField disabled={isReadMode} label="Description" name={`Question.${index}.description`} control={control} />
+                <ControlledTextField disabled={isReadMode} label={table('title')} name={`Question.${index}.title`} control={control} />
+                <ControlledTextField disabled={isReadMode} label={table('description')} name={`Question.${index}.description`} control={control} />
             </div>
 
             <div className="flex gap-5 items-center mt-4">
-                <CustomSelect disabled={isReadMode} label="Question type" options={questionTypeOptions} name={`Question.${index}.type`} control={control} />
-                <CustomSwitch disabled={isReadMode} label="Publish" control={control} name={`Question.${index}.isPublished`} />
+                <CustomSelect disabled={isReadMode} label={t('type')} options={questionTypeOptions} name={`Question.${index}.type`} control={control} />
+                <CustomSwitch disabled={isReadMode} label={t('publish')} control={control} name={`Question.${index}.isPublished`} />
             </div>
 
             {questionType === QUESTION_TYPE.MULTICHOICE && (

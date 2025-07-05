@@ -57,7 +57,7 @@ const Questions = ({ isReadMode }: QuestionsProps) => {
                 >
                     <Box className='flex gap-2 items-center'>
                         <TbMessageCircleQuestion className='text-2xl'/>
-                        <Typography variant='h6' component="span">Questions</Typography>
+                        <Typography variant='h6' component="span">{template('questions')}</Typography>
                     </Box>
                 </AccordionSummary>
                 <AccordionDetails className='flex  flex-col gap-4'>

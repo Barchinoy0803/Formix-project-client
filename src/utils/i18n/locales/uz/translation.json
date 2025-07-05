@@ -25,7 +25,10 @@
         "submit": "Yuborish",
         "showAll": "Barchasini ko‘rsatish",
         "hide": "Yashirish",
-        "show": "Ko‘rsatish"
+        "show": "Ko‘rsatish",
+        "dragAndDrop": "Sudrab olib tashlang",
+        "like": "Yoqdi",
+        "unLike": "Yoqmadi"
     },
     "fileUpload": {
         "sizeError": "Fayl hajmi 10MB dan kam bo‘lishi kerak",
@@ -66,7 +69,9 @@
        "multichoice": "Bir nechta tanlov",
        "numerical": "Sonli",
        "yes": "Ha",
-       "no": "Yo‘q"
+       "no": "Yo‘q",
+       "type": "Savol turi",
+       "publish": "E'lon qilish"
     },
     "template": {
        "public": "Ommaviy",
@@ -83,7 +88,17 @@
        "templateUpdateError": "Bir vaqtning o‘zida bir nechta shablonni yangilab bo‘lmaydi",
        "selectTemplateNote": "Iltimos, to‘ldirish uchun faqat bitta shablonni tanlang!",
        "checkNote": "Iltimos, tekshirish uchun faqat bitta shablonni tanlang",
-       "filledDate": "To‘ldirilgan sana"
+       "filledDate": "To‘ldirilgan sana",
+       "details": "Tafsilotlar",
+       "comments": "Izohlar",
+       "template": "Shablon",
+       "tags": "Teglar",
+       "users": "Foydalanuvchilar",
+       "viewNote": "Bu shablonni kim yoqtirganini ko‘rish",
+       "selectUsers": "Foydalanuvchilarni tanlang",
+       "selectTags": "Teglarni tanlang",
+       "description": "Tavsif",
+       "analyze": "Tahlil qilish"
     },
     "table": {
        "username": "Foydalanuvchi nomi",
@@ -95,7 +110,9 @@
        "title": "Sarlavha",
        "topic": "Mavzu",
        "description": "Tavsif",
-       "type": "Tur"
+       "type": "Tur",
+       "author": "Muallif",
+       "createdAt": "Yaratilgan sana"
     },
     "forms": {
       "all": "Barcha shakllar",
@@ -120,5 +137,11 @@
       "emailError": "Email manzili to‘g‘ri formatda bo‘lishi kerak (masalan, user@gmail.com)",
       "passwordError": "Parol kamida 8 ta belgidan iborat bo‘lishi kerak",
       "passwordReqError": "Parolda kamida bitta katta harf, bitta kichik harf, bitta raqam va bitta maxsus belgi (masalan, !@#$%^&*()) bo‘lishi kerak"
+    },
+    "comments": {
+      "title": "Izohlar",
+      "noComments": "Hozircha izohlar yo‘q",
+      "noCommentsNote": "Suhbatni boshlang! Fikringizni yozing va birinchi izoh qoldiring.",
+      "writeComment": "Nimadir yozing"
     }
 }

@@ -8,21 +8,24 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Chip } from '@mui/material';
 import { TemplateForm } from '../../types/form';
+import { useTranslator } from '../../hooks/useTranslator';
 
 interface SimpleTableProps {
     data: TemplateForm[]
 }
 const SimpleTable = ({ data }: SimpleTableProps) => {
+    const {t} = useTranslator('table')
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 1200 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell width={100}>Title</TableCell>
-                        <TableCell width={50} align="right">Author</TableCell>
-                        <TableCell width={50} align="right">Topic</TableCell>
-                        <TableCell width={100} align="right">Type</TableCell>
-                        <TableCell width={130} align="right">Created</TableCell>
+                        <TableCell width={100}>{t('title')}</TableCell>
+                        <TableCell width={50} align="right">{t('author')}</TableCell>
+                        <TableCell width={50} align="right">{t('topic')}</TableCell>
+                        <TableCell width={100} align="right">{t('type')}</TableCell>
+                        <TableCell width={130} align="right">{t('createdAt')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

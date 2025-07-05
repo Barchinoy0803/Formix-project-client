@@ -24,7 +24,10 @@
         "submit": "Submit",
         "showAll": "Show all",
         "hide": "Hide",
-        "show": "Show"
+        "show": "Show",
+        "dragAndDrop": "Drag and drop",
+        "like": "Like",
+        "unLike": "Unlike"
     },
     "fileUpload": {
         "sizeError": "File size must be less than 10MB",
@@ -66,7 +69,9 @@
         "numerical": "Numerical",
         "yes": "Yes",
         "no": "No",
-        "send": "Send"
+        "send": "Send",
+        "type": "Question type",
+        "publish": "Publish"
     },
     "template": {
         "public": "Public",
@@ -82,7 +87,17 @@
         "templatesDeleted": "Templates deleted!",
         "templateUpdateError": "You cannot update more than one template at the same time",
         "selectTemplateNote": "Please select only one template to fill out!",
-        "checkNote": "Please select only one template to check"
+        "checkNote": "Please select only one template to check",
+        "details": "Details",
+        "comments": "Comments",
+        "template": "Template",
+        "tags": "Tags",
+        "users": "Users",
+        "viewNote": "View who liked this template",
+        "selectUsers": "Select users",
+        "selectTags": "Select tags",
+        "description": "Description",
+        "analyze": "Analyze"
     },
     "table": {
         "username": "Username",
@@ -95,7 +110,9 @@
         "topic": "Topic",
         "description": "Description",
         "type": "Type",
-        "filledDate": "Filled date"
+        "filledDate": "Filled date",
+        "author": "Author",
+        "createdAt": "Created at"
     },
     "forms": {
         "all": "All forms",
@@ -120,5 +137,11 @@
         "emailError": "Email should be as email (e.g. user@gmail.com)",
         "passwordError": "Password should be at least 8 characters",
         "passwordReqError": "Password should include at least one uppercase letter, one lowercase letter, one number, one special character (e.g. !@#$%^&*())"
+    },
+    "comments": {
+        "title": "Comments",
+        "noComments": "No comments yet",
+        "noCommentsNote": "Start the conversation! Share your thoughts and be the first to comment.",
+        "writeComment": "Write something"
     }
 }
