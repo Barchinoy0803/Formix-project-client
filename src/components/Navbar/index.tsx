@@ -2,20 +2,30 @@ import { NavLink } from "react-router-dom"
 import { useTranslator } from "../../hooks/useTranslator"
 import { CiSearch } from "react-icons/ci";
 import LanguageSwitcher from "../LanguageSwitcher";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchText } from "../../redux/features/template.slice";
+import { validateToken } from "../../helpers";
+import { Box } from "@mui/material";
+import CustomDrawer from "../Drawer";
+
 
 const Navbar = () => {
   const { t } = useTranslator('auth')
   const { t: dashboard } = useTranslator('dashboard')
   const dispatch = useDispatch()
   const [search, setSearch] = useState<string>("")
+  const token = localStorage.getItem("token")
+
+  const isValidUser = useMemo(() => {
+    if(token){
+      return validateToken(token)
+    }
+  }, [token])
 
   useEffect(() => {
     dispatch(setSearchText(search))
   }, [])
-
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-100 mb-6">
@@ -38,29 +48,35 @@ const Navbar = () => {
               <input value={search} onChange={(e) => setSearch(e.target.value)} className="w-[600px] h-[45px] outline-none" placeholder={dashboard('search')} />
             </div>
           </div>
-          <div className="flex gap-2">
-            <NavLink
-              to="auth/register"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md text-md font-medium transition-colors duration-200 ${isActive
-                  ? 'bg-blue-500 text-white shadow-md'
-                  : 'text-gray-700 hover:text-[#47aed6] hover:bg-blue-50'
-                }`
-              }
-            >
-              {t('register')}
-            </NavLink>
-            <NavLink
-              to="auth/login"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md text-md font-medium transition-colors duration-200 ${isActive
-                  ? 'bg-blue-500 text-white shadow-md'
-                  : 'text-gray-700 hover:text-[#47aed6] hover:bg-blue-50'
-                }`
-              }
-            >
-              {t('login')}
-            </NavLink>
+          <div className="flex gap-2 items-center">
+            {
+              isValidUser ? <CustomDrawer />
+                :
+                <Box>
+                  <NavLink
+                    to="auth/register"
+                    className={({ isActive }) =>
+                      `px-4 py-2 rounded-md text-md font-medium transition-colors duration-200 ${isActive
+                        ? 'bg-blue-500 text-white shadow-md'
+                        : 'text-gray-700 hover:text-[#47aed6] hover:bg-blue-50'
+                      }`
+                    }
+                  >
+                    {t('register')}
+                  </NavLink>
+                  <NavLink
+                    to="auth/login"
+                    className={({ isActive }) =>
+                      `px-4 py-2 rounded-md text-md font-medium transition-colors duration-200 ${isActive
+                        ? 'bg-blue-500 text-white shadow-md'
+                        : 'text-gray-700 hover:text-[#47aed6] hover:bg-blue-50'
+                      }`
+                    }
+                  >
+                    {t('login')}
+                  </NavLink>
+                </Box>
+            }
             <LanguageSwitcher />
           </div>
         </div>

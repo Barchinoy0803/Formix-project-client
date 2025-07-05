@@ -41,8 +41,8 @@ const Home = () => {
       </Box>
       <div className='flex gap-5 container-home'>
         <Box className="grid grid-cols-5 gap-5 flex-wrap">
-          <NavLink to={'/dashboard/templates'} className="flex flex-col gap-2 ">
-            <div className="bg-white w-[200px] h-[200px] flex items-center justify-center text-[75px] border border-gray-200 rounded-sm">
+          <NavLink to={'/dashboard/templates'} className="flex flex-col gap-4">
+            <div className="bg-white w-[200px] h-[200px]  flex items-center justify-center text-[75px] border border-gray-200 rounded-sm">
               <button className="p-[200px] cursor-pointer">
                 <FaPlus className="text-[#47aed6]" />
               </button>

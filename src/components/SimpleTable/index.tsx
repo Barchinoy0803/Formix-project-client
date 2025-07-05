@@ -29,7 +29,7 @@ const SimpleTable = ({ data }: SimpleTableProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((item: TemplateForm) => (
+                    {data?.map((item: TemplateForm) => (
                         <TableRow
                             key={item.title}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
