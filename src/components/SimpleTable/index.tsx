@@ -12,7 +12,6 @@ import { TemplateForm } from '../../types/form';
 interface SimpleTableProps {
     data: TemplateForm[]
 }
-
 const SimpleTable = ({ data }: SimpleTableProps) => {
     return (
         <TableContainer component={Paper}>
