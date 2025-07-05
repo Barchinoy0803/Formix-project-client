@@ -211,7 +211,7 @@ const Comments = ({ templateId }: { templateId: string }) => {
                       <Box className="absolute bottom-full left-0 z-50 mb-2 rounded-xl overflow-hidden shadow-2xl">
                         <EmojiPicker
                           onEmojiClick={(e) => insertEmoji(e.emoji)}
-                          height={320}
+                          height={420}
                         />
                       </Box>
                     </ClickAwayListener>
