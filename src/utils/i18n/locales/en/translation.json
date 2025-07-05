@@ -1,4 +1,8 @@
 {
+    "home": {
+        "newForm": "Start a new form",
+        "popularForms": "The most popular forms"
+    },
     "dashboard": {
         "title": "Dashboard",
         "templates": "Templates",
@@ -7,7 +11,8 @@
         "userManagement": "User management",
         "search": "Search",
         "blankTemplate": "Blank template",
-        "menu": "Menu"
+        "menu": "Menu",
+        "home": "Home"
     },
     "buttons": {
         "delete": "Delete",
@@ -16,7 +21,10 @@
         "startSurvey": "Start Survey",
         "addOption": "Add option",
         "send": "Send",
-        "submit": "Submit"
+        "submit": "Submit",
+        "showAll": "Show all",
+        "hide": "Hide",
+        "show": "Show"
     },
     "fileUpload": {
         "sizeError": "File size must be less than 10MB",
@@ -70,7 +78,11 @@
         "success": "Successfully created!",
         "error": "Something went wrong!",
         "questions": "Questions",
-        "addQuestion": "Add question"
+        "addQuestion": "Add question",
+        "templatesDeleted": "Templates deleted!",
+        "templateUpdateError": "You cannot update more than one template at the same time",
+        "selectTemplateNote": "Please select only one template to fill out!",
+        "checkNote": "Please select only one template to check"
     },
     "table": {
         "username": "Username",
@@ -82,7 +94,8 @@
         "title": "Title",
         "topic": "Topic",
         "description": "Description",
-        "type": "Type"
+        "type": "Type",
+        "filledDate": "Filled date"
     },
     "forms": {
         "all": "All forms",

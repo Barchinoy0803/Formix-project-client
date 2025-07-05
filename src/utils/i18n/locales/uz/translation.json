@@ -1,4 +1,8 @@
 {
+    "home": {
+        "newForm": "Yangi shaklni boshlash",
+        "popularForms": "Eng mashhur shakllar"
+    },
     "dashboard": {
         "title": "Boshqaruv paneli",
         "templates": "Shablonlar",
@@ -7,7 +11,8 @@
         "userManagement": "Foydalanuvchilar boshqaruvi",
         "search": "Qidirish",
         "blankTemplate": "Bo‘sh shablon",
-        "menu": "Menyu"
+        "menu": "Menyu",
+        "home": "Bosh sahifa"
     },
     "buttons": {
         "delete": "O'chirish",
@@ -17,7 +22,10 @@
         "addOption": "Variant qo‘shish",
         "send": "Yuborish",
         "otpTitle": "Emailni Tasdiqlash",
-        "submit": "Yuborish"
+        "submit": "Yuborish",
+        "showAll": "Barchasini ko‘rsatish",
+        "hide": "Yashirish",
+        "show": "Ko‘rsatish"
     },
     "fileUpload": {
         "sizeError": "Fayl hajmi 10MB dan kam bo‘lishi kerak",
@@ -70,7 +78,12 @@
        "success": "Muvaffaqiyatli yaratildi!",
        "error": "Nimadir noto‘g‘ri ketdi!",
        "questions": "Savollar",
-       "addQuestion": "Savol qo‘shish"
+       "addQuestion": "Savol qo‘shish",
+       "templatesDeleted": "Shablonlar o‘chirildi!",
+       "templateUpdateError": "Bir vaqtning o‘zida bir nechta shablonni yangilab bo‘lmaydi",
+       "selectTemplateNote": "Iltimos, to‘ldirish uchun faqat bitta shablonni tanlang!",
+       "checkNote": "Iltimos, tekshirish uchun faqat bitta shablonni tanlang",
+       "filledDate": "To‘ldirilgan sana"
     },
     "table": {
        "username": "Foydalanuvchi nomi",

@@ -22,7 +22,7 @@ import { useTranslator } from '../../hooks/useTranslator'
 const Survey = () => {
   const location = useLocation();
   const { id } = useParams();
-  const { t } = useTranslator('submitSurvey')
+  const { t } = useTranslator('forms')
 
   const [isExsist] = useIsExistingTemplateMutation()
 
