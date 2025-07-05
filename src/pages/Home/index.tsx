@@ -15,6 +15,8 @@ import SimpleTable from '../../components/SimpleTable'
 const Home = () => {
   const { searchtext } = useSelector((state: RootState) => state.templates)
   const { t } = useTranslator('dashboard')
+  const { t:buttons } = useTranslator('buttons')
+  const { t:home } = useTranslator('home')
 
   const [showAll, setShowAll] = useState<boolean>(false)
   const [templates, setTemplates] = useState<TemplateForm[]>([])
@@ -34,8 +36,8 @@ const Home = () => {
     <Box className='flex flex-col gap-6'>
       <Navbar />
       <Box className="flex justify-between container-home">
-        <Typography fontFamily={'revert'} variant='h5'>Start a new form</Typography>
-        <Button startIcon={showAll ? <BiHide /> : <BiShowAlt />} variant='outlined' onClick={() => setShowAll(p => !p)}>{showAll ? "Hide" : "Show all"}</Button>
+        <Typography fontFamily={'revert'} variant='h5'>{home('newForm')}</Typography>
+        <Button startIcon={showAll ? <BiHide /> : <BiShowAlt />} variant='outlined' onClick={() => setShowAll(p => !p)}>{showAll ? buttons('hide'): buttons('showAll')}</Button>
       </Box>
       <div className='flex gap-5 container-home'>
         <Box className="grid grid-cols-5 gap-5 flex-wrap">
@@ -56,7 +58,7 @@ const Home = () => {
       </div>
       <Box className="flex container-home">
         <Box className="flex flex-col gap-5 my-[80px]">
-          <Typography fontFamily={'revert'} variant='h5'>The most popular forms</Typography>
+          <Typography fontFamily={'revert'} variant='h5'>{home('popularForms')}</Typography>
           <Box className="flex gap-5">
             {
               topLoading ? <CircularProgress /> :

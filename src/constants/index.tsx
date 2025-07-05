@@ -152,7 +152,7 @@ export const FormTableColums = [
   },
   {
     field: 'createdAt',
-    headerName: 'Filled date',
+    headerName: 'table.filledDate',
     width: 250,
     renderCell: (params: any) => (
       <Box display="flex" alignItems="center" height="100%">

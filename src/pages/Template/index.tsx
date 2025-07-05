@@ -6,13 +6,14 @@ import { memo, useState } from 'react'
 import CreateEditTemplate from '../CreateEditTemplate'
 import Analyze from '../Analyze'
 import { useLocation } from 'react-router-dom'
+import { useTranslator } from '../../hooks/useTranslator'
 
 const Template = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const isReadMode = searchParams.get('readmode');
-
-    const [activeTab, setActiveTab] = useState<string>("Template")
+    const { t } = useTranslator('template');
+    const [activeTab, setActiveTab] = useState<string>("Template");
 
     const handleChange = (_: React.SyntheticEvent, newValue: string) => {
         setActiveTab(newValue);
@@ -25,8 +26,8 @@ const Template = () => {
                     !isReadMode &&
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleChange} aria-label="lab API tabs example">
-                            <Tab label="Update template" value='Template' />
-                            <Tab label="Analyze" value='Analyze' />
+                            <Tab label={t('updateTemplate')} value='Template' />
+                            <Tab label={t('analyze')} value='Analyze' />
                         </TabList>
                     </Box>
                 }

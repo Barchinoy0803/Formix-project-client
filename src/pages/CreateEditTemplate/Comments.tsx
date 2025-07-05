@@ -16,10 +16,12 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { CommentType } from '../../types';
 import { getBgColor } from './helpers';
 import { getUserId } from '../../helpers';
+import { useTranslator } from '../../hooks/useTranslator';
 
 
 const Comments = ({ templateId }: { templateId: string }) => {
   const quillRef = useRef<ReactQuill | null>(null);
+  const { t } = useTranslator('comments')
 
   const { handleSubmit, control, reset, setValue } = useForm<CommentType>({
     defaultValues: { context: '' },
@@ -110,7 +112,7 @@ const Comments = ({ templateId }: { templateId: string }) => {
           <Box className="flex items-center gap-3">
             <AiOutlineComment className="text-2xl text-gray-600" />
             <Typography variant="h6" className="font-semibold text-slate-800">
-              Comments ({comments.length})
+              {t('title')} ({comments.length})
             </Typography>
           </Box>
         </AccordionSummary>
@@ -120,9 +122,6 @@ const Comments = ({ templateId }: { templateId: string }) => {
             <Box className="space-y-4 h-[400px] overflow-y-auto content px-3">
               <Box className="flex items-center gap-3 mb-6">
                 <Box className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1"></Box>
-                <span className="text-sm font-medium text-gray-500 bg-white px-4 py-1 rounded-full border border-gray-200">
-                  {comments.length} Comment{comments.length !== 1 ? 's' : ''}
-                </span>
                 <Box className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1"></Box>
               </Box>
 
@@ -167,9 +166,9 @@ const Comments = ({ templateId }: { templateId: string }) => {
                   <span className="text-xs text-blue-600 font-medium">0</span>
                 </Box>
               </Box>
-              <h3 className="text-lg font-medium text-gray-700 mb-2">No comments yet</h3>
+              <h3 className="text-lg font-medium text-gray-700 mb-2">{t('noComments')}</h3>
               <p className="text-sm text-gray-500 max-w-xs mx-auto leading-relaxed">
-                Start the conversation! Share your thoughts and be the first to comment.
+                {t('noCommentsNote')}
               </p>
             </Box>
           )}
@@ -187,7 +186,7 @@ const Comments = ({ templateId }: { templateId: string }) => {
                         theme="snow"
                         value={field.value}
                         onChange={field.onChange}
-                        placeholder="Matn kiriting..."
+                        placeholder={t('writeComment')}
                       />
                     </Box>
                   )}

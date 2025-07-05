@@ -6,13 +6,7 @@ import {
   Box,
   IconButton,
   Typography,
-  Avatar,
   Tooltip,
-  Popover,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Divider,
   Badge
 } from '@mui/material';
 import { Dispatch, memo, SetStateAction, useEffect, useState } from 'react';
@@ -30,9 +24,8 @@ import { TbListDetails } from "react-icons/tb";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import { getUserId } from '../../helpers';
-import { getBgColor } from './helpers';
-import PersonIcon from '@mui/icons-material/Person';
-import likeSocket, { connectSocket, LikeType } from '../../service/likeSocket';
+import likeSocket, { connectSocket } from '../../service/likeSocket';
+import { useTranslator } from '../../hooks/useTranslator';
 
 interface DetailsProps {
   isReadMode: boolean;
@@ -46,10 +39,12 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
   const { control } = useFormContext<TemplateForm>();
   const { data: allUsers, isFetching } = useGetUsersQuery({});
   const templateType = useWatch({ control, name: "type" });
-  const [likes, setLikes] = useState<LikeType[]>([]);
   const [likeCount, setLikeCount] = useState(0);
   const [userLiked, setUserLiked] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const { t } = useTranslator('template')
+  const { t:buttons } = useTranslator('buttons')
+  const { t:table } = useTranslator('table')
 
   useEffect(() => {
     connectSocket();
@@ -57,7 +52,6 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
 
     likeSocket.on('like:updated', (data) => {
       if (data.templateId === templateId) {
-        setLikes(data.likes);
         setLikeCount(data.count);
         setUserLiked(data.likes.some(like => like.userId === getUserId()));
       }
@@ -82,19 +76,12 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
     setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseLikesList = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'likes-popover' : undefined;
-
   return (
     <Box>
       <Box className="flex justify-between items-center p-4 bg-white shadow rounded-md">
-        <Typography variant='h6'>Template</Typography>
+        <Typography variant='h6'>{t('template')}</Typography>
         <Box className="flex items-center gap-3">
-          <Tooltip title={userLiked ? "Unlike" : "Like"}>
+          <Tooltip title={userLiked ? buttons('unLike') : buttons('like')}>
             <IconButton
               onClick={handleLikeToggle}
               disabled={!getUserId()}
@@ -109,7 +96,7 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="View who liked this template">
+          <Tooltip title={t('viewNote')}>
             <Badge
               badgeContent={likeCount}
               color="primary"
@@ -129,60 +116,20 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
         </Box>
       </Box>
 
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleCloseLikesList}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: {
-            width: 300,
-            maxHeight: 400,
-            p: 1,
-            borderRadius: 2,
-            boxShadow: '0 4px 20px 0 rgba(0,0,0,0.12)'
-          }
-        }}
-      >
-        <Typography variant="subtitle1" className="p-4 font-semibold">
-          Liked by ({likeCount})
-        </Typography>
-        <Divider />
-        <List dense sx={{ width: '100%', maxWidth: 360 }}>
-          {likes.length > 0 ? (
-            likes.map((like) => (
-              <ListItem key={like.id} sx={{ py: 1 }}>
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: getBgColor() }}>
-                    {like.user?.username ? like.user.username[0].toUpperCase() : <PersonIcon />}
-                  </Avatar>
-                </ListItemAvatar>
-              </ListItem>
-            ))
-          ) : (
-            <Typography variant="body2" className="p-4 text-gray-500">
-              No likes yet
-            </Typography>
-          )}
-        </List>
-      </Popover>
-
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
           <Box className="flex items-center gap-2">
             <TbListDetails className="text-2xl" />
-            <Typography variant="h6">Details</Typography>
+            <Typography variant="h6">{t('details')}</Typography>
           </Box>
         </AccordionSummary>
         <AccordionDetails>
           <Box className="flex flex-col gap-4">
             <FileUpload isReadMode={!!isReadMode} file={file} setFile={setFile} />
             <Box className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <ControlledTextField disabled={!!isReadMode} control={control} name="title" label="Title" />
-              <ControlledTextField disabled={!!isReadMode} control={control} name="topic" label="Topic" />
-              <CustomSelect disabled={!!isReadMode} control={control} name="type" label="Type" options={templateTypeOptions} />
+              <ControlledTextField disabled={!!isReadMode} control={control} name="title" label={table('title')} />
+              <ControlledTextField disabled={!!isReadMode} control={control} name="topic" label={table('topic')} />
+              <CustomSelect disabled={!!isReadMode} control={control} name="type" label={table('type')} options={templateTypeOptions} />
             </Box>
             {templateType === TEMPLATE_TYPE.PRIVATE && (
               <MultiSelect
@@ -190,8 +137,8 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
                 control={control}
                 data={allUsers}
                 isLoading={isFetching}
-                label="Users"
-                placeholder="Select users"
+                label={t('users')}
+                placeholder={t('selectUsers')}
                 mapOption={(u) => ({ value: u.id, label: u.username })}
                 disabled={!!isReadMode}
               />
@@ -202,8 +149,8 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
                 control={control}
                 data={tagData}
                 isLoading={isFetching}
-                label="Tags"
-                placeholder="Select tags"
+                label={t('tags')}
+                placeholder={t('selectTags')}
                 mapOption={(u) => ({ value: u.id, label: u.name })}
                 disabled={!!isReadMode}
               />
@@ -214,7 +161,7 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
               lineCount={5}
               control={control}
               name="description"
-              label="Description"
+              label={t('description')}
             />
           </Box>
         </AccordionDetails>
