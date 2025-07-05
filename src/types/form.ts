@@ -35,7 +35,8 @@ export interface TemplateForm {
     Question: QuestionForm[];
     TemplateAccess?: AllowedUsers[],
     tagIds: string[] | Option[]
-    user?: { username: string }
+    user?: { username: string },
+    createdAt? :string
 }
 
 export interface AllowedUsers {
