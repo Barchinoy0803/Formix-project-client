@@ -9,6 +9,14 @@ const extendedApi = mainApi.injectEndpoints({
             }),
             providesTags: ['TAG']
         }),
+        getOneTag: build.query({
+            query: (id) => ({
+                method: "GET",
+                url: `/tag/${id}`,
+                id
+            }),
+            providesTags: ['TAG']
+        }),
         createTag: build.mutation({
             query: (body) => ({
                 method: "POST",
@@ -18,8 +26,8 @@ const extendedApi = mainApi.injectEndpoints({
             invalidatesTags: ['TAG']
         }),
         deleteTag: build.mutation({
-                query: (id) => ({
-                url: `/tag/${id}`,    
+            query: (id) => ({
+                url: `/tag/${id}`,
                 method: 'DELETE',
             }),
             invalidatesTags: ['TAG'],
@@ -28,4 +36,4 @@ const extendedApi = mainApi.injectEndpoints({
     overrideExisting: false
 })
 
-export const { useGetAllTagsQuery, useCreateTagMutation, useDeleteTagMutation } = extendedApi
+export const { useGetAllTagsQuery, useGetOneTagQuery, useCreateTagMutation, useDeleteTagMutation } = extendedApi

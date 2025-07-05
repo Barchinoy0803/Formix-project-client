@@ -54,7 +54,7 @@ const CreateEditTemplate = () => {
         const payload = {
             ...data,
             allowedUsers: data.TemplateAccess?.map((item) => ({ id: item.value })),
-            tagIds: data.tagIds.map((tag: any) => tag.value)
+            tagIds: data?.tagIds?.map((tag: any) => tag.value)
         }
 
         if (file) {

@@ -39,14 +39,14 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center h-16">
 
-          <div className="flex items-center justify-center p-8">
+          <NavLink to={"/"} className="flex items-center justify-center p-8">
             <div className="font-sans text-[28px] font-normal tracking-wider text-cyan-400 relative py-3">
               <span className="font-bold text-cyan-300 text-3xl mr-px relative">F</span>
               <span className="font-light tracking-wide">ORMIX</span>
               <div className="absolute bottom-0 left-0 w-6 h-1 bg-gradient-to-r from-cyan-300 to-cyan-400"></div>
               <div className="absolute top-0 right-0 w-6 h-px bg-cyan-400 opacity-50"></div>
             </div>
-          </div>
+          </NavLink>
 
 
           <div>

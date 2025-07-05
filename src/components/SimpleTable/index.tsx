@@ -42,8 +42,8 @@ const SimpleTable = ({ data }: SimpleTableProps) => {
                                 label={item.topic}
                                 style={{
                                     backgroundColor: 'transparent',
-                                    border: '1px solid #47aed6',
-                                    color: '#47aed6',
+                                    border: '1px solid #FFA500',
+                                    color: '#FFA500',
                                 }}
                             />}</TableCell>
                             <TableCell align="right">{item.type}</TableCell>

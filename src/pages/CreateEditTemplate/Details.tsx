@@ -43,8 +43,8 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
   const [userLiked, setUserLiked] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const { t } = useTranslator('template')
-  const { t:buttons } = useTranslator('buttons')
-  const { t:table } = useTranslator('table')
+  const { t: buttons } = useTranslator('buttons')
+  const { t: table } = useTranslator('table')
 
   useEffect(() => {
     connectSocket();
@@ -80,40 +80,43 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
     <Box>
       <Box className="flex justify-between items-center p-4 bg-white shadow rounded-md">
         <Typography variant='h6'>{t('template')}</Typography>
-        <Box className="flex items-center gap-3">
-          <Tooltip title={userLiked ? buttons('unLike') : buttons('like')}>
-            <IconButton
-              onClick={handleLikeToggle}
-              disabled={!getUserId()}
-              color={userLiked ? "primary" : "default"}
-              sx={{
-                '&:hover': {
-                  backgroundColor: userLiked ? 'rgba(25, 118, 210, 0.08)' : 'rgba(0, 0, 0, 0.04)'
-                }
-              }}
-            >
-              {userLiked ? <ThumbUpAltIcon className="text-2xl" /> : <ThumbUpOffAltIcon className="text-2xl" />}
-            </IconButton>
-          </Tooltip>
+        {
+          isReadMode &&
+          <Box className="flex items-center gap-3">
+            <Tooltip title={userLiked ? buttons('unLike') : buttons('like')}>
+              <IconButton
+                onClick={handleLikeToggle}
+                disabled={!getUserId()}
+                color={userLiked ? "primary" : "default"}
+                sx={{
+                  '&:hover': {
+                    backgroundColor: userLiked ? 'rgba(25, 118, 210, 0.08)' : 'rgba(0, 0, 0, 0.04)'
+                  }
+                }}
+              >
+                {userLiked ? <ThumbUpAltIcon className="text-2xl" /> : <ThumbUpOffAltIcon className="text-2xl" />}
+              </IconButton>
+            </Tooltip>
 
-          <Tooltip title={t('viewNote')}>
-            <Badge
-              badgeContent={likeCount}
-              color="primary"
-              overlap="circular"
-              onClick={handleOpenLikesList}
-              sx={{
-                cursor: 'pointer',
-                '& .MuiBadge-badge': {
-                  right: 6,
-                  top: 0,
-                  padding: '0 4px',
-                }
-              }}
-            >
-            </Badge>
-          </Tooltip>
-        </Box>
+            <Tooltip title={t('viewNote')}>
+              <Badge
+                badgeContent={likeCount}
+                color="primary"
+                overlap="circular"
+                onClick={handleOpenLikesList}
+                sx={{
+                  cursor: 'pointer',
+                  '& .MuiBadge-badge': {
+                    right: 6,
+                    top: 0,
+                    padding: '0 4px',
+                  }
+                }}
+              >
+              </Badge>
+            </Tooltip>
+          </Box>
+        }
       </Box>
 
       <Accordion defaultExpanded>

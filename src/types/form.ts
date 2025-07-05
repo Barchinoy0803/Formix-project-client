@@ -89,6 +89,7 @@ export interface QuestionAnalyzesForm {
 }
 
 export interface TagForm {
+    id: string;
     name: string;
 }
 
