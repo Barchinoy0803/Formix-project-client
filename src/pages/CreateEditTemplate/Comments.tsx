@@ -97,21 +97,15 @@ const Comments = ({ templateId }: { templateId: string }) => {
   };
 
   return (
-    <Box className="rounded-xl shadow-lg overflow-hidden bg-white border border-gray-200">
-      <Accordion
-        className="shadow-none"
-        sx={{
-          '&:before': { display: 'none' },
-          boxShadow: 'none'
-        }}
-      >
+    <Box className="rounded-xl shadow-lg overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+      <Accordion className="shadow-none">
         <AccordionSummary
-          expandIcon={<ArrowDropDownIcon className="text-gray-600" />}
-          className="bg-slate-50 border-b border-gray-200 min-h-16 hover:bg-slate-100 transition-colors"
+          expandIcon={<ArrowDropDownIcon className="text-gray-600 dark:text-gray-300" />}
+          className="bg-slate-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 min-h-16 hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors"
         >
           <Box className="flex items-center gap-3">
-            <AiOutlineComment className="text-2xl text-gray-600" />
-            <Typography variant="h6" className="font-semibold text-slate-800">
+            <AiOutlineComment className="text-2xl text-gray-600 dark:text-gray-300" />
+            <Typography variant="h6" className="font-semibold text-slate-800 dark:text-gray-100">
               {t('title')} ({comments.length})
             </Typography>
           </Box>
@@ -121,36 +115,41 @@ const Comments = ({ templateId }: { templateId: string }) => {
           {comments.length > 0 ? (
             <Box className="space-y-4 h-[400px] overflow-y-auto content px-3">
               <Box className="flex items-center gap-3 mb-6">
-                <Box className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1"></Box>
-                <Box className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1"></Box>
+                <Box className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-1" />
+                <Box className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent flex-1" />
               </Box>
 
               {comments.map((c) => (
                 <Box
                   key={c.id}
-                  className="group relative bg-gradient-to-r from-gray-50 to-white rounded-2xl px-3 py-2 border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                  className="group relative bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl px-3 py-2 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                 >
                   <Box className="flex items-center gap-2 mb-3">
-                    <Avatar
-                      sx={{ bgcolor: getBgColor() }}
-                      alt="Remy Sharp"
-                    >
+                    <Avatar sx={{ bgcolor: getBgColor() }}>
                       {c.user?.username[0]}
                     </Avatar>
-                    <Typography variant='h6' fontFamily={'monospace'}>{c.user?.username}</Typography>
+                    <Typography variant="h6" fontFamily="monospace" className="text-gray-800 dark:text-gray-100">
+                      {c.user?.username}
+                    </Typography>
                   </Box>
                   <Box
-                    className="prose prose-sm max-w-none break-words overflow-wrap-anywhere [&_p]:text-gray-800 [&_p]:leading-relaxed [&_*]:m-0 [&_p]:mb-2 [&_p:last-child]:mb-0 [&_strong]:text-gray-900 [&_em]:text-gray-700 [&_ul]:ml-4 [&_ol]:ml-4 [&_li]:text-gray-800 [&_*]:break-words [&_*]:overflow-wrap-anywhere"
+                    className="prose prose-sm max-w-none break-words overflow-wrap-anywhere
+                    [&_p]:text-gray-800 dark:[&_p]:text-gray-100
+                    [&_strong]:text-gray-900 dark:[&_strong]:text-white
+                    [&_em]:text-gray-700 dark:[&_em]:text-gray-400
+                    [&_ul]:ml-4 [&_ol]:ml-4
+                    [&_li]:text-gray-800 dark:[&_li]:text-gray-200
+                    [&_*]:m-0 [&_p]:mb-2 [&_p:last-child]:mb-0"
                     dangerouslySetInnerHTML={{ __html: c.context }}
                   />
 
-                  <Box className="absolute top-4 right-4 w-2 h-2 bg-blue-100 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></Box>
-                  <Box className="absolute bottom-4 right-6 w-1 h-1 bg-blue-200 rounded-full opacity-30 group-hover:opacity-70 transition-opacity"></Box>
+                  <Box className="absolute top-4 right-4 w-2 h-2 bg-blue-100 dark:bg-blue-400 rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
+                  <Box className="absolute bottom-4 right-6 w-1 h-1 bg-blue-200 dark:bg-blue-500 rounded-full opacity-30 group-hover:opacity-70 transition-opacity" />
                   {
                     getUserId() === c.user?.id &&
                     <Box className="flex justify-end">
-                      <IconButton onClick={() => handleEditComment(c)}><MdEdit /></IconButton>
-                      <IconButton onClick={() => handleDeleteComment(c.id)}><MdDelete /></IconButton>
+                      <IconButton><MdEdit className="text-gray-600 dark:text-gray-300" onClick={() => handleEditComment(c)} /></IconButton>
+                      <IconButton><MdDelete className="text-gray-600 dark:text-gray-300" onClick={() => handleDeleteComment(c.id)} /></IconButton>
                     </Box>
                   }
                 </Box>
@@ -159,20 +158,21 @@ const Comments = ({ templateId }: { templateId: string }) => {
           ) : (
             <Box className="text-center py-16 px-6">
               <Box className="relative mb-6">
-                <Box className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                  <AiOutlineComment className="text-3xl text-gray-400" />
+                <Box className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+                  <AiOutlineComment className="text-3xl text-gray-400 dark:text-gray-300" />
                 </Box>
-                <Box className="absolute -top-1 -right-1 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-xs text-blue-600 font-medium">0</span>
+                <Box className="absolute -top-1 -right-1 w-6 h-6 bg-blue-100 dark:bg-blue-400 rounded-full flex items-center justify-center">
+                  <span className="text-xs text-blue-600 dark:text-white font-medium">0</span>
                 </Box>
               </Box>
-              <h3 className="text-lg font-medium text-gray-700 mb-2">{t('noComments')}</h3>
-              <p className="text-sm text-gray-500 max-w-xs mx-auto leading-relaxed">
+              <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('noComments')}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xs mx-auto leading-relaxed">
                 {t('noCommentsNote')}
               </p>
             </Box>
           )}
-          <Box className="bg-slate-50 rounded-xl p-5 border border-gray-200 mb-6">
+
+          <Box className="bg-slate-50 dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 mb-6">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <Box className="comment-editor">
                 <Controller
@@ -180,7 +180,7 @@ const Comments = ({ templateId }: { templateId: string }) => {
                   control={control}
                   rules={{ required: true }}
                   render={({ field }) => (
-                    <Box className="[&_.ql-toolbar]:rounded-t-lg [&_.ql-toolbar]:border-gray-300 [&_.ql-container]:rounded-b-lg [&_.ql-container]:border-gray-300 [&_.ql-container]:border-t-0 [&_.ql-editor]:min-h-20 [&_.ql-editor]:p-3 [&_.ql-editor.ql-blank::before]:text-gray-400 [&_.ql-editor.ql-blank::before]:not-italic">
+                    <Box className="[&_.ql-toolbar]:rounded-t-lg [&_.ql-toolbar]:border-gray-300 dark:[&_.ql-toolbar]:border-gray-700 [&_.ql-container]:rounded-b-lg [&_.ql-container]:border-gray-300 dark:[&_.ql-container]:border-gray-700 [&_.ql-container]:border-t-0 [&_.ql-editor]:min-h-20 [&_.ql-editor]:p-3 [&_.ql-editor.ql-blank::before]:text-gray-400 dark:[&_.ql-editor.ql-blank::before]:text-gray-500">
                       <ReactQuill
                         ref={quillRef}
                         theme="snow"
@@ -197,17 +197,18 @@ const Comments = ({ templateId }: { templateId: string }) => {
                 <Box className="relative">
                   <IconButton
                     onClick={() => setShowPicker((v) => !v)}
-                    className={`transition-all duration-200 ${showPicker
-                      ? 'bg-sky-100 text-sky-600 hover:bg-sky-200'
-                      : 'text-slate-500 hover:bg-slate-100 hover:text-slate-700'
-                      }`}
+                    className={`transition-all duration-200 ${
+                      showPicker
+                        ? 'bg-sky-100 text-sky-600 hover:bg-sky-200 dark:bg-sky-800 dark:text-sky-300'
+                        : 'text-slate-500 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-slate-700'
+                    }`}
                   >
                     <MdOutlineEmojiEmotions className="text-xl" />
                   </IconButton>
 
                   {showPicker && (
                     <ClickAwayListener onClickAway={() => setShowPicker(false)}>
-                      <Box className="absolute bottom-full left-0 z-50 mb-2 rounded-xl overflow-hidden shadow-2xl">
+                      <Box className="absolute bottom-full left-0 z-50 mb-2 rounded-xl overflow-hidden shadow-2xl dark:bg-gray-800">
                         <EmojiPicker
                           onEmojiClick={(e) => insertEmoji(e.emoji)}
                           height={420}
@@ -219,9 +220,9 @@ const Comments = ({ templateId }: { templateId: string }) => {
 
                 <IconButton
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 px-5 rounded-lg text-white font-medium shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 normal-case"
+                  className="bg-blue-500 hover:bg-blue-600 px-5 rounded-lg text-white font-medium shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200"
                 >
-                  <IoSend className='text-2xl text-gray-600' />
+                  <IoSend className="text-2xl text-white" />
                 </IconButton>
               </Box>
             </form>

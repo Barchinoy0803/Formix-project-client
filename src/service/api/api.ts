@@ -1,11 +1,11 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { validateToken } from '../../helpers';
+import { getToken, removeToken, validateToken } from '../../helpers';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
   prepareHeaders: (headers) => {
-    const token = localStorage.getItem('token') || '';
+    const token = getToken() || '';
     if (validateToken(token)) {
       headers.set('Authorization', `Bearer ${token}`);
     }
@@ -26,7 +26,7 @@ const baseQueryWithStatusHandling: typeof baseQuery = async (args, api, extraOpt
   const result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 401 || result?.error?.status === 403) {
-    localStorage.removeItem('token');
+    removeToken()
     window.location.href = '/auth/login';
   }
 

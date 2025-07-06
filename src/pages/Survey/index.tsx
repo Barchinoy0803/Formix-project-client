@@ -103,7 +103,7 @@ const Survey = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-8">
           <Paper
             elevation={3}
-            className="rounded-2xl overflow-hidden border border-gray-200 shadow-lg"
+            className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg bg-white dark:bg-gray-900"
           >
             {template.image && (
               <Box className="relative">
@@ -117,11 +117,11 @@ const Survey = () => {
               </Box>
             )}
             <CardContent className="p-8">
-              <Stack spacing={3} alignItems="center" className="space-y-6 items-center">
+              <Stack spacing={3} alignItems="center">
                 <Typography
                   variant="h3"
                   component="h1"
-                  className="text-4xl font-bold text-center text-blue-700 leading-tight"
+                  className="text-4xl font-bold text-center text-blue-700 dark:text-blue-400 leading-tight"
                 >
                   {template.title}
                 </Typography>
@@ -129,7 +129,7 @@ const Survey = () => {
                 <Box className="flex justify-center">
                   <Typography
                     component="span"
-                    className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-purple-700 bg-purple-100 border border-purple-200"
+                    className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-800/40 border border-purple-200 dark:border-purple-600"
                   >
                     {template.topic}
                   </Typography>
@@ -138,7 +138,7 @@ const Survey = () => {
                 <Typography
                   variant="h6"
                   component="p"
-                  className="text-center text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto"
+                  className="text-center text-gray-600 dark:text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto"
                 >
                   {template.description}
                 </Typography>
@@ -146,28 +146,28 @@ const Survey = () => {
             </CardContent>
           </Paper>
 
-          <Stack spacing={3} className="space-y-6">
+          <Stack spacing={3}>
             {fields.map((question, index) => (
               <Paper
                 key={question.id}
                 elevation={1}
-                className="p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300 hover:-translate-y-1 group w-full"
+                className="p-8 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-900 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-300 hover:-translate-y-1 group w-full"
               >
                 <Box className="flex items-start gap-4 mb-6 w-full">
-                  <Box className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm group-hover:bg-blue-700 transition-colors duration-200">
+                  <Box className="flex-shrink-0 w-8 h-8 bg-blue-600 group-hover:bg-blue-700 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm transition-colors duration-200">
                     {index + 1}
                   </Box>
                   <Box className="flex-1 min-w-0">
                     <Typography
                       variant="h6"
                       component="h3"
-                      className="text-xl font-semibold text-gray-800 leading-relaxed"
+                      className="text-xl font-semibold text-gray-800 dark:text-gray-100 leading-relaxed"
                     >
                       {question.title}
                     </Typography>
                   </Box>
                 </Box>
-                <Divider className="mb-6 border-gray-200" />
+                <Divider className="mb-6 border-gray-200 dark:border-gray-700" />
                 <Box className="w-full">
                   {renderQuestion({ question, control, index, isReadMode: !!isReadMode })}
                 </Box>
@@ -175,8 +175,7 @@ const Survey = () => {
             ))}
           </Stack>
 
-          {
-            !isReadMode &&
+          {!isReadMode && (
             <Box className="flex justify-center pt-6">
               <Button
                 type="submit"
@@ -187,7 +186,7 @@ const Survey = () => {
                 {t('submitSurvey')}
               </Button>
             </Box>
-          }
+          )}
         </form>
       ) : (
         <Box className="flex flex-col items-center justify-center min-h-screen space-y-6">

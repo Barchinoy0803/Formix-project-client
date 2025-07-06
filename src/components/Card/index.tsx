@@ -8,8 +8,6 @@ interface CardProps {
 }
 
 const Card = ({ templateData }: CardProps) => {
-    console.log(templateData, "template");
-    
     return (
         <NavLink to={`/dashboard/template/${templateData.id}?readmode=true`} className="flex gap-5">
             <Box className="flex flex-col gap-1 rounded-sm overflow-hidden shadow">

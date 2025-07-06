@@ -1,4 +1,5 @@
 import { io, Socket } from 'socket.io-client';
+import { getToken } from '../helpers';
 
 export interface LikeType {
   id: string;
@@ -36,7 +37,7 @@ const likeSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
 );
 
 export const connectSocket = (): void => {
-  const token = localStorage.getItem('token');
+  const token = getToken();
   likeSocket.auth = token ? { token: `Bearer ${token}` } : {};
   likeSocket.connect();
 };

@@ -1,6 +1,9 @@
+import { store } from '../redux'
 import { jwtDecode } from "jwt-decode"
+import { setToken } from '../redux/features/user.slice'
 
 export const validateToken = (token: string): boolean => {
+    if(!token) return false
     const payload = token.split(".")[1]
     if (payload) {
         try {
@@ -10,16 +13,20 @@ export const validateToken = (token: string): boolean => {
                 return true
             }
 
-            localStorage.removeItem("token")
+            removeToken()
         } catch (error) {
-            localStorage.removeItem("token")
+            removeToken()
         }
     }
     return false
 }
 
 export const getUserId = () => {
-    const token = localStorage.getItem("token")
+    const token = getToken()
     const data = jwtDecode(token!) as any
     return data.id
 }
+
+export const getToken = () => store.getState().users.token
+
+export const removeToken = () => store.dispatch(setToken(null))

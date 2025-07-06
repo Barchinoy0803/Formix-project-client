@@ -1,7 +1,9 @@
 {
     "home": {
         "newForm": "Start a new form",
-        "popularForms": "The most popular forms"
+        "popularForms": "The most popular forms",
+        "noData": "No data",
+        "noDataNote": "There is no data to display."
     },
     "dashboard": {
         "title": "Dashboard",

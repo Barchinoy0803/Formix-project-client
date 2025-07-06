@@ -35,7 +35,7 @@ const CreateEditTemplate = () => {
         mode: 'onChange'
     })
 
-    const { handleSubmit, reset, getValues, formState: { isDirty, isValid } } = methods
+    const { handleSubmit, reset, formState: { isDirty, isValid } } = methods
 
     const isCreateOption = useMemo(() => {
         return id === "new"
@@ -45,8 +45,6 @@ const CreateEditTemplate = () => {
         if (data) {
             reset(data)
         }
-        console.log(getValues());
-
     }, [data])
 
     const onSubmit = async (data: TemplateForm) => {

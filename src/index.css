@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import 'react-quill-new/dist/quill.snow.css'; 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@import "tailwindcss/preflight"
+@tailwind utilities;
 
 .link.active {
     color: blue;

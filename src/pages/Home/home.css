@@ -1,0 +1,12 @@
+.chipWrapper {
+  display: flex;
+  gap: 0.5rem;          
+  overflow-x: auto;      
+  white-space: nowrap;  
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;   
+}
+.chipWrapper::-webkit-scrollbar {
+  display: none;            
+}

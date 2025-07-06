@@ -1,4 +1,5 @@
 import { io, Socket } from 'socket.io-client';
+import { getToken } from '../helpers';
 
 interface ServerToClientEvents {
   'comment:new': (comment: any) => void;
@@ -31,7 +32,7 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
 );
 
 export const connectSocket = (): void => {
-  const token = localStorage.getItem('token');
+  const token = getToken()
   socket.auth = token ? { token: `Bearer ${token}` } : {};
   socket.connect();
 };

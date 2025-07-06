@@ -1,4 +1,4 @@
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import {
   Accordion,
   AccordionDetails,
@@ -7,94 +7,101 @@ import {
   IconButton,
   Typography,
   Tooltip,
-  Badge
-} from '@mui/material';
-import { Dispatch, memo, SetStateAction, useEffect, useState } from 'react';
-import ControlledTextField from "../../components/TextField";
-import CustomSelect from "../../components/Select";
-import FileUpload from "../../components/FileUpload";
-import MultiSelect from "../../components/MultiSelect";
-import ManageTag from "./ManageTag";
-import { useGetUsersQuery } from "../../service/api/user.api";
-import { useFormContext, useWatch } from 'react-hook-form';
-import { TEMPLATE_TYPE } from '../../types';
-import { TemplateForm } from '../../types/form';
-import { templateTypeOptions } from '../../constants';
-import { TbListDetails } from "react-icons/tb";
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import { getUserId } from '../../helpers';
-import likeSocket, { connectSocket } from '../../service/likeSocket';
-import { useTranslator } from '../../hooks/useTranslator';
+  Badge,
+} from '@mui/material'
+import { Dispatch, memo, SetStateAction, useEffect, useState } from 'react'
+import ControlledTextField from '../../components/TextField'
+import CustomSelect from '../../components/Select'
+import FileUpload from '../../components/FileUpload'
+import MultiSelect from '../../components/MultiSelect'
+import ManageTag from './ManageTag'
+import { useGetUsersQuery } from '../../service/api/user.api'
+import { useFormContext, useWatch } from 'react-hook-form'
+import { TEMPLATE_TYPE } from '../../types'
+import { TemplateForm } from '../../types/form'
+import { templateTypeOptions } from '../../constants'
+import { TbListDetails } from 'react-icons/tb'
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
+import { getUserId } from '../../helpers'
+import likeSocket, { connectSocket } from '../../service/likeSocket'
+import { useTranslator } from '../../hooks/useTranslator'
 
 interface DetailsProps {
-  isReadMode: boolean;
-  setFile: Dispatch<SetStateAction<File | undefined>>;
-  file: File | undefined;
-  tagData: any;
-  templateId: string;
+  isReadMode: boolean
+  setFile: Dispatch<SetStateAction<File | undefined>>
+  file: File | undefined
+  tagData: any
+  templateId: string
 }
 
-const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProps) => {
-  const { control } = useFormContext<TemplateForm>();
-  const { data: allUsers, isFetching } = useGetUsersQuery({});
-  const templateType = useWatch({ control, name: "type" });
-  const [likeCount, setLikeCount] = useState(0);
-  const [userLiked, setUserLiked] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+const Details = ({
+  isReadMode,
+  file,
+  setFile,
+  tagData,
+  templateId,
+}: DetailsProps) => {
+  const { control } = useFormContext<TemplateForm>()
+  const { data: allUsers, isFetching } = useGetUsersQuery({})
+  const templateType = useWatch({ control, name: 'type' })
+  const [likeCount, setLikeCount] = useState(0)
+  const [userLiked, setUserLiked] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const { t } = useTranslator('template')
   const { t: buttons } = useTranslator('buttons')
   const { t: table } = useTranslator('table')
 
   useEffect(() => {
-    connectSocket();
-    likeSocket.emit('like:getAll', { templateId });
+    connectSocket()
+    likeSocket.emit('like:getAll', { templateId })
 
     likeSocket.on('like:updated', (data) => {
       if (data.templateId === templateId) {
-        setLikeCount(data.count);
-        setUserLiked(data.likes.some(like => like.userId === getUserId()));
+        setLikeCount(data.count)
+        setUserLiked(data.likes.some((l: any) => l.userId === getUserId()))
       }
-    });
+    })
 
     likeSocket.on('like:error', (error) => {
-      console.error('Like error:', error);
-    });
+      console.error('Like error:', error)
+    })
 
     return () => {
-      likeSocket.off('like:updated');
-      likeSocket.off('like:error');
-    };
-  }, [templateId]);
+      likeSocket.off('like:updated')
+      likeSocket.off('like:error')
+    }
+  }, [templateId])
 
   const handleLikeToggle = () => {
-    if (!getUserId()) return;
-    likeSocket.emit('like:toggle', { templateId });
-  };
+    if (!getUserId()) return
+    likeSocket.emit('like:toggle', { templateId })
+  }
 
   const handleOpenLikesList = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   return (
     <Box>
-      <Box className="flex justify-between items-center p-4 bg-white shadow rounded-md">
-        <Typography variant='h6'>{t('template')}</Typography>
-        {
-          isReadMode &&
+      <Box className="flex justify-between items-center mb-[20px] p-4 rounded-md shadow bg-white border border-gray-200 dark:bg-[#1e1e1e] dark:border-gray-700">
+        <Typography variant="h6" className="text-gray-800 dark:text-gray-100">
+          {t('template')}
+        </Typography>
+
+        {isReadMode && (
           <Box className="flex items-center gap-3">
             <Tooltip title={userLiked ? buttons('unLike') : buttons('like')}>
               <IconButton
                 onClick={handleLikeToggle}
                 disabled={!getUserId()}
-                color={userLiked ? "primary" : "default"}
-                sx={{
-                  '&:hover': {
-                    backgroundColor: userLiked ? 'rgba(25, 118, 210, 0.08)' : 'rgba(0, 0, 0, 0.04)'
-                  }
-                }}
+                color={userLiked ? 'primary' : 'default'}
               >
-                {userLiked ? <ThumbUpAltIcon className="text-2xl" /> : <ThumbUpOffAltIcon className="text-2xl" />}
+                {userLiked ? (
+                  <ThumbUpAltIcon className="text-2xl" />
+                ) : (
+                  <ThumbUpOffAltIcon className="text-2xl" />
+                )}
               </IconButton>
             </Tooltip>
 
@@ -110,30 +117,65 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
                     right: 6,
                     top: 0,
                     padding: '0 4px',
-                  }
+                  },
                 }}
-              >
-              </Badge>
+              />
             </Tooltip>
           </Box>
-        }
+        )}
       </Box>
 
-      <Accordion defaultExpanded>
+      <Accordion
+        defaultExpanded
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'dark'
+              ? theme.palette.background.paper
+              : theme.palette.common.white,
+        }}
+      >
         <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
           <Box className="flex items-center gap-2">
-            <TbListDetails className="text-2xl" />
-            <Typography variant="h6">{t('details')}</Typography>
+            <TbListDetails className="text-2xl text-gray-700 dark:text-gray-300" />
+            <Typography
+              variant="h6"
+              className="text-gray-800 dark:text-gray-100"
+            >
+              {t('details')}
+            </Typography>
           </Box>
         </AccordionSummary>
+
         <AccordionDetails>
           <Box className="flex flex-col gap-4">
-            <FileUpload isReadMode={!!isReadMode} file={file} setFile={setFile} />
+            <FileUpload
+              isReadMode={!!isReadMode}
+              file={file}
+              setFile={setFile}
+            />
+
             <Box className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <ControlledTextField disabled={!!isReadMode} control={control} name="title" label={table('title')} />
-              <ControlledTextField disabled={!!isReadMode} control={control} name="topic" label={table('topic')} />
-              <CustomSelect disabled={!!isReadMode} control={control} name="type" label={table('type')} options={templateTypeOptions} />
+              <ControlledTextField
+                disabled={!!isReadMode}
+                control={control}
+                name="title"
+                label={table('title')}
+              />
+              <ControlledTextField
+                disabled={!!isReadMode}
+                control={control}
+                name="topic"
+                label={table('topic')}
+              />
+              <CustomSelect
+                disabled={!!isReadMode}
+                control={control}
+                name="type"
+                label={table('type')}
+                options={templateTypeOptions}
+              />
             </Box>
+
             {templateType === TEMPLATE_TYPE.PRIVATE && (
               <MultiSelect
                 name="TemplateAccess"
@@ -146,6 +188,7 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
                 disabled={!!isReadMode}
               />
             )}
+
             <Box className="flex gap-3 items-end">
               <MultiSelect
                 name="tagIds"
@@ -159,6 +202,7 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
               />
               {!isReadMode && <ManageTag />}
             </Box>
+
             <ControlledTextField
               disabled={!!isReadMode}
               lineCount={5}
@@ -170,7 +214,7 @@ const Details = ({ isReadMode, file, setFile, tagData, templateId }: DetailsProp
         </AccordionDetails>
       </Accordion>
     </Box>
-  );
-};
+  )
+}
 
-export default memo(Details);
+export default memo(Details)

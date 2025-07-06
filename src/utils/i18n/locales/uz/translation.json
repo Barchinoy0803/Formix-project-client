@@ -1,7 +1,9 @@
 {
     "home": {
         "newForm": "Yangi shaklni boshlash",
-        "popularForms": "Eng mashhur shakllar"
+        "popularForms": "Eng mashhur shakllar",
+        "noData": "Ma'lumot yo‘q",
+        "noDataNote": "Ko‘rsatish uchun hech qanday ma'lumot yo‘q."
     },
     "dashboard": {
         "title": "Boshqaruv paneli",

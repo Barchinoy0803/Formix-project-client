@@ -11,11 +11,10 @@ const extendedApi = mainApi.injectEndpoints({
         }),
         getOneTag: build.query({
             query: (id) => ({
-                method: "GET",
-                url: `/tag/${id}`,
-                id
+              url: `/tag/${id}`,
+              method: 'GET',
             }),
-            providesTags: ['TAG']
+            providesTags: ['TAG'],
         }),
         createTag: build.mutation({
             query: (body) => ({

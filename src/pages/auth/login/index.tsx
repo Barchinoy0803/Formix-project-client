@@ -4,7 +4,7 @@ import { Button, Typography } from '@mui/material'
 import { useLoginMutation } from '../../../service/api/user.api'
 import { ErrorType, User } from '../../../types'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetUserState, setToken, setUserRole } from '../../../redux/features/user.slice'
+import { setEmail, setToken, setUserRole } from '../../../redux/features/user.slice'
 import toast from 'react-hot-toast'
 import { initialStateLogin } from '../../../constants'
 import { useForm } from "react-hook-form"
@@ -40,7 +40,7 @@ const Login = () => {
                 dispatch(setUserRole(role))
                 navigate("/dashboard")
             }
-            dispatch(resetUserState())
+            dispatch(setEmail(null))
         } catch (error) {
             const err = error as ErrorType;
             if (err.status === 404 || err.status === 400) {

@@ -1,42 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface UserState {
-    token: null | string,
-    email: string,
-    userRole: string
+  token: string | null
+  email: string | null
+  userRole: string
+  lang: string
+  isDarkMode: boolean
 }
 
 const initialState: UserState = {
-    token: localStorage.getItem("token") || null,
-    email: localStorage.getItem("email") || "",
-    userRole: localStorage.getItem("role") || ""
+  token: null,
+  email: null,
+  userRole: '',
+  lang: '',
+  isDarkMode: false
 }
 
-export const UsersState = createSlice({
-    name: 'users',
-    initialState,
-    reducers: {
-        setToken: (state, action: PayloadAction<string>) => {
-            state.token = action.payload
-            localStorage.setItem("token", state.token)
-        },
-        setEmail: (state, action: PayloadAction<string>) => {
-            state.email = action.payload
-            localStorage.setItem("email", state.email)
-        },
-        resetUserState: (state) => {
-            state.email = ""
-            localStorage.setItem("email", state.email)
-        },
-        setUserRole: (state, action: PayloadAction<string>) => {
-            state.userRole = action.payload
-            localStorage.setItem("role", state.userRole)
-        }
-
+export const userSlice = createSlice({
+  name: 'users',
+  initialState,
+  reducers: {
+    setToken(state, action: PayloadAction<string | null>) {
+      state.token = action.payload
     },
+    setEmail(state, action: PayloadAction<string | null>) {
+      state.email = action.payload
+    },
+    resetUserState() {
+      return initialState
+    },
+    setUserRole(state, action: PayloadAction<string>) {
+      state.userRole = action.payload
+    },
+    setLanguage(state, action: PayloadAction<string>) {
+      state.lang = action.payload
+    },
+    setDarkMode(state, action: PayloadAction<boolean>) {
+      state.isDarkMode = action.payload
+    }
+  },
 })
 
-export const { setToken, setEmail, resetUserState, setUserRole } = UsersState.actions
-export default UsersState.reducer
+export const { setToken, setEmail, resetUserState, setUserRole, setLanguage, setDarkMode } = userSlice.actions
+export default userSlice.reducer

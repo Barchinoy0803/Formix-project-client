@@ -1,36 +1,34 @@
-import { useTranslation } from 'react-i18next';
-import { languages } from '../../constants';
+import { FormControl, Select, MenuItem } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
+import { setLanguage } from '../../redux/features/user.slice'
+import { languages } from '../../constants'
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
-  const currentLang = i18n.language;
+  const { i18n } = useTranslation()
+  const dispatch = useDispatch()
+  const currentLang = i18n.language
 
   const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    localStorage.setItem('lng', lng);
-  };
+    i18n.changeLanguage(lng)
+    dispatch(setLanguage(lng))
+  }
 
   return (
-    <div className="flex justify-center">
-      <select
+    <FormControl size="small" sx={{ minWidth: 100 }}>
+      <Select
         value={currentLang}
-        onChange={(e) => changeLanguage(e.target.value)}
-        className="px-4 py-2 rounded-md text-sm font-medium bg-white text-gray-800
-                   border border-gray-300 shadow-sm focus:outline-none focus:ring-2
-                   focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+        onChange={(e) => changeLanguage(e.target.value as string)}
+        aria-label="language selector"
       >
-        {languages.map((lang) => (
-          <option
-            key={lang.code}
-            value={lang.code}
-            className="text-gray-800"
-          >
-            {lang.label}
-          </option>
+        {languages.map(({ code, label }) => (
+          <MenuItem key={code} value={code}>
+            {label}
+          </MenuItem>
         ))}
-      </select>
-    </div>
-  );
-};
+      </Select>
+    </FormControl>
+  )
+}
 
-export default LanguageSwitcher;
+export default LanguageSwitcher
