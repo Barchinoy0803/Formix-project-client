@@ -35,17 +35,28 @@ const CreateEditTemplate = () => {
         mode: 'onChange'
     })
 
-    const { handleSubmit, reset, formState: { isDirty, isValid } } = methods
+    const { handleSubmit, reset, formState: { isDirty, isValid }, getValues } = methods
 
     const isCreateOption = useMemo(() => {
         return id === "new"
     }, [id])
 
-    useEffect(() => {
-        if (data) {
-            reset(data)
-        }
-    }, [data])
+   useEffect(() => {
+  if (data) {
+    const { tags, ...restData } = data;
+    reset({
+      ...restData,
+      tagIds: data.tags?.map((tag: any) => ({
+        value: tag.id,                         
+        label: tag.name,                     
+      })),
+      TemplateAccess: data.TemplateAccess.map((user: any) => ({
+        value: user.id,
+        label: user.username
+      }))
+    });
+  }
+}, [data, reset]);
 
     const onSubmit = async (data: TemplateForm) => {
         let imageUrl = defaultImageLink;
@@ -54,6 +65,7 @@ const CreateEditTemplate = () => {
             allowedUsers: data.TemplateAccess?.map((item) => ({ id: item.value })),
             tagIds: data?.tagIds?.map((tag: any) => tag.value)
         }
+        console.log(payload)
 
         if (file) {
             const formData = new FormData();

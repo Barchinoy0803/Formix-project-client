@@ -29,41 +29,34 @@ const MultiSelect = ({
   if (isLoading) return <CircularProgress />;
 
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field: { onChange, value }, fieldState: { error } }) => {
-        const selectedValues: Option[] = useMemo(() => {
-          if (!Array.isArray(value)) return [];
-          return options.filter((opt) =>
-            value.some((v: Option) => v?.value === opt.value)
-          );
-        }, [value, options]);
-
-        return (
-          <Autocomplete
-            disabled={disabled}
-            multiple
-            className="w-full"
-            limitTags={6}
-            options={options}
-            value={selectedValues}
-            getOptionLabel={(opt) => opt.label}
-            isOptionEqualToValue={(a, b) => a.value === b.value}
-            onChange={(_, selected) => onChange(selected)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={label}
-                placeholder={placeholder}
-                error={!!error}
-                helperText={error?.message}
-              />
-            )}
-          />
-        );
-      }}
+   <Controller
+  name={name}
+  control={control}
+  defaultValue={[]}                       
+  render={({ field: { onChange, value }, fieldState: { error } }) => (
+    <Autocomplete
+      disabled={disabled}
+      multiple
+      className="w-full"
+      limitTags={6}
+      options={options}
+      value={value as Option[]}       
+      onChange={(_, selected) => onChange(selected)}
+      getOptionLabel={(opt) => opt.label}
+      isOptionEqualToValue={(a, b) => a.value === b.value}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          placeholder={placeholder}
+          error={!!error}
+          helperText={error?.message}
+        />
+      )}
     />
+  )}
+/>
+
   );
 };
 
