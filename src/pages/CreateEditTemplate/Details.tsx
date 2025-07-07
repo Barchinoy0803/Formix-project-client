@@ -51,6 +51,8 @@ const Details = ({
   const { t } = useTranslator('template')
   const { t: buttons } = useTranslator('buttons')
   const { t: table } = useTranslator('table')
+  console.log(anchorEl);
+  
 
   useEffect(() => {
     connectSocket()

@@ -35,7 +35,7 @@ const CreateEditTemplate = () => {
         mode: 'onChange'
     })
 
-    const { handleSubmit, reset, formState: { isDirty, isValid }, getValues } = methods
+    const { handleSubmit, reset, formState: { isDirty, isValid } } = methods
 
     const isCreateOption = useMemo(() => {
         return id === "new"
