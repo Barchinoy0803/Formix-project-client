@@ -10,16 +10,6 @@ const extendedApi = mainApi.injectEndpoints({
       }),
       providesTags: [{ type: 'TEMPLATE', id: 'LIST' }],
     }),
-
-    getAllUserTemplates: build.query({
-      query: (params) => ({
-        method: "GET",
-        url: "/template/owner",
-        params
-      }),
-      providesTags: [{ type: 'TEMPLATE', id: 'LIST' }],
-    }),
-
     getTop5PopularTemplates: build.query({
       query: (params) => ({
         method: "GET",
@@ -28,7 +18,16 @@ const extendedApi = mainApi.injectEndpoints({
       }),
       providesTags: [{ type: 'TEMPLATE', id: 'LIST' }],
     }),
-
+    
+    getAllUserTemplates: build.query({
+      query: (params) => ({
+        method: "GET",
+        url: "/template/owner",
+        params
+      }),
+      providesTags: [{ type: 'TEMPLATE', id: 'LIST' }],
+    }),
+    
     getOneTemplate: build.query({
       query: (id) => ({
         method: "GET",

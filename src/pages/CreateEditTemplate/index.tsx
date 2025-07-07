@@ -71,7 +71,12 @@ const CreateEditTemplate = () => {
                 toast.error(template('error'))
             }
         } else {
-            await updateTemplate({ id, body: { ...payload, image: imageUrl } })
+            const result = await updateTemplate({ id, body: { ...payload, image: imageUrl } })
+            if (result) {
+                toast.success(template('update'))
+            } else {
+                toast.error(template('error'))
+            }
         }
 
         reset(initialStateTemplate)
@@ -97,7 +102,7 @@ const CreateEditTemplate = () => {
                         </FormProvider>
                         {
                             isReadMode &&
-                            <Comments templateId={id!}/>
+                            <Comments templateId={id!} />
                         }
                     </Box>
                     <CreateDeleteTagDialog tags={tagData} />

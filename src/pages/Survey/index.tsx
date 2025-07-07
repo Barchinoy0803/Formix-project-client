@@ -11,13 +11,14 @@ import {
   CardContent,
   CardMedia,
   Divider,
-  Stack 
+  Stack
 } from '@mui/material'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { AnswerForm, Form, QuestionForm } from '../../types/form'
 import { renderQuestion } from './helpers'
 import { useCreateFormMutation, useGetOneFormQuery, useIsExistingTemplateMutation, useUpdateFormMutation } from '../../service/api/form.api'
 import { useTranslator } from '../../hooks/useTranslator'
+import toast from 'react-hot-toast'
 
 const Survey = () => {
   const location = useLocation();
@@ -87,13 +88,29 @@ const Survey = () => {
       const { data: filledForm } = await isExsist(id)
 
       if (filledForm) {
-        await updateForm({ id: filledForm.id, body: payload })
+        const result = await updateForm({ id: filledForm.id, body: payload })
+        if (result) {
+          toast.success(t("success"))
+        } else {
+          toast.error(t("error"))
+        }
       } else {
-        await createForm(payload)
+        const result = await createForm(payload)
+        if (result) {
+          toast.success(t("success"))
+        } else {
+          toast.error(t("error"))
+        }
       }
     }
     if (isUpdateForm) {
-      await updateForm({ id, body: payload })
+      const result = await updateForm({ id, body: payload })
+
+      if (result) {
+        toast.success(t("update"))
+      } else {
+        toast.error(t("error"))
+      }
     }
   }
 

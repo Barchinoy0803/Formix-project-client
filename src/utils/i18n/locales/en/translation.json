@@ -83,6 +83,7 @@
         "createTemplate": "Create new template",
         "updateTemplate": "Update template",
         "success": "Successfully created!",
+        "update": "Successfully updated!",
         "error": "Something went wrong!",
         "questions": "Questions",
         "addQuestion": "Add question",
@@ -128,7 +129,9 @@
         "delete": "Delete",
         "update": "Update",
         "show": "Show",
-        "submitSurvey": "Submit Survey"
+        "submitSurvey": "Submit Survey",
+        "success": "Successfully created!",
+        "updateNote": "Successfully updated!"
     },
     "analyze": {
         "answers": "Answers",

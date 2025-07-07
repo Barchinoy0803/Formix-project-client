@@ -46,12 +46,12 @@ const Navbar = () => {
           </NavLink>
 
           <Box>
-            <Box className="flex gap-1 items-center bg-[#f1f3f4] dark:bg-gray-700 rounded-3xl px-3">
-              <CiSearch className="text-[20px] dark:text-gray-200" />
+            <Box className="flex gap-1 items-center bg-[#f1f3f4] dark:bg-gray-700 rounded-3xl px-3 dark:text-white">
+              <CiSearch className="text-[20px] dark:text-white" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-[600px] h-[45px] outline-none bg-transparent text-gray-700 dark:text-red placeholder-gray-500 dark:placeholder-gray-400"
+                className="w-[600px] h-[45px] outline-none bg-transparent text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 placeholder={dashboard('search')}
               />
             </Box>

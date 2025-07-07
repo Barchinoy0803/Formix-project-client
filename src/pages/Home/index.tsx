@@ -24,7 +24,7 @@ const Home = () => {
   const [showAll, setShowAll] = useState<boolean>(false)
   const [templates, setTemplates] = useState<TemplateForm[]>([])
 
-  const { data: allTemplates, isLoading } = useGetTemplatesQuery({ searchtext }, {skip: tag === 'all'})
+  const { data: allTemplates, isLoading } = useGetTemplatesQuery({ searchtext }, {skip: tag !== 'all'})
   const { data: topRatingTemplates, isLoading: topLoading } = useGetTop5PopularTemplatesQuery({})
   const { data: tagData } = useGetAllTagsQuery({})
   const { data } = useGetOneTagQuery(tag)
@@ -106,7 +106,7 @@ const Home = () => {
         </>
       }
       {tag !== 'all' && <div className='container-home flex items-center gap-4'>{data?.templates?.map((item:any) => (<Card templateData={item} />))}</div>}
-      {!!searchtext.length && <div className='container-home flex items-center gap-4'>{searchResults?.map((item) => (<Card templateData={item} />))}</div>}
+      {!!searchtext.length && <div className='container-home flex items-center gap-4'>{searchResults?.map((item: any) => (<Card templateData={item} />))}</div>}
       {!!searchtext.length && !searchResults?.length || tag !== 'all' && !data?.templates?.length && <NoDataPlaceholder/>}
     </Box>
   )
