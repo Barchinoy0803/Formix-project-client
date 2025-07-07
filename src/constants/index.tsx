@@ -23,7 +23,7 @@ export const initialStateTemplate = {
   image: "",
   type: TEMPLATE_TYPE.PUBLIC,
   Question: [],
-  tags: [],
+  tagIds: [],
   allowedUsers: []
 }
 

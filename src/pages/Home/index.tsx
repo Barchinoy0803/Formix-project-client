@@ -24,7 +24,7 @@ const Home = () => {
   const [showAll, setShowAll] = useState<boolean>(false)
   const [templates, setTemplates] = useState<TemplateForm[]>([])
 
-  const { data: allTemplates, isLoading } = useGetTemplatesQuery({ searchtext }, {skip: tag === 'all'})
+  const { data: allTemplates, isLoading } = useGetTemplatesQuery({ searchtext })
   const { data: topRatingTemplates, isLoading: topLoading } = useGetTop5PopularTemplatesQuery({})
   const { data: tagData } = useGetAllTagsQuery({})
   const { data } = useGetOneTagQuery(tag)
