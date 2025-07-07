@@ -37,5 +37,6 @@ export const mainApi = createApi({
   reducerPath: 'mainApi',
   baseQuery: baseQueryWithStatusHandling,
   endpoints: () => ({}),
-  tagTypes: ['USER', 'TEMPLATE', 'QUESTION', 'FORM', 'ANALYZE', 'TAG', 'LIKE', 'COMMENT'],
+  refetchOnMountOrArgChange: true,
+  tagTypes: ['USER', 'TEMPLATE', 'QUESTION', 'FORM', 'ANALYZE', 'TAG', 'LIKE', 'COMMENT']
 });

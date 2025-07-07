@@ -24,9 +24,9 @@ const ModeSwitcher = () => {
   return (
     <IconButton onClick={toggleMode}>
       {isDarkMode ? (
-        <DarkModeIcon fontSize="medium" color="info"/>
-      ) : (
         <LightModeIcon fontSize="medium" color="warning"/>
+      ) : (
+        <DarkModeIcon fontSize="medium" color="info"/>
       )}
     </IconButton>
   )
