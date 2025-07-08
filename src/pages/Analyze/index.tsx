@@ -17,7 +17,7 @@ const Analyze = () => {
     console.log(questionData)
 
     useEffect(() => {
-        if (questionData) {
+    if (questionData?.length) {
             reset({ question: questionData[0].id })
         }
     }, [questionData])
