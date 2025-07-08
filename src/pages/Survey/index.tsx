@@ -23,6 +23,7 @@ import {
   useUpdateFormMutation
 } from '../../service/api/form.api'
 import { useTranslator } from '../../hooks/useTranslator'
+import toast from 'react-hot-toast'
 
 const Survey = () => {
   const location = useLocation()
@@ -104,7 +105,12 @@ const Survey = () => {
       if (existingForm) {
         await updateForm({ id: existingForm.id, body: payload })
       } else {
-        await createForm(payload)
+        const result = await createForm(payload)
+        if (result) {
+          toast.success(t("success"))
+        } else {
+          toast.error(t("error"))
+        }
       }
     }
 

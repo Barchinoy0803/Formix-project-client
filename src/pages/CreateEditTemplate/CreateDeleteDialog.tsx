@@ -23,7 +23,7 @@ interface CreateDeleteTagDialogProps {
   tags: any[]
 }
 
-const CreateDeleteTagDialog = ({tags}: CreateDeleteTagDialogProps) => {
+const CreateDeleteTagDialog = ({ tags }: CreateDeleteTagDialogProps) => {
   const methods = useForm<CreateDeleteForm>();
   const { handleSubmit, control } = methods;
   const dispatch = useDispatch();
@@ -39,38 +39,60 @@ const CreateDeleteTagDialog = ({tags}: CreateDeleteTagDialogProps) => {
     dispatch(setModal({ isOpen: false }));
   };
 
-  const handleDelete = async(id: string) => {
-    await deleteTag(id).unwrap()
-  }
+  const handleDelete = async (id: string) => {
+    await deleteTag(id).unwrap();
+  };
 
   const onSubmit = async (data: CreateDeleteForm) => {
     await createTag(data).unwrap();
-    handleClose()
+    handleClose();
   };
 
   return (
-    <Dialog open={isOpen} onClose={handleClose}>
-      <DialogTitle>
+    <Dialog
+      open={isOpen}
+      onClose={handleClose}
+      PaperProps={{
+        sx: {
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? '#1f2937' : '#fff', // dark:bg-gray-800
+          color: (theme) => theme.palette.mode === 'dark' ? '#f3f4f6' : '#000',   // dark:text-gray-100
+        }
+      }}
+    >
+      <DialogTitle className="dark:text-white">
         {type === MODAL_TYPE.CREATE ? 'Create new tag' : 'Delete tags'}
       </DialogTitle>
       <DialogContent>
         <FormProvider {...methods}>
           <form className="w-[500px]" onSubmit={handleSubmit(onSubmit)}>
-            {
-              type === MODAL_TYPE.CREATE ? 
-              <ControlledTextField control={control} name='name' label='Tag name'/> : 
+            {type === MODAL_TYPE.CREATE ? (
+              <ControlledTextField control={control} name="name" label="Tag name" />
+            ) : (
               <Box className="flex flex-col gap-3">
-                {
-                  tags?.length ? tags?.map((tag) => <Box className="flex items-center justify-between px-3 py-2 bg-gray-100 rounded-2xl">
-                    <Typography>{tag.name}</Typography>
-                    <IconButton onClick={() => handleDelete(tag.id)}><MdDelete className='text-[red]'/></IconButton>
-                  </Box>) : <Typography>There is not any tags</Typography>
-                }
+                {tags?.length ? (
+                  tags.map((tag) => (
+                    <Box
+                      key={tag.id}
+                      className="flex items-center justify-between px-3 py-3 bg-gray-100 dark:bg-gray-700 rounded-2xl"
+                    >
+                      <Typography className="dark:text-white">{tag.name}</Typography>
+                      <IconButton onClick={() => handleDelete(tag.id)}>
+                        <MdDelete className="text-red-600" />
+                      </IconButton>
+                    </Box>
+                  ))
+                ) : (
+                  <Typography className="dark:text-gray-400">There is not any tags</Typography>
+                )}
               </Box>
-            }
-            <DialogActions className='mt-2'>
-              <Button onClick={handleClose}>Cancel</Button>
-              {type !== MODAL_TYPE.DELETE && <Button variant='contained' type="submit">Create</Button>}
+            )}
+            <DialogActions className="mt-2">
+              <Button onClick={handleClose} className="dark:text-white">Cancel</Button>
+              {type !== MODAL_TYPE.DELETE && (
+                <Button variant="contained" type="submit">
+                  Create
+                </Button>
+              )}
             </DialogActions>
           </form>
         </FormProvider>

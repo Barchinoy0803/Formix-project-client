@@ -56,7 +56,7 @@ const Navbar = () => {
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-[600px] h-[45px] outline-none bg-transparent text-gray-700 dark:text-red placeholder-gray-500 dark:placeholder-gray-400"
+                className="w-[600px] h-[45px] outline-none bg-transparent text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 placeholder={dashboard('search')}
               />
             </Box>
