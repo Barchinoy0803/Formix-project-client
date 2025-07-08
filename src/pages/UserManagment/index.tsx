@@ -28,7 +28,7 @@ const UserManagment = () => {
         toast.success(t('statusUpdated'))
     }
 
-     const handleUpdateUserRole = async (isAdminAction: boolean) => {
+    const handleUpdateUserRole = async (isAdminAction: boolean) => {
         await updateUserRole({ ids: [...selectedIds?.ids!], role: isAdminAction ? "ADMIN" : "USER" })
         toast.success(t('statusUpdated'))
     }

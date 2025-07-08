@@ -7,6 +7,7 @@ import { CustomTable } from '../Table';
 import { TemplateForm } from '../../types/form';
 import { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { useTranslator } from '../../hooks/useTranslator';
+import { memo } from 'react';
 
 interface TabsProps {
     data: TemplateForm[],
@@ -47,4 +48,4 @@ const CustomTabs = ({ data, columns, selectedIds, setSelectedIds, allData, activ
     );
 }
 
-export default CustomTabs
+export default memo(CustomTabs)

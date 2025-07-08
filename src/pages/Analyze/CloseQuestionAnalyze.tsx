@@ -1,5 +1,6 @@
 import ReactECharts from 'echarts-for-react'
 import { useTranslator } from '../../hooks/useTranslator'
+import { memo } from 'react'
 
 interface CloseQuestionAnalyzeProps {
     analyze: any
@@ -39,4 +40,4 @@ const CloseQuestionAnalyze = ({ analyze }: CloseQuestionAnalyzeProps) => {
     )
 }
 
-export default CloseQuestionAnalyze
+export default memo(CloseQuestionAnalyze)

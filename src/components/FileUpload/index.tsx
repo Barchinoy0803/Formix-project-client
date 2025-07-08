@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { CloudUpload, Delete, InsertDriveFile } from '@mui/icons-material'
 import { useTranslator } from '../../hooks/useTranslator'
 
@@ -145,4 +145,4 @@ const FileUpload = ({ file, setFile, isReadMode }: FileUploadProps) => {
   )
 }
 
-export default FileUpload
+export default memo(FileUpload)

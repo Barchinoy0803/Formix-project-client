@@ -1,5 +1,6 @@
 import ReactECharts from 'echarts-for-react'
 import { useTranslator } from '../../hooks/useTranslator'
+import { memo } from 'react'
 
 interface MultichoiceQuestionAnalyzeProps {
     analyze: any
@@ -34,4 +35,4 @@ const MultichoiceQuestionAnalyze = ({ analyze }: MultichoiceQuestionAnalyzeProps
     )
 }
 
-export default MultichoiceQuestionAnalyze
+export default memo(MultichoiceQuestionAnalyze)

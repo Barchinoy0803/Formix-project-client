@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { setLanguage } from '../../redux/features/user.slice'
 import { languages } from '../../constants'
+import { memo } from 'react'
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation()
@@ -31,4 +32,4 @@ const LanguageSwitcher = () => {
   )
 }
 
-export default LanguageSwitcher
+export default memo(LanguageSwitcher)

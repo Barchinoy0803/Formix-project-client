@@ -3,6 +3,7 @@ import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 
 import { Option } from '../../types';
+import { memo } from 'react';
 
 interface ControlledFilterArrowsProps<T extends FieldValues> {
   name: Path<T>;
@@ -10,7 +11,7 @@ interface ControlledFilterArrowsProps<T extends FieldValues> {
   options: Option[];
 }
 
-export const ControlledFilterArrows = <T extends FieldValues>({
+const ControlledFilterArrows = <T extends FieldValues>({
   name,
   control,
   options,
@@ -24,7 +25,7 @@ export const ControlledFilterArrows = <T extends FieldValues>({
           const currentIndex = options.findIndex((option) => option.value === field.value);
           const hasPrevious = currentIndex > 0;
           const hasNext = currentIndex < options.length - 1;
-          
+
           const handlePrevious = () => {
             if (hasPrevious) {
               field.onChange(options[currentIndex - 1].value);
@@ -59,3 +60,5 @@ export const ControlledFilterArrows = <T extends FieldValues>({
     </FormControl>
   );
 };
+
+export default memo(ControlledFilterArrows)

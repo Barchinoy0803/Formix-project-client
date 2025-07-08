@@ -2,6 +2,7 @@ import { Box, Tooltip, Typography } from "@mui/material"
 import { TemplateForm } from "../../types/form"
 import { NavLink } from "react-router-dom"
 import { FaIdCard } from "react-icons/fa";
+import { memo } from "react";
 
 interface CardProps {
     templateData: TemplateForm
@@ -28,4 +29,4 @@ const Card = ({ templateData }: CardProps) => {
     )
 }
 
-export default Card
+export default memo(Card)

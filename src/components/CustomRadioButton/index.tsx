@@ -3,6 +3,7 @@ import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 import { Option, OptionValue } from '../../types';
 import { useTranslator } from '../../hooks/useTranslator';
+import { memo } from 'react';
 
 interface RadioWithLabelProps<T extends FieldValues> {
     label?: string;
@@ -49,4 +50,4 @@ const RadioWithLabel = <T extends FieldValues>({
     );
 };
 
-export default RadioWithLabel;
+export default memo(RadioWithLabel);

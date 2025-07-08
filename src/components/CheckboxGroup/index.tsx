@@ -1,6 +1,7 @@
 import { FormControl, FormControlLabel, Checkbox, Grid, Typography, FormGroup } from '@mui/material';
 import { Control, Controller, ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 import { Option, OptionValue } from '../../types';
+import { memo } from 'react';
 
 interface CheckboxGroupProps<T extends FieldValues> {
     label?: string;
@@ -63,4 +64,4 @@ const CheckboxGroup = <T extends FieldValues>({ label, options, control, name, d
     );
 };
 
-export default CheckboxGroup;
+export default memo(CheckboxGroup);

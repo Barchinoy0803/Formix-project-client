@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { CiSearch } from 'react-icons/ci'
-import { useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, Divider } from '@mui/material'
 import { useTranslator } from '../../hooks/useTranslator'
@@ -103,4 +103,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default memo(Navbar)

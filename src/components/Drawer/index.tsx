@@ -127,4 +127,4 @@ const CustomDrawer = () => {
   )
 }
 
-export default CustomDrawer
+export default React.memo(CustomDrawer)

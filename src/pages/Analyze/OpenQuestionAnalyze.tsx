@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material"
+import { memo } from "react"
 
 interface OpenQuestionAnalyzeProps {
   answers: any
@@ -23,4 +24,4 @@ const OpenQuestionAnalyze = ({ answers }: OpenQuestionAnalyzeProps) => {
   )
 }
 
-export default OpenQuestionAnalyze
+export default memo(OpenQuestionAnalyze)

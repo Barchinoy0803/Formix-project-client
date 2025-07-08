@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material"
-import { useEffect, useMemo, useState } from "react"
+import { memo, useEffect, useMemo, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { FormProvider, useForm } from "react-hook-form"
 import { TemplateForm } from "../../types/form"
@@ -124,4 +124,4 @@ const CreateEditTemplate = () => {
     )
 }
 
-export default CreateEditTemplate
+export default memo(CreateEditTemplate)
