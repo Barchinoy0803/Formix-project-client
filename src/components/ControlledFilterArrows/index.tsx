@@ -1,9 +1,7 @@
 import { FormControl, Select, MenuItem, Box, Button } from '@mui/material';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
-
 import { Option } from '../../types';
-import { memo } from 'react';
 
 interface ControlledFilterArrowsProps<T extends FieldValues> {
   name: Path<T>;
@@ -61,4 +59,4 @@ const ControlledFilterArrows = <T extends FieldValues>({
   );
 };
 
-export default memo(ControlledFilterArrows)
+export default ControlledFilterArrows

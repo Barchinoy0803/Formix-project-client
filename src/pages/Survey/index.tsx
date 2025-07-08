@@ -6,7 +6,7 @@ import {
   CircularProgress,
   Typography,
   Container,
-  Paper,
+  Paper, 
   Box,
   CardContent,
   CardMedia,

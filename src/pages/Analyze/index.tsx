@@ -4,7 +4,7 @@ import { useGetAnalyzesQuery, useGetTemplateQuestionsQuery } from '../../service
 import { getAnalyzes, getQuestionOptions } from './helpers'
 import { useForm, useWatch } from 'react-hook-form'
 import { QuestionAnalyzesForm } from '../../types/form'
-import { ControlledFilterArrows } from '../../components/ControlledFilterArrows'
+import  ControlledFilterArrows  from '../../components/ControlledFilterArrows'
 import NoDataPlaceholder from '../../components/NoDataPlaceholder'
 import { useTranslator } from '../../hooks/useTranslator'
 
