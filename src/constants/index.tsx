@@ -115,7 +115,7 @@ export const YES_NO_OPTIONS = [
   }
 ]
 
-export const FormTableColums = [
+export const FormTableColumns = [
   {
     field: 'image',
     headerName: 'table.image',
@@ -210,3 +210,5 @@ export const avatarColors = [
   "#607D8B",
   "#000000",
 ];
+
+export const searchVisiblePages = ['/', '/dashboard/forms', '/dashboard/templates']

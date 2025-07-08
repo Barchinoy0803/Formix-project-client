@@ -9,3 +9,7 @@ export interface Register {
     Request: User;
     Response: User;
 }
+
+export interface RouteHandle {
+  showSearch?: boolean
+}

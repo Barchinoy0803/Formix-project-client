@@ -2,7 +2,7 @@ import { memo, useMemo, useState } from 'react'
 import { useDeleteFormsMutation, useGetAllUserFormsQuery, useGetFormsQuery } from '../../service/api/form.api'
 import { Alert, Button, CircularProgress, Tooltip } from '@mui/material'
 import CustomTabs from '../../components/Tabs'
-import { FormTableColums, formTabNames } from '../../constants'
+import { FormTableColumns, formTabNames } from '../../constants'
 import { GridRowSelectionModel } from '@mui/x-data-grid'
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit } from 'react-icons/fa';
@@ -66,7 +66,7 @@ const Form = () => {
         }
       </div>
       {
-        searchtext.length ? <div className='flex items-center gap-4'>{searchResults.map((item) => (<Card templateData={item} />))}</div> : isLoading ? <CircularProgress /> : <CustomTabs tabNames={formTabNames} setActiveTab={setActiveTab} activeTab={activeTab} allData={formsData} columns={FormTableColums} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={alldata} />
+        searchtext.length ? <div className='flex items-center gap-4'>{searchResults.map((item) => (<Card templateData={item} />))}</div> : isLoading ? <CircularProgress /> : <CustomTabs tabNames={formTabNames} setActiveTab={setActiveTab} activeTab={activeTab} allData={formsData} columns={FormTableColumns} selectedIds={selectedIds} setSelectedIds={setSelectedIds} data={alldata} />
       }
     </div>
   )

@@ -1,16 +1,17 @@
-import { NavLink } from 'react-router-dom'
-import { useTranslator } from '../../hooks/useTranslator'
+import { NavLink, useLocation } from 'react-router-dom'
 import { CiSearch } from 'react-icons/ci'
-import LanguageSwitcher from '../LanguageSwitcher'
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSearchResults, setSearchText } from '../../redux/features/template.slice'
-import { validateToken } from '../../helpers'
 import { Box, Divider } from '@mui/material'
-import CustomDrawer from '../Drawer'
-import { useGetTemplatesQuery } from '../../service/api/template.api'
-import { RootState } from '../../redux'
+import { useTranslator } from '../../hooks/useTranslator'
+import LanguageSwitcher from '../LanguageSwitcher'
 import ModeSwitcher from '../ModeSwitcher'
+import { RootState } from '../../redux'
+import { useGetTemplatesQuery } from '../../service/api/template.api'
+import CustomDrawer from '../Drawer'
+import { validateToken } from '../../helpers'
+import { setSearchResults, setSearchText } from '../../redux/features/template.slice'
+import { searchVisiblePages } from '../../constants'
 
 const Navbar = () => {
   const { t } = useTranslator('auth')
@@ -19,11 +20,15 @@ const Navbar = () => {
   const [search, setSearch] = useState('')
   const { token } = useSelector((state: RootState) => state.users)
   const { data } = useGetTemplatesQuery({ search })
+  const { pathname } = useLocation()
 
-  const isValidUser = useMemo(() => {
-    if (token) return validateToken(token)
-    return false
-  }, [token])
+  const showSearch = useMemo(() => {
+    return searchVisiblePages.some((route) =>
+      pathname === route
+    )
+  }, [pathname])
+
+  const isValidUser = useMemo(() => (token ? validateToken(token) : false), [token])
 
   useEffect(() => {
     dispatch(setSearchResults(data))
@@ -45,9 +50,9 @@ const Navbar = () => {
             </Box>
           </NavLink>
 
-          <Box>
-            <Box className="flex gap-1 items-center bg-[#f1f3f4] dark:bg-gray-700 rounded-3xl px-3 dark:text-white">
-              <CiSearch className="text-[20px] dark:text-white" />
+          {showSearch && (
+            <Box className="flex gap-1 items-center bg-[#f1f3f4] dark:bg-gray-700 rounded-3xl px-3">
+              <CiSearch className="text-[20px] dark:text-gray-200" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -55,7 +60,7 @@ const Navbar = () => {
                 placeholder={dashboard('search')}
               />
             </Box>
-          </Box>
+          )}
 
           <Box className="flex gap-2 items-center">
             {isValidUser ? (
@@ -93,7 +98,7 @@ const Navbar = () => {
           </Box>
         </Box>
       </Box>
-      <Divider/>
+      <Divider />
     </nav>
   )
 }

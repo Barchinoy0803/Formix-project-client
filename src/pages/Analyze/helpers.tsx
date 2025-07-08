@@ -1,16 +1,21 @@
-import { QUESTION_TYPE } from "../../types";
+import { Option, QUESTION_TYPE } from "../../types";
 import { QuestionForm } from "../../types/form";
 import CloseQuestionAnalyze from "./CloseQuestionAnalyze";
 import MultichoiceQuestionAnalyze from "./MultichoiceQuestionAnalyze";
 import NumericalQuestionAnalyze from "./NumericalQuestionAnalyze";
 import OpenQuestionAnalyze from "./OpenQuestionAnalyze";
 
-export const getQuestionOptions = (questions: QuestionForm[]) => {
-    return questions?.map((question) => ({
-        label: question.title!,
-        value: question.id!
-    }))
-}
+export const getQuestionOptions = (questions?: QuestionForm[]): Option[] => {
+  if (!Array.isArray(questions)) {
+    return [];
+  }
+
+  return questions.map((q: QuestionForm) => ({
+    label: q.title!,
+    value: q.id!,
+  }));
+};
+
 
 export const getAnalyzes = (analyze: any) => {
     switch (analyze?.questionType) {
