@@ -5,16 +5,19 @@ import { getAnalyzes, getQuestionOptions } from './helpers'
 import { useForm, useWatch } from 'react-hook-form'
 import { QuestionAnalyzesForm } from '../../types/form'
 import { ControlledFilterArrows } from '../../components/ControlledFilterArrows'
+import NoDataPlaceholder from '../../components/NoDataPlaceholder'
+import { useTranslator } from '../../hooks/useTranslator'
 
 const Analyze = () => {
     const { id } = useParams()
+    const { t } = useTranslator('analyze')
     const { control, reset } = useForm<QuestionAnalyzesForm>({ defaultValues: { question: "" } })
     const questionId = useWatch({ control, name: "question" })
 
     const { data: questionData } = useGetTemplateQuestionsQuery(id)
     const { data: analyzeData } = useGetAnalyzesQuery(questionId)
-
-    console.log(questionData)
+    
+    console.log(analyzeData)
 
     useEffect(() => {
     if (questionData?.length) {
@@ -24,8 +27,15 @@ const Analyze = () => {
 
     return (
         <div className='flex flex-col gap-4'>
-            <ControlledFilterArrows control={control} name='question' options={getQuestionOptions(questionData) ?? []} />
-            {getAnalyzes(analyzeData)}
+            {
+                questionData?.length ? 
+                    <>
+                        <ControlledFilterArrows control={control} name='question' options={getQuestionOptions(questionData) ?? []} />
+                        {analyzeData?.answers.length ?  getAnalyzes(analyzeData) : <NoDataPlaceholder title={t('noAnswer')}/>}
+                    </>
+                    : 
+                    <NoDataPlaceholder title={t('noData')} />
+            }
         </div>
     )
 }

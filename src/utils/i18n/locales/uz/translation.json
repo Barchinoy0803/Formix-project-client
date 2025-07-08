@@ -138,7 +138,9 @@
     "analyze": {
       "answers": "Javoblar",
       "yes": "Ha",
-      "no": "Yo‘q"
+      "no": "Yo‘q",
+      "noData": "Tahlil qilish uchun hech qanday savolingiz yo‘q",
+      "noAnswer": "Bu savolga hech kim javob bermadi."
     },
     "validation": {
       "emailError": "Email manzili to‘g‘ri formatda bo‘lishi kerak (masalan, user@gmail.com)",

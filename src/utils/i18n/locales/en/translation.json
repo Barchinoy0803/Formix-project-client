@@ -139,7 +139,9 @@
     "analyze": {
         "answers": "Answers",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "noData": "You don't have any questions to analyze",
+        "noAnswer": "Nobody answered this question."
     },
     "validation": {
         "emailError": "Email should be as email (e.g. user@gmail.com)",

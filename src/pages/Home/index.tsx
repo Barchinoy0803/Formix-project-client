@@ -107,7 +107,7 @@ const Home = () => {
       }
       {tag !== 'all' && <div className='container-home flex items-center gap-4'>{data?.templates?.map((item:any) => (<Card templateData={item} />))}</div>}
       {!!searchtext.length && <div className='container-home flex items-center gap-4'>{searchResults?.map((item: any) => (<Card templateData={item} />))}</div>}
-      {!!searchtext.length && !searchResults?.length || tag !== 'all' && !data?.templates?.length && <NoDataPlaceholder/>}
+      {!!searchtext.length && !searchResults?.length || tag !== 'all' && !data?.templates?.length && <NoDataPlaceholder title={home('noData')} description={home('noDataNote')} />}
     </Box>
   )
 }

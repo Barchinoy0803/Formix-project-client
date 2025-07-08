@@ -1,11 +1,18 @@
-import { memo } from 'react';
-import { Box, Typography } from '@mui/material';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { useTranslator } from '../../hooks/useTranslator';
+import { memo, ReactNode } from 'react'
+import { Box, Typography } from '@mui/material'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
-const NoDataPlaceholder = () => {
-  const { t } = useTranslator('home')
+interface NoDataPlaceholderProps {
+  title?: string
+  description?: string
+  icon?: ReactNode
+}
 
+const NoDataPlaceholder = ({
+  title,
+  description,
+  icon = <InfoOutlinedIcon fontSize="large" sx={{ mb: 1 }} />
+}: NoDataPlaceholderProps) => {
   return (
     <Box
       display="flex"
@@ -15,15 +22,15 @@ const NoDataPlaceholder = () => {
       textAlign="center"
       p={4}
     >
-      <InfoOutlinedIcon fontSize="large" sx={{ mb: 1 }} />
+      {icon}
       <Typography variant="h6" gutterBottom>
-        {t('noData')}
+        {title}
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        {t('noDataNote')}
+        {description}
       </Typography>
     </Box>
   )
-};
+}
 
-export default memo(NoDataPlaceholder);
+export default memo(NoDataPlaceholder)
