@@ -11,10 +11,9 @@ const extendedApi = mainApi.injectEndpoints({
             providesTags: ['QUESTION']
         }),
         getTemplateQuestions: build.query({
-            query: (params) => ({
+            query: (templateId) => ({
                 method: "GET",
-                url: "/question",
-                params
+                url: `/question/template/${templateId}`,
             }),
             providesTags: ['QUESTION']
         }),

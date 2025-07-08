@@ -3,7 +3,10 @@
         "newForm": "Yangi shaklni boshlash",
         "popularForms": "Eng mashhur shakllar",
         "noData": "Ma'lumot yo‘q",
-        "noDataNote": "Ko‘rsatish uchun hech qanday ma'lumot yo‘q."
+        "noDataNote": "Ko‘rsatish uchun hech qanday ma'lumot yo‘q.",
+        "thankYou": "Rahmat!",
+        "submittionNote": "Javoblaringiz muvaffaqiyatli yuborildi.",
+        "back": "Bosh sahifaga qaytish"
     },
     "dashboard": {
         "title": "Boshqaruv paneli",
@@ -101,6 +104,7 @@
        "selectTags": "Teglarni tanlang",
        "description": "Tavsif",
        "analyze": "Tahlil qilish"
+       
     },
     "table": {
        "username": "Foydalanuvchi nomi",
@@ -114,7 +118,8 @@
        "description": "Tavsif",
        "type": "Tur",
        "author": "Muallif",
-       "createdAt": "Yaratilgan sana"
+       "createdAt": "Yaratilgan sana",
+       "filledDate": "To‘ldirilgan sana"
     },
     "forms": {
       "all": "Barcha shakllar",

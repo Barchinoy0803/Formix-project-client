@@ -3,7 +3,10 @@
         "newForm": "Start a new form",
         "popularForms": "The most popular forms",
         "noData": "No data",
-        "noDataNote": "There is no data to display."
+        "noDataNote": "There is no data to display.",
+        "thankYou": "Thank you!",
+        "submittionNote": "Your responses have been submitted successfully.",
+        "back": "Back to Home"
     },
     "dashboard": {
         "title": "Dashboard",

@@ -11,6 +11,7 @@ import UserManagment from '../pages/UserManagment'
 import Template from '../pages/Template'
 import Survey from '../pages/Survey'
 import Home from '../pages/Home'
+import ThankYouPage from '../pages/Survey/ThankYou'
 
 const MainRouter = () => {
     return (
@@ -34,7 +35,7 @@ const MainRouter = () => {
                 path: '/dashboard', element: <Private />,
                 children: [
                     {
-                        path: 'templates', element: <Templates />,
+                        path: 'templates', element: <Templates />
                     },
                     {
                         index: true, element: <Templates /> 
@@ -56,6 +57,7 @@ const MainRouter = () => {
                     }
                 ]
             },
+            {path: '/finishScreen', element: <ThankYouPage/>}
         ])
     )
 }

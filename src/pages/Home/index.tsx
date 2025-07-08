@@ -64,7 +64,7 @@ const Home = () => {
         !searchtext?.length && tag === 'all' && <>
           <Box className="flex justify-between container-home">
             <Typography fontFamily={'revert'} variant='h5'>{home('newForm')}</Typography>
-            <Button startIcon={showAll ? <BiHide /> : <BiShowAlt />} variant='outlined' onClick={() => setShowAll(p => !p)}>{showAll ? buttons('hide') : buttons('showAll')}</Button>
+            <Button sx={{ display: allTemplates?.length > 4 ? 'inline-flex' : 'none' }} startIcon={showAll ? <BiHide /> : <BiShowAlt />} variant='outlined' onClick={() => setShowAll(p => !p)}>{showAll ? buttons('hide') : buttons('showAll')}</Button>
           </Box>
           <div className='flex gap-5 container-home'>
             <Box className="grid grid-cols-5 gap-5 flex-wrap">

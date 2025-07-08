@@ -24,7 +24,7 @@ const CreateEditTemplate = () => {
     const [createTemplate, { isLoading: createLoading }] = useCreateTemplateMutation()
     const [updateTemplate, { isLoading: updateLoading }] = useUpdateTemplateMutation()
 
-    const { data, isLoading } = useGetOneTemplateQuery(id, { skip: id === "new" })
+    const { data, isLoading } = useGetOneTemplateQuery(id, { skip: id === "new", refetchOnMountOrArgChange: true })
     const { data: tagData } = useGetAllTagsQuery({})
 
     const searchParams = new URLSearchParams(location.search);

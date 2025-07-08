@@ -14,6 +14,8 @@ const Analyze = () => {
     const { data: questionData } = useGetTemplateQuestionsQuery(id)
     const { data: analyzeData } = useGetAnalyzesQuery(questionId)
 
+    console.log(questionData)
+
     useEffect(() => {
         if (questionData) {
             reset({ question: questionData[0].id })

@@ -220,9 +220,12 @@ const Comments = ({ templateId }: { templateId: string }) => {
 
                 <IconButton
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 px-5 rounded-lg text-white font-medium shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200"
+                  disableRipple
+                  className="!bg-blue-500 hover:!bg-blue-600 !text-white p-2 rounded-lg font-medium
+                             !shadow-lg !shadow-blue-500/25 hover:!shadow-blue-500/40
+                             transition-all duration-200"
                 >
-                  <IoSend className="text-2xl text-white" />
+                  <IoSend className="text-2xl" />
                 </IconButton>
               </Box>
             </form>

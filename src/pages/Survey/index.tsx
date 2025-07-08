@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useGetOneTemplateQuery } from '../../service/api/template.api'
 import {
   Button,
@@ -11,90 +11,104 @@ import {
   CardContent,
   CardMedia,
   Divider,
-  Stack 
+  Stack
 } from '@mui/material'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { AnswerForm, Form, QuestionForm } from '../../types/form'
 import { renderQuestion } from './helpers'
-import { useCreateFormMutation, useGetOneFormQuery, useIsExistingTemplateMutation, useUpdateFormMutation } from '../../service/api/form.api'
+import {
+  useCreateFormMutation,
+  useGetOneFormQuery,
+  useIsExistingTemplateMutation,
+  useUpdateFormMutation
+} from '../../service/api/form.api'
 import { useTranslator } from '../../hooks/useTranslator'
 
 const Survey = () => {
-  const location = useLocation();
-  const { id } = useParams();
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { id } = useParams()
   const { t } = useTranslator('forms')
 
-  const [isExsist] = useIsExistingTemplateMutation()
-
+  const [checkExistingForm, { data: existingForm }] = useIsExistingTemplateMutation()
   const [createForm] = useCreateFormMutation()
   const [updateForm] = useUpdateFormMutation()
-  const { reset, control, handleSubmit } = useForm<Form>()
+
+  const isUpdateForm = useMemo(() => location.pathname.includes('form'), [location])
+  const searchParams = new URLSearchParams(location.search)
+  const isReadMode = !!searchParams.get('readMode')
+
+  const { reset, control, handleSubmit } = useForm<Form>({
+    defaultValues: {
+      Question: [],
+      Answer: []
+    }
+  })
+
   const { fields } = useFieldArray({ control, name: 'Question' })
 
-  const searchParams = new URLSearchParams(location.search);
-  const isReadMode = searchParams.get('readMode');
+  const { data: form } = useGetOneFormQuery(id, { skip: !isUpdateForm })
+  const { data: template } = useGetOneTemplateQuery(isUpdateForm ? form?.templateId : id, {
+    skip: isUpdateForm && !form?.templateId
+  })
 
-  const isUpdateForm = useMemo(() => {
-    return location.pathname.includes("form")
-  }, [location])
-
-  const { data: form } = useGetOneFormQuery(id, {
-    skip: !isUpdateForm
-  });
-
-  const { data: template } = useGetOneTemplateQuery(
-    isUpdateForm ? form?.templateId : id,
-    {
-      skip: isUpdateForm && !form?.templateId,
-    }
-  );
+  const isReady = !!template && (!isUpdateForm || !!form)
 
   useEffect(() => {
-    if (template) {
+    if (!isUpdateForm && id) {
+      checkExistingForm(id)
+    }
+  }, [id, isUpdateForm, checkExistingForm])
+
+  useEffect(() => {
+    if (!isReady) return
+
+    if (isUpdateForm) {
       reset({
-        ...template,
-        Answer:
-          template.Question?.map((q: QuestionForm, i: number) => ({
-            sequence: i,
-            answer: '',
-            questionId: q.id,
-            formId: template.templateId,
-          })) || [],
+        ...template!,
+        Question: template!.Question,
+        Answer: form!.answer
+      })
+    } else {
+      const published = template!.Question.filter((question: QuestionForm) => question.isPublished)
+      reset({
+        ...template!,
+        Question: published,
+        Answer: published.map((question: QuestionForm, i:number) => ({
+          sequence: i,
+          answer: '',
+          questionId: question.id,
+          formId: template!.id
+        }))
       })
     }
-  }, [template])
-
-  useEffect(() => {
-    if (form) {
-      reset({ Answer: form.answer })
-    }
-
-  }, [form])
+  }, [isReady, isUpdateForm, template, form, reset])
 
   const onSubmit = async (data: Form) => {
+    if (!template) return
+
     const payload = {
       templateId: template.id,
       Answer: data.Answer.map((a: AnswerForm) => ({
         ...a,
         answer:
-          Array.isArray(a.selectedOptionOnAnswer) && a.selectedOptionOnAnswer.length > 0
+          Array.isArray(a.selectedOptionOnAnswer) && a.selectedOptionOnAnswer.length
             ? a.selectedOptionOnAnswer
-            : a.answer,
+            : a.answer
       }))
     }
 
-    if (!isUpdateForm) {
-      const { data: filledForm } = await isExsist(id)
-
-      if (filledForm) {
-        await updateForm({ id: filledForm.id, body: payload })
+    if (isUpdateForm) {
+      await updateForm({ id, body: payload })
+    } else {
+      if (existingForm) {
+        await updateForm({ id: existingForm.id, body: payload })
       } else {
         await createForm(payload)
       }
     }
-    if (isUpdateForm) {
-      await updateForm({ id, body: payload })
-    }
+
+    navigate('/finishScreen')
   }
 
   return (
@@ -169,7 +183,7 @@ const Survey = () => {
                 </Box>
                 <Divider className="mb-6 border-gray-200 dark:border-gray-700" />
                 <Box className="w-full">
-                  {renderQuestion({ question, control, index, isReadMode: !!isReadMode })}
+                  {renderQuestion({ question, control, index, isReadMode })}
                 </Box>
               </Paper>
             ))}
