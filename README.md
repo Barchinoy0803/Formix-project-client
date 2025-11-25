@@ -1,54 +1,41 @@
-# React + TypeScript + Vite
+** Formix Frontend**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Formix Frontend is a modern web application built with React that allows users to create, customize, and collaborate on interactive forms and presentations. It connects seamlessly with the Formix Backend to deliver real-time updates, analytics, and a smooth user experience.
 
-Currently, two official plugins are available:
+**Key Features**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Form Builder**
 
-## Expanding the ESLint configuration
+-  Create forms with multiple question types (text, multiple choice, etc.)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-  Add, edit, and delete questions and options dynamically
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+-  Support for live template updates
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Collaboration**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Real-time multi-user editing with Socket.IO
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Style customization with 30+ effects
+
+- Smooth animations for presentations
+
+**User Experience**
+
+- Clean and responsive design with TailwindCSS + MUI
+
+- State management with RTK Query
+
+- Image upload support (Base64 conversion + localStorage persistence)
+
+** Integration**
+
+Connects with Formix Backend via secure API
+
+🛠 Tech Stack
+Layer	                       Technology
+Framework	                   React + TypeScript
+Styling	                     TailwindCSS, Material UI
+State Mgmt	                 RTK Query
+Real-time	                   Socket.IO
+Build Tool	                 Vite / CRA (depending on your setup)
