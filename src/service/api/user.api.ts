@@ -11,6 +11,14 @@ const extendedApi = mainApi.injectEndpoints({
             }),
             providesTags: ['USER']
         }),
+        me: build.query({
+            query: (params) => ({
+                method: "GET",
+                url: "/user-auth/me",
+                params
+            }),
+            providesTags: ['USER']
+        }),
         register: build.mutation<Register['Response'], Register['Request']>({
             query: (body) => ({
                 method: "POST",
@@ -61,4 +69,4 @@ const extendedApi = mainApi.injectEndpoints({
     overrideExisting: false
 })
 
-export const { useGetUsersQuery, useLoginMutation, useRegisterMutation, useDeleteUsersMutation, useUpdateUserRoleMutation, useActivateMutation, useUpdateUserStatusMutation } = extendedApi
+export const { useGetUsersQuery, useLoginMutation, useRegisterMutation, useDeleteUsersMutation, useUpdateUserRoleMutation, useActivateMutation, useUpdateUserStatusMutation, useMeQuery } = extendedApi

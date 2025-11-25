@@ -12,6 +12,7 @@ import Template from '../pages/Template'
 import Survey from '../pages/Survey'
 import Home from '../pages/Home'
 import ThankYouPage from '../pages/Survey/ThankYou'
+import MyProfile from '../pages/MyProfile'
 
 const MainRouter = () => {
     return (
@@ -38,7 +39,7 @@ const MainRouter = () => {
                         path: 'templates', element: <Templates />
                     },
                     {
-                        index: true, element: <Templates /> 
+                        index: true, element: <Templates />
                     },
                     {
                         path: 'forms', element: <Forms />
@@ -54,10 +55,13 @@ const MainRouter = () => {
                     },
                     {
                         path: 'user-managment', element: <UserManagment />
+                    },
+                    {
+                        path: 'my-profile', element: <MyProfile />
                     }
                 ]
             },
-            {path: '/finishScreen', element: <ThankYouPage/>}
+            { path: '/finishScreen', element: <ThankYouPage /> }
         ])
     )
 }

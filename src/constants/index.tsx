@@ -70,6 +70,10 @@ export const drawerListItems = [
   {
     title: "forms",
     link: "/dashboard/forms"
+  },
+  {
+    title: "my-profile",
+    link: "/dashboard/my-profile"
   }
 ]
 

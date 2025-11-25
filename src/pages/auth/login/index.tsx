@@ -38,7 +38,7 @@ const Login = () => {
             if (token && role) {
                 dispatch(setToken(token))
                 dispatch(setUserRole(role))
-                navigate("/dashboard")
+                navigate("/dashboard/my-profile")
             }
             dispatch(setEmail(null))
         } catch (error) {
